@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Utilities;
 
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
 public class PID {
@@ -62,9 +61,9 @@ public class PID {
         previousError = error;
         previousTime = System.currentTimeMillis();
 
-        double pComponent = error * PIDWeights.proportionalWeight;
-        double iComponent = integralSum * PIDWeights.integralWeight;
-        double dComponent = rateOfChange * PIDWeights.derivativeWeight;
+        double pComponent = error * Unfixed.proportionalWeight;
+        double iComponent = integralSum * Unfixed.integralWeight;
+        double dComponent = rateOfChange * Unfixed.derivativeWeight;
 
         multTelemetry.addData("P",pComponent);
         multTelemetry.addData("I",iComponent);

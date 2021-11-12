@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+
+import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 
 @Disabled
 @Autonomous(name="IterativeAuto", group="Iterative Opmode")

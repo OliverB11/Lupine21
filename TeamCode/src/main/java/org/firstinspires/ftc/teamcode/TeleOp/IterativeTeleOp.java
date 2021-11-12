@@ -1,17 +1,16 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller1;
+import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
+import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum2;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
-import org.firstinspires.ftc.teamcode.Utilities.PIDWeights;
+import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
@@ -22,11 +21,12 @@ public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    Mecanum2 evansChassis;
+    Mecanum evansChassis;
     double power;
     PID evansChassisPid;
-    Controller1 controller;
+    Controller controller;
     IMU imu;
+    DuckWheel duckSpinner;
     private double setPoint = 0;
     private boolean wasTurning;
 
@@ -40,9 +40,10 @@ public class IterativeTeleOp extends OpMode {
 
         power = 0.6;
         imu = new IMU("imu");
-        evansChassis = new Mecanum2();
-        evansChassisPid = new PID(PIDWeights.proportionalWeight, PIDWeights.integralWeight, PIDWeights.derivativeWeight);
-        controller = new Controller1(gamepad1);
+        evansChassis = new Mecanum();
+        evansChassisPid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.derivativeWeight);
+        controller = new Controller(gamepad1);
+        duckSpinner = new DuckWheel();
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -82,7 +83,7 @@ public class IterativeTeleOp extends OpMode {
      */
     @Override
     public void loop() {
-
+        controller.controllerUpdate();
         double correction = evansChassisPid.update(imu.getAngle() - setPoint, true);
         double rotation;
         if(!(controller.rightStick().x == 0)){
@@ -96,10 +97,16 @@ public class IterativeTeleOp extends OpMode {
             rotation = correction;
         }
 
-        if(controller.RTrigger.onPress()){
-            power = 0.3;
-        }else{
+           if(controller.RTrigger.press()){
+                power = 0.3;
+            }else{
             power = 0.6;
+        }
+
+        if(controller.cross.toggle()){
+            duckSpinner.spin(Unfixed.duckWheelSpeed);
+        }else{
+            duckSpinner.spin(0.0);
         }
 
         double drive = -MathUtils.shift(controller.leftStick(), imu.getAngle()).y;
