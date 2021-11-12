@@ -108,6 +108,9 @@ public class IterativeTeleOp extends OpMode {
 
         if(controller.cross.toggle()){
             duckSpinner.spin(Unfixed.duckWheelSpeed);
+            if(controller.RB.press()){
+                duckSpinner.spin(Unfixed.duckWheelSpeed - .25);
+            }
         }else{
             duckSpinner.spin(0.0);
         }
