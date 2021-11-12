@@ -92,7 +92,6 @@ public class IterativeTeleOp extends OpMode {
         }else{
             if(wasTurning){
                 setPoint = imu.getAngle();
-
                 wasTurning = false;
             }
             rotation = correction;
