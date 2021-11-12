@@ -4,14 +4,15 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Arm {
-    CRServo armServo;
+    Servo armServo;
     DcMotor slideMotor;
 
     public Arm() {
         slideMotor = hardwareMap.get(DcMotor.class, "slide");
-        armServo = hardwareMap.get(CRServo.class, "arm");
+        armServo = hardwareMap.get(Servo.class, "arm");
     }
     public void slideUp(){
         slideMotor.setPower(.1);
@@ -25,12 +26,12 @@ public class Arm {
 
 
     public void armUp(){
-        armServo.setPower(.1);
+        armServo.setPosition(0);
     }
     public void armDown(){
-        armServo.setPower(-.1);
+        armServo.setPosition(.5);
     }
     public void armStop(){
-        armServo.setPower(0);
+        armServo.setPosition(1);
     }
 }
