@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Hardware.Arm;
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
@@ -26,6 +27,7 @@ public class IterativeTeleOp extends OpMode {
     PID evansChassisPid;
     Controller controller;
     IMU imu;
+    Arm arm;
     DuckWheel duckSpinner;
     private double setPoint = 0;
     private boolean wasTurning;
@@ -44,6 +46,7 @@ public class IterativeTeleOp extends OpMode {
         evansChassisPid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.derivativeWeight);
         controller = new Controller(gamepad1);
         duckSpinner = new DuckWheel();
+        arm = new Arm();
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -108,6 +111,23 @@ public class IterativeTeleOp extends OpMode {
         }else{
             duckSpinner.spin(0.0);
         }
+
+        if(controller.LB.press()){
+            arm.slideUp();
+        }else if(controller.RB.press()){
+            arm.slideDown();
+        }else{
+            arm.slideStop();
+        }
+
+        if(controller.LTrigger.press()){
+            arm.armUp();
+        }else if(controller.RTrigger.press()){
+            arm.slideDown();
+        }else{
+            arm.slideStop();
+        }
+
 
         double drive = -MathUtils.shift(controller.leftStick(), imu.getAngle()).y;
         double strafe = MathUtils.shift(controller.leftStick(), imu.getAngle()).x;
