@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
-
+import static java.lang.Math.floorMod;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
@@ -22,13 +22,15 @@ public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    Mecanum evansChassis;
+    public static Mecanum evansChassis;
     double power;
     Controller controller;
 //    Arm arm;
     DuckWheel duckSpinner;
     private double setPoint = 0;
     private boolean wasTurning;
+    public static double releaseAngle = 0;
+    public static double adjRateOfChange;
 
 
     /*
@@ -51,6 +53,8 @@ public class IterativeTeleOp extends OpMode {
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
      */
+
+
     @Override
     public void init_loop() {
 
@@ -85,6 +89,8 @@ public class IterativeTeleOp extends OpMode {
         controller.controllerUpdate();
         double correction = evansChassis.pid.update(evansChassis.imu.getAngle() - setPoint, true);
         double rotation;
+        double inputTurn;
+
         if(!(controller.rightStick().x == 0)){
             rotation = -controller.rightStick().x;
             wasTurning = true;
@@ -131,7 +137,25 @@ public class IterativeTeleOp extends OpMode {
         double drive = -MathUtils.shift(controller.leftStick(), evansChassis.imu.getAngle()).y;
         double strafe = MathUtils.shift(controller.leftStick(), evansChassis.imu.getAngle()).x;
         double turning = rotation;
-        evansChassis.setDrivePower(power,strafe,turning,drive);
+  //      evansChassis.setDrivePower(power,strafe,turning,drive);
+
+        if(turning!= 0) {
+            inputTurn = turning;
+            releaseAngle = evansChassis.imu.getAngle();
+            adjRateOfChange = MathUtils.pow(evansChassis.imu.getAngle(), 2);
+        }else if(adjRateOfChange > 1000){
+            releaseAngle = evansChassis.imu.getAngle();
+            adjRateOfChange = MathUtils.pow(evansChassis.imu.getAngle(), 2);
+            inputTurn = 0;
+        }else{
+            setPoint = releaseAngle + .5 * .0035 * adjRateOfChange;
+            inputTurn = evansChassis.pid.update(MathUtils.closestAngle(setPoint, evansChassis.imu.getAngle()) - MathUtils.pow(evansChassis.imu.getAngle();
+        }
+
+
+
+        evansChassis.setDrivePower(power, strafe, inputTurn, drive);
+
 
 
 

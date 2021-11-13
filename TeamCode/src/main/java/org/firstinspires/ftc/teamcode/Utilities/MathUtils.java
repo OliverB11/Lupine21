@@ -9,6 +9,7 @@ import org.opencv.core.Point;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.toRadians;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.RADIANS;
+import static java.lang.Math.abs;
 
 public class MathUtils {
 
@@ -33,6 +34,10 @@ public class MathUtils {
         return new Point(x, y);
     }
 
+    public static double pow(double value, double exponent) {
+        if(value == 0) return 0;
+        else return Math.pow(abs(value), exponent) * (value / abs(value));
+    }
 
 
 
