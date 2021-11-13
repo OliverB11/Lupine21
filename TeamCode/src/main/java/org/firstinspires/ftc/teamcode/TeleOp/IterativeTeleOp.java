@@ -24,9 +24,7 @@ public class IterativeTeleOp extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     Mecanum evansChassis;
     double power;
-    PID evansChassisPid;
     Controller controller;
-    IMU imu;
     Arm arm;
     DuckWheel duckSpinner;
     private double setPoint = 0;
@@ -41,9 +39,7 @@ public class IterativeTeleOp extends OpMode {
         setOpMode(this);
 
         power = 0.6;
-        imu = new IMU("imu");
         evansChassis = new Mecanum();
-        evansChassisPid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.derivativeWeight);
         controller = new Controller(gamepad1);
         duckSpinner = new DuckWheel();
         arm = new Arm();
@@ -58,7 +54,7 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void init_loop() {
 
-        imu.getAngle();
+        evansChassis.imu.getAngle();
 
 
         multTelemetry.addData("Status", "InitLoop");
@@ -87,14 +83,14 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void loop() {
         controller.controllerUpdate();
-        double correction = evansChassisPid.update(imu.getAngle() - setPoint, true);
+        double correction = evansChassis.pid.update(evansChassis.imu.getAngle() - setPoint, true);
         double rotation;
         if(!(controller.rightStick().x == 0)){
             rotation = -controller.rightStick().x;
             wasTurning = true;
         }else{
             if(wasTurning){
-                setPoint = imu.getAngle();
+                setPoint = evansChassis.imu.getAngle();
                 wasTurning = false;
             }
             rotation = correction;
@@ -129,8 +125,8 @@ public class IterativeTeleOp extends OpMode {
         }
 
 
-        double drive = -MathUtils.shift(controller.leftStick(), imu.getAngle()).y;
-        double strafe = MathUtils.shift(controller.leftStick(), imu.getAngle()).x;
+        double drive = -MathUtils.shift(controller.leftStick(), evansChassis.imu.getAngle()).y;
+        double strafe = MathUtils.shift(controller.leftStick(), evansChassis.imu.getAngle()).x;
         double turning = rotation;
         evansChassis.setDrivePower(power,strafe,turning,drive);
 

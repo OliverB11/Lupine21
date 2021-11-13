@@ -12,26 +12,34 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
-@Disabled
+import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
+import org.firstinspires.ftc.teamcode.Utilities.PID;
+import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
+
+
 @Autonomous(name="LinearAuto", group="Autonomous Linear Opmode")
-public class LinearAuto extends LinearOpMode
-{
+public class LinearAuto extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    Mecanum evansChassis;
+    PID evansChassisPid;
 
     public void initialize(){
         setOpMode(this);
-
+        evansChassisPid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
+        evansChassis = new Mecanum();
         multTelemetry.addData("Status", "Initalized");
         multTelemetry.update();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void runOpMode()
-    {
-
+    public void runOpMode(){
         initialize();
+
+        evansChassis.strafe(50, 0, 0);
+
 
         multTelemetry.addLine("Waiting for start");
         multTelemetry.update();
