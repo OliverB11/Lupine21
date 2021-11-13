@@ -43,7 +43,7 @@ public class IterativeTeleOp extends OpMode {
         power = 0.6;
         evansChassis = new Mecanum();
         controller = new Controller(gamepad1);
-//        duckSpinner = new DuckWheel();
+        duckSpinner = new DuckWheel();
 //        arm = new Arm();
 
         multTelemetry.addData("Status", "Initialized");
@@ -57,6 +57,9 @@ public class IterativeTeleOp extends OpMode {
 
     @Override
     public void init_loop() {
+
+        evansChassis.gyro.rawAngle();
+
 
         multTelemetry.addData("Status", "InitLoop");
         multTelemetry.update();
@@ -105,14 +108,7 @@ public class IterativeTeleOp extends OpMode {
             power = 0.6;
         }
 
-        if(controller.cross.toggle()){
-            duckSpinner.spin(Unfixed.duckWheelSpeed);
-            if(controller.RB.press()){
-                duckSpinner.spin(Unfixed.duckWheelSpeed - .25);
-            }
-        }else{
-            duckSpinner.spin(0.0);
-        }
+
 //
 //        if(controller.LB.press()){
 //            arm.slideUp();

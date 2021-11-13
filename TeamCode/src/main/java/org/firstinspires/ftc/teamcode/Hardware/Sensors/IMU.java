@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Utilities.OpModeUtils;
 
-public class IMU {
+public class                                                                                                                                                           IMU {
     private BNO055IMU imu;
     private Double previousAngle;
     private double deltaAngle;

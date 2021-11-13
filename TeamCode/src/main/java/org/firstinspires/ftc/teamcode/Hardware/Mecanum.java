@@ -11,7 +11,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
-import org.firstinspires.ftc.teamcode.Utilities.Gyro;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
