@@ -41,8 +41,8 @@ public class IterativeTeleOp extends OpMode {
         power = 0.6;
         evansChassis = new Mecanum();
         controller = new Controller(gamepad1);
-        duckSpinner = new DuckWheel();
-        arm = new Arm();
+//        duckSpinner = new DuckWheel();
+//        arm = new Arm();
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -110,22 +110,22 @@ public class IterativeTeleOp extends OpMode {
         }else{
             duckSpinner.spin(0.0);
         }
-
-        if(controller.LB.press()){
-            arm.slideUp();
-        }else if(controller.RB.press()){
-            arm.slideDown();
-        }else{
-            arm.slideStop();
-        }
-
-        if(controller.LTrigger.press()){
-            arm.armUp();
-        }else if(controller.RTrigger.press()){
-            arm.armDown();
-        }else{
-            arm.armStop();
-        }
+//
+//        if(controller.LB.press()){
+//            arm.slideUp();
+//        }else if(controller.RB.press()){
+//            arm.slideDown();
+//        }else{
+//            arm.slideStop();
+//        }
+//
+//        if(controller.LTrigger.press()){
+//            arm.armUp();
+//        }else if(controller.RTrigger.press()){
+//            arm.armDown();
+//        }else{
+//            arm.armStop();
+//        }
 
 
         double drive = -MathUtils.shift(controller.leftStick(), evansChassis.imu.getAngle()).y;

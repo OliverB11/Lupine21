@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 @Autonomous(name="LinearAuto", group="Autonomous Linear Opmode")
 public class LinearAuto extends LinearOpMode {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
+    private ElapsedTime time = new ElapsedTime();
     Mecanum evansChassis;
     PID evansChassisPid;
     DuckWheel duckWheel;
@@ -45,7 +45,12 @@ public class LinearAuto extends LinearOpMode {
         evansChassis.strafe(50, 0, 0);
         evansChassis.strafe(50, 0,90);
 
-//        duckWheel.spin(.5);
+        duckWheel.spin(.5);
+        time.reset();
+        while(time.seconds()<Unfixed.duckWheelTime){
+
+        }
+        duckWheel.stop();
 
 
 
