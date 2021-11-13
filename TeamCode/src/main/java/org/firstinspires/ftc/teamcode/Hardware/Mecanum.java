@@ -11,7 +11,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
+import org.firstinspires.ftc.teamcode.Utilities.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
@@ -20,12 +20,12 @@ import org.opencv.core.Point;
 public class Mecanum {
 
     private DcMotor fr,fl,br,bl;
-    public IMU imu;
+    public Gyro gyro;
     public PID pid;
     public static ElapsedTime time = new ElapsedTime();
 
     public Mecanum(){
-        imu = new IMU("imu");
+        gyro = new Gyro();
         pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.derivativeWeight);
         initRobot();
     }
@@ -97,7 +97,7 @@ public class Mecanum {
         // Reset our encoders to 0
         resetMotors();
 
-        targetAngle = closestAngle(targetAngle, imu.getAngle());
+        targetAngle = closestAngle(targetAngle, gyro.rawAngle());
 
         // Calculate our x and y powers
         double xPower = cos(strafeAngle, DEGREES);
@@ -115,8 +115,8 @@ public class Mecanum {
             curPos = getPosition();
             curHDist = Math.hypot(curPos.x, curPos.y);
 
-            Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), imu.getAngle());
-            setDrivePower(0.3, shiftedPowers.x, pid.update(imu.getAngle() - targetAngle), shiftedPowers.y);
+            Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), gyro.rawAngle());
+            setDrivePower(0.3, shiftedPowers.x, pid.update(gyro.rawAngle() - targetAngle), shiftedPowers.y);
 
             // Log some data out for debugging
             multTelemetry.addData("curPos", "(" + curPos.x + ", " + curPos.y + ")");
@@ -127,14 +127,14 @@ public class Mecanum {
     }
 
     public void turn(double power, double targetAngle, double seconds){
-        targetAngle = MathUtils.closestAngle(targetAngle, imu.getAngle());
+        targetAngle = MathUtils.closestAngle(targetAngle, gyro.rawAngle());
         time.reset();
-        double startPos = imu.getAngle();
+        double startPos = gyro.rawAngle();
         double current;
-        double distance = targetAngle - imu.getAngle();
+        double distance = targetAngle - gyro.rawAngle();
 
-        current = imu.getAngle() - startPos;
-        setDrivePower(power, 0, pid.update(imu.getAngle() - targetAngle, true), 0);
+        current = gyro.rawAngle() - startPos;
+        setDrivePower(power, 0, pid.update(gyro.rawAngle() - targetAngle, true), 0);
 
     }
 

@@ -58,9 +58,6 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void init_loop() {
 
-        evansChassis.imu.getAngle();
-
-
         multTelemetry.addData("Status", "InitLoop");
         multTelemetry.update();
     }
@@ -87,7 +84,7 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void loop() {
         controller.controllerUpdate();
-        double correction = evansChassis.pid.update(evansChassis.imu.getAngle() - setPoint, true);
+        double correction = evansChassis.pid.update(evansChassis.gyro.rawAngle() - setPoint, true);
         double rotation;
         double inputTurn;
 
@@ -96,7 +93,7 @@ public class IterativeTeleOp extends OpMode {
             wasTurning = true;
         }else{
             if(wasTurning){
-                setPoint = evansChassis.imu.getAngle();
+                setPoint = evansChassis.gyro.rawAngle();
                 wasTurning = false;
             }
             rotation = correction;
@@ -134,22 +131,22 @@ public class IterativeTeleOp extends OpMode {
 //        }
 
 
-        double drive = -MathUtils.shift(controller.leftStick(), evansChassis.imu.getAngle()).y;
-        double strafe = MathUtils.shift(controller.leftStick(), evansChassis.imu.getAngle()).x;
+        double drive = -MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).y;
+        double strafe = MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).x;
         double turning = rotation;
   //      evansChassis.setDrivePower(power,strafe,turning,drive);
 
         if(turning!= 0) {
             inputTurn = turning;
-            releaseAngle = evansChassis.imu.getAngle();
-            adjRateOfChange = MathUtils.pow(evansChassis.imu.getAngle(), 2);
+            releaseAngle = evansChassis.gyro.rawAngle();
+            adjRateOfChange = MathUtils.pow(evansChassis.gyro.rawAngle(), 2);
         }else if(adjRateOfChange > 1000){
-            releaseAngle = evansChassis.imu.getAngle();
-            adjRateOfChange = MathUtils.pow(evansChassis.imu.getAngle(), 2);
+            releaseAngle = evansChassis.gyro.rawAngle();
+            adjRateOfChange = MathUtils.pow(evansChassis.gyro.rawAngle(), 2);
             inputTurn = 0;
         }else{
             setPoint = releaseAngle + .5 * .0035 * adjRateOfChange;
-            inputTurn = evansChassis.pid.update(MathUtils.closestAngle(setPoint, evansChassis.imu.getAngle()) - MathUtils.pow(evansChassis.imu.getAngle();
+            inputTurn = evansChassis.pid.update(MathUtils.closestAngle(setPoint, evansChassis.gyro.rawAngle()) - evansChassis.gyro.rawAngle());
         }
 
 

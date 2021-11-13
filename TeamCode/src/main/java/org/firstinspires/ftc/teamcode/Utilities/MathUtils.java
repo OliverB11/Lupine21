@@ -24,7 +24,9 @@ public class MathUtils {
     public static double closestAngle(double targetAngle, double currentAngle) {
         return 0;
     }
-
+    public static double mod(double value, int base){
+        return (value % base + base) % base;
+    }
 
     public static Point shift(Point p, double shiftAngle){
         double rawX = p.x;
