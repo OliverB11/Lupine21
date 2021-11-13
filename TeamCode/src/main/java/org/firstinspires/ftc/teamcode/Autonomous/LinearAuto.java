@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
+import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
@@ -24,11 +25,13 @@ public class LinearAuto extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     Mecanum evansChassis;
     PID evansChassisPid;
+    DuckWheel duckWheel;
 
     public void initialize(){
         setOpMode(this);
         evansChassisPid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         evansChassis = new Mecanum();
+        duckWheel = new DuckWheel();
         multTelemetry.addData("Status", "Initalized");
         multTelemetry.update();
     }
@@ -39,6 +42,10 @@ public class LinearAuto extends LinearOpMode {
         initialize();
 
         evansChassis.strafe(50, 0, 0);
+        evansChassis.strafe(50, 0,90);
+
+        duckWheel.spin(.5);
+
 
 
         multTelemetry.addLine("Waiting for start");

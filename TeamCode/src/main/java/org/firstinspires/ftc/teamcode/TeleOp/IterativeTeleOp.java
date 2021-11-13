@@ -122,9 +122,9 @@ public class IterativeTeleOp extends OpMode {
         if(controller.LTrigger.press()){
             arm.armUp();
         }else if(controller.RTrigger.press()){
-            arm.slideDown();
+            arm.armDown();
         }else{
-            arm.slideStop();
+            arm.armStop();
         }
 
 

@@ -15,10 +15,10 @@ public class Arm {
         armServo = hardwareMap.get(Servo.class, "arm");
     }
     public void slideUp(){
-        slideMotor.setPower(.1);
+        slideMotor.setPower(.6);
     }
     public void slideDown(){
-        slideMotor.setPower(-.1);
+        slideMotor.setPower(-.6);
     }
     public void slideStop(){
         slideMotor.setPower(0);
