@@ -20,9 +20,13 @@ public class DuckWheel {
         duck2 = hardwareMap.get(CRServo.class, "duck2");
     }
 
-    public void spin(double speed){
+    public void redSpin(double speed){
         duck1.setPower(speed);
         duck2.setPower(speed);
+    }
+    public void blueSpin(double speed){
+        duck1.setPower(-speed);
+        duck2.setPower(-speed);
     }
 
     public void stop(){
@@ -30,12 +34,32 @@ public class DuckWheel {
         duck2.setPower(0);
     }
 
-    public void update(){
+    public void redUpdate(){
         switch(duckState){
 
             case OFF:
                 duck2.setPower(.5);
                 duck1.setPower(.5);
+                duckState = wheelState.ON;
+                time.reset();
+                break;
+
+            case ON:
+                if(time.seconds()> Unfixed.duckWheelTime) {
+                    duck2.setPower(0);
+                    duck1.setPower(0);
+                    duckState = wheelState.OFF;
+                }
+                break;
+
+        }
+    }
+    public void blueUpdate(){
+        switch(duckState){
+
+            case OFF:
+                duck2.setPower(-0.5);
+                duck1.setPower(-0.5);
                 duckState = wheelState.ON;
                 time.reset();
                 break;

@@ -87,9 +87,11 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void loop() {
         controller.controllerUpdate();
+        evansChassis.gyro.update();
         double correction = evansChassis.pid.update(evansChassis.gyro.rawAngle() - setPoint, true);
         double rotation;
         double inputTurn;
+
 
         if(!(controller.rightStick().x == 0)){
             rotation = -controller.rightStick().x;
@@ -107,6 +109,12 @@ public class IterativeTeleOp extends OpMode {
             }else{
             power = 0.6;
         }
+
+           if(controller.cross.press()){
+               duckSpinner.blueSpin(.4);
+           }else{
+               duckSpinner.stop();
+           }
 
 
 //

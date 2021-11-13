@@ -92,10 +92,11 @@ public class Mecanum {
         multTelemetry.update();
 
     }
-    public void strafe(double ticks, double targetAngle, double strafeAngle){
+    public void strafe(double power, double ticks, double targetAngle, double strafeAngle){
 
         // Reset our encoders to 0
         resetMotors();
+        strafeAngle = strafeAngle - 90;
 
         targetAngle = closestAngle(targetAngle, gyro.rawAngle());
 
@@ -116,7 +117,7 @@ public class Mecanum {
             curHDist = Math.hypot(curPos.x, curPos.y);
 
             Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), gyro.rawAngle());
-            setDrivePower(0.3, shiftedPowers.x, pid.update(gyro.rawAngle() - targetAngle), shiftedPowers.y);
+            setDrivePower(power, shiftedPowers.x, pid.update(gyro.rawAngle() - targetAngle), shiftedPowers.y);
 
             // Log some data out for debugging
             multTelemetry.addData("curPos", "(" + curPos.x + ", " + curPos.y + ")");
