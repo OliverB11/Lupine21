@@ -32,6 +32,7 @@ public class LinearAuto extends LinearOpMode {
         evansChassisPid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         evansChassis = new Mecanum();
         duckWheel = new DuckWheel();
+        ElapsedTime time = new ElapsedTime();
         multTelemetry.addData("Status", "Initalized");
         multTelemetry.update();
     }
@@ -44,7 +45,7 @@ public class LinearAuto extends LinearOpMode {
         evansChassis.strafe(50, 0, 0);
         evansChassis.strafe(50, 0,90);
 
-        duckWheel.spin(.5);
+//        duckWheel.spin(.5);
 
 
 

@@ -11,6 +11,7 @@ public class Unfixed {
     public static double derivativeWeight = 0;
     public static double duckWheelSpeed = .5;
     public static double cAcceleration = 0;
+    public static double duckWheelTime = 5;
 
 
 
