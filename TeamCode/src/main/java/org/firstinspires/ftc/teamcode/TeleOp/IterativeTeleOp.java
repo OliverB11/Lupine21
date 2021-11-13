@@ -25,7 +25,7 @@ public class IterativeTeleOp extends OpMode {
     Mecanum evansChassis;
     double power;
     Controller controller;
-    Arm arm;
+//    Arm arm;
     DuckWheel duckSpinner;
     private double setPoint = 0;
     private boolean wasTurning;
