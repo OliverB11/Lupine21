@@ -42,8 +42,8 @@ public class LinearAuto extends LinearOpMode {
     public void runOpMode(){
         initialize();
 
-        evansChassis.strafe(.15,800, 0,0);
         evansChassis.strafe(.15,200,0,90);
+        evansChassis.strafe(.15,800, 0,0);
         duckWheel.blueSpin(.5);
         time.reset();
         while(time.seconds()<Unfixed.duckWheelTime){
