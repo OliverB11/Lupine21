@@ -7,6 +7,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
+import org.firstinspires.ftc.teamcode.Z.Side;
+
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
@@ -104,10 +106,19 @@ public class IterativeTeleOp extends OpMode {
             power = 0.6;
         }
 
-           if(controller.cross.press()){
-               duckSpinner.blueSpin(.4);
-           }else{
-               duckSpinner.stop();
+           if (Side.blue){
+               if(controller.cross.press()){
+                   duckSpinner.blueSpin(.4);
+               }else{
+                   duckSpinner.stop();
+               }
+           }else if (Side.red){
+
+               if(controller.cross.press()){
+                   duckSpinner.blueSpin(-.4);
+               }else{
+                   duckSpinner.stop();
+               }
            }
 
 
