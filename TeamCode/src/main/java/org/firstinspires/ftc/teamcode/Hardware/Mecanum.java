@@ -11,18 +11,26 @@ import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.Camera;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
+import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
+import org.opencv.core.Mat;
 import org.opencv.core.Point;
-
+import org.openftc.easyopencv.OpenCvPipeline;
 public class Mecanum {
 
     private DcMotor fr,fl,br,bl;
     public Gyro gyro;
     public PID pid;
     public static ElapsedTime time = new ElapsedTime();
+    public Camera cam;
+    private DetectionPipeline pipeline = new DetectionPipeline();
+
+
+
 
     public Mecanum(){
         gyro = new Gyro();
@@ -39,6 +47,7 @@ public class Mecanum {
         fl = hardwareMap.get(DcMotor.class, "fl");
         br = hardwareMap.get(DcMotor.class, "br");
         bl = hardwareMap.get(DcMotor.class, "bl");
+
         resetMotors();
 
     }

@@ -141,7 +141,7 @@ public class IterativeTeleOp extends OpMode {
 
 
         double drive = -MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).y;
-        double strafe = MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).x;
+        double strafe = -MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).x;
         double turning = rotation;
   //      evansChassis.setDrivePower(power,strafe,turning,drive);
 

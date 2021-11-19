@@ -19,10 +19,12 @@ import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.Z.Vision.Camera;
+import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
 
-@Autonomous(name="LinearAuto", group="Autonomous Linear Opmode")
+@Autonomous(name="BlueLinearAuto", group="Autonomous Linear Opmode")
 public class BlueLinearAuto extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
@@ -35,6 +37,7 @@ public class BlueLinearAuto extends LinearOpMode {
         evansChassisPid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         evansChassis = new Mecanum();
         duckWheel = new DuckWheel();
+
         ElapsedTime time = new ElapsedTime();
         multTelemetry.addData("Status", "Initalized");
         multTelemetry.update();
@@ -50,9 +53,9 @@ public class BlueLinearAuto extends LinearOpMode {
 // DUCK ON LEFT
 
         if(DuckPosition.duckOnLeft) {
-            evansChassis.strafe(.15, 200, 180, 90);
-            evansChassis.strafe(.15, 200, 180, 270);
+            evansChassis.strafe(.15, 200, 0, 270);
             evansChassis.strafe(.15, 200, 0, 90);
+            evansChassis.strafe(.15, 200, 0, 270);
             evansChassis.strafe(.15, 800, 0, 0);
             duckWheel.blueSpin(.5);
             time.reset();
@@ -60,15 +63,15 @@ public class BlueLinearAuto extends LinearOpMode {
 
             }
             duckWheel.stop();
-            evansChassis.strafe(.3, 150, 0, 270);
+            evansChassis.strafe(.3, 150, 0, 90);
             evansChassis.strafe(.3, 4800, 0, 180);
 
 // DUCK IN MIDDLE
 
-        }else if (DuckPosition.duckInMiddle){
-            evansChassis.strafe(.15, 200, 180, 90);
-            evansChassis.strafe(.15, 200, 180, 270);
+        }else if (DuckPosition.duckInMiddle) {
+            evansChassis.strafe(.15, 200, 0, 270);
             evansChassis.strafe(.15, 200, 0, 90);
+            evansChassis.strafe(.15, 200, 0, 270);
             evansChassis.strafe(.15, 800, 0, 0);
             duckWheel.blueSpin(.5);
             time.reset();
@@ -76,15 +79,16 @@ public class BlueLinearAuto extends LinearOpMode {
 
             }
             duckWheel.stop();
-            evansChassis.strafe(.3, 150, 0, 270);
+            evansChassis.strafe(.3, 150, 0, 90);
             evansChassis.strafe(.3, 4800, 0, 180);
+
 
 // DUCK ON RIGHT
 
-        }else if(DuckPosition.duckOnRight){
-            evansChassis.strafe(.15, 200, 180, 90);
-            evansChassis.strafe(.15, 200, 180, 270);
+        }else if(DuckPosition.duckOnRight) {
+            evansChassis.strafe(.15, 200, 0, 270);
             evansChassis.strafe(.15, 200, 0, 90);
+            evansChassis.strafe(.15, 200, 0, 270);
             evansChassis.strafe(.15, 800, 0, 0);
             duckWheel.blueSpin(.5);
             time.reset();
@@ -92,7 +96,7 @@ public class BlueLinearAuto extends LinearOpMode {
 
             }
             duckWheel.stop();
-            evansChassis.strafe(.3, 150, 0, 270);
+            evansChassis.strafe(.3, 150, 0, 90);
             evansChassis.strafe(.3, 4800, 0, 180);
         }
 

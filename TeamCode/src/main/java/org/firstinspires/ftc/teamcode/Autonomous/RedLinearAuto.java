@@ -19,16 +19,19 @@ import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.Z.Vision.Camera;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
 
-@Autonomous(name="LinearAuto", group="Autonomous Linear Opmode")
+
+@Autonomous(name="RedLinearAuto", group="Autonomous Linear Opmode")
 public class RedLinearAuto extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
     Mecanum evansChassis;
     PID evansChassisPid;
     DuckWheel duckWheel;
+
 
     public void initialize(){
         setOpMode(this);
