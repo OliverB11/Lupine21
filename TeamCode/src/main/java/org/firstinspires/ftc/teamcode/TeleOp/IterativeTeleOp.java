@@ -19,10 +19,9 @@ public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    public static Mecanum evansChassis;
+    public static Mecanum robot;
     double power;
     Controller controller;
-//    Arm arm;
     DuckWheel duckSpinner;
     Intake intake;
     private double setPoint = 0;
@@ -39,11 +38,10 @@ public class IterativeTeleOp extends OpMode {
         setOpMode(this);
 
         power = 0.6;
-        evansChassis = new Mecanum();
+        robot = new Mecanum();
         controller = new Controller(gamepad1);
         duckSpinner = new DuckWheel();
         intake = new Intake();
-//        arm = new Arm();
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -62,8 +60,6 @@ public class IterativeTeleOp extends OpMode {
 
     @Override
     public void init_loop() {
-
-        evansChassis.gyro.rawAngle();
 
 
         multTelemetry.addData("Status", "InitLoop");
@@ -92,9 +88,9 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void loop() {
         controller.controllerUpdate();
-        evansChassis.gyro.update();
-        double correction = evansChassis.pid.update(evansChassis.gyro.rawAngle() - setPoint, true);
-        double rotation;
+        robot.gyro.update();
+        /*//double correction = evansChassis.pid.update(robot.gyro.rawAngle() - setPoint, true);
+
         double inputTurn;
 
 
@@ -103,27 +99,27 @@ public class IterativeTeleOp extends OpMode {
             wasTurning = true;
         }else{
             if(wasTurning){
-                setPoint = evansChassis.gyro.rawAngle();
+                setPoint = robot.gyro.rawAngle();
                 wasTurning = false;
             }
             rotation = correction;
-        }
+        }*/
 
            if(controller.RTrigger.press()){
                 power = 0.3;
             }else{
             power = 0.6;
-        }
+           }
 
            if (Side.blue){
-               if(controller.cross.press()){
+               if(controller.cross.toggle()){
                    duckSpinner.blueSpin(.4);
                }else{
                    duckSpinner.stop();
                }
            }else if (Side.red){
 
-               if(controller.cross.press()){
+               if(controller.cross.toggle()){
                    duckSpinner.blueSpin(-.4);
                }else{
                    duckSpinner.stop();
@@ -137,50 +133,33 @@ public class IterativeTeleOp extends OpMode {
            }
 
 
-//
-//        if(controller.LB.press()){
-//            arm.slideUp();
-//        }else if(controller.RB.press()){
-//            arm.slideDown();
-//        }else{
-//            arm.slideStop();
-//        }
-//
-//        if(controller.LTrigger.press()){
-//            arm.armUp();
-//        }else if(controller.RTrigger.press()){
-//            arm.armDown();
-//        }else{
-//            arm.armStop();
-//        }
 
 
 
+        double drive = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
+        double strafe = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
+        double turning = -controller.rightStick().x;
 
-        double drive = MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).y;
-        double strafe = -MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).x;
-        double turning = rotation;
-
-        if(turning!= 0) {
+/*        if(turning!= 0) {
             inputTurn = turning;
-            releaseAngle = evansChassis.gyro.rawAngle();
-            adjRateOfChange = MathUtils.pow(evansChassis.gyro.rawAngle(), 2);
+            releaseAngle = robot.gyro.rawAngle();
+            adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
         }else if(adjRateOfChange > 1000){
-            releaseAngle = evansChassis.gyro.rawAngle();
-            adjRateOfChange = MathUtils.pow(evansChassis.gyro.rawAngle(), 2);
+            releaseAngle = robot.gyro.rawAngle();
+            adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
             inputTurn = 0;
         }else{
             setPoint = releaseAngle + .5 * .0035 * adjRateOfChange;
-            inputTurn = evansChassis.pid.update(MathUtils.closestAngle(setPoint, evansChassis.gyro.rawAngle()) - evansChassis.gyro.rawAngle());
-        }
+            inputTurn = robot.pid.update(MathUtils.closestAngle(setPoint, robot.gyro.rawAngle()) - robot.gyro.rawAngle());
+        }*/
 
 
 
-        evansChassis.setDrivePower(power, strafe, inputTurn, drive);
+        robot.setDrivePower(power, strafe, turning, drive);
 
 
-        multTelemetry.addData("Controller Left Stick", controller.LS);
-        multTelemetry.addData("Controller Right Stick", controller.RS);
+        multTelemetry.addData("Controller Left Stick", controller.leftStick());
+        multTelemetry.addData("Controller Right Stick", controller.rightStick());
 
 
 

@@ -94,12 +94,6 @@ public class Mecanum {
         br.setPower(brPower);
         bl.setPower(blPower);
 
-        multTelemetry.addData("Front Left: ", flPower);
-        multTelemetry.addData("Front Right: ", frPower);
-        multTelemetry.addData("Back Left: ", blPower);
-        multTelemetry.addData("Back Right: ", brPower);
-        multTelemetry.update();
-
     }
     public void strafe(double power, double ticks, double targetAngle, double strafeAngle){
 

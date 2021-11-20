@@ -8,6 +8,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Utilities.OpModeUtils;
 
+import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
+
 public class                                                                                                                                                           IMU {
     private BNO055IMU imu;
     private Double previousAngle;
@@ -31,7 +33,7 @@ public class                                                                    
 
     public double getUnwrappedAngle(){
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
         double currentAngle = angles.firstAngle;
 
         return currentAngle;
@@ -44,8 +46,11 @@ public class                                                                    
     public double getAngle(){
 
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //angle order changed here
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES); //angle order changed here
         double currentAngle = angles.firstAngle;
+        multTelemetry.addData("Yaw", angles.firstAngle);
+        multTelemetry.addData("Roll", angles.secondAngle);
+        multTelemetry.addData("Pitch", angles.thirdAngle);
 
         // Update how many times we have wrapped
         deltaAngle = updateWraps(previousAngle, currentAngle, deltaAngle);
@@ -61,7 +66,7 @@ public class                                                                    
 
     public double getAngleActual(){
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
         double currentAngle = angles.firstAngle;
 
         // Update how many times we have wrapped
