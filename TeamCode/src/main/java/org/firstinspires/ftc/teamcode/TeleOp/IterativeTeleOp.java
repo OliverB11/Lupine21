@@ -159,22 +159,6 @@ public class IterativeTeleOp extends OpMode {
 
         robot.setDrivePower(power, strafe, inputTurn, drive);
 
-
-
-
-
-
-
-
-
-        /*
-             ----------- L O G G I N G -----------
-                                                */
-//        multTelemetry.addData("Status", "TeleOp Running");
-//        multTelemetry.addData("Drive:", drive);
-//        multTelemetry.addData("Strafe:", strafe);
-//        multTelemetry.addData("Turning:", turning);
-//        multTelemetry.update();
     }
 
     @Override
