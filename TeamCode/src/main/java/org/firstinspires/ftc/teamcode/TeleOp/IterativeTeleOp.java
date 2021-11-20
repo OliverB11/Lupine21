@@ -44,6 +44,12 @@ public class IterativeTeleOp extends OpMode {
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
+        if(!Side.red && !Side.blue){
+            Side.red = false;
+            Side.blue = true;
+        }
+
+
     }
 
     /*
@@ -140,10 +146,9 @@ public class IterativeTeleOp extends OpMode {
 //        }
 
 
-        double drive = -MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).y;
+        double drive = MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).y;
         double strafe = -MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).x;
         double turning = rotation;
-  //      evansChassis.setDrivePower(power,strafe,turning,drive);
 
         if(turning!= 0) {
             inputTurn = turning;
