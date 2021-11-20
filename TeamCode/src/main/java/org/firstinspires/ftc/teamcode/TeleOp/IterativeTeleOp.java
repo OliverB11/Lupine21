@@ -3,13 +3,16 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Hardware.Arm;
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Z.Side;
-
+import org.firstinspires.ftc.teamcode.Utilities.PID;
+import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
+import static java.lang.Math.floorMod;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
@@ -19,11 +22,11 @@ public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    public static Mecanum robot;
+    public static Mecanum evansChassis;
     double power;
     Controller controller;
+//    Arm arm;
     DuckWheel duckSpinner;
-    Intake intake;
     private double setPoint = 0;
     private boolean wasTurning;
     public static double releaseAngle = 0;
@@ -38,19 +41,13 @@ public class IterativeTeleOp extends OpMode {
         setOpMode(this);
 
         power = 0.6;
-        robot = new Mecanum();
+        evansChassis = new Mecanum();
         controller = new Controller(gamepad1);
         duckSpinner = new DuckWheel();
-        intake = new Intake();
+//        arm = new Arm();
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
-        if(!Side.red && !Side.blue){
-            Side.red = false;
-            Side.blue = true;
-        }
-
-
     }
 
     /*
@@ -60,6 +57,8 @@ public class IterativeTeleOp extends OpMode {
 
     @Override
     public void init_loop() {
+
+        evansChassis.gyro.rawAngle();
 
 
         multTelemetry.addData("Status", "InitLoop");
@@ -88,9 +87,9 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void loop() {
         controller.controllerUpdate();
-        robot.gyro.update();
-        /*//double correction = evansChassis.pid.update(robot.gyro.rawAngle() - setPoint, true);
-
+        evansChassis.gyro.update();
+        double correction = evansChassis.pid.update(evansChassis.gyro.rawAngle() - setPoint, true);
+        double rotation;
         double inputTurn;
 
 
@@ -99,67 +98,67 @@ public class IterativeTeleOp extends OpMode {
             wasTurning = true;
         }else{
             if(wasTurning){
-                setPoint = robot.gyro.rawAngle();
+                setPoint = evansChassis.gyro.rawAngle();
                 wasTurning = false;
             }
             rotation = correction;
-        }*/
+        }
 
            if(controller.RTrigger.press()){
                 power = 0.3;
             }else{
             power = 0.6;
-           }
+        }
 
-           if (Side.blue){
-               if(controller.cross.toggle()){
-                   duckSpinner.blueSpin(.4);
-               }else{
-                   duckSpinner.stop();
-               }
-           }else if (Side.red){
-
-               if(controller.cross.toggle()){
-                   duckSpinner.blueSpin(-.4);
-               }else{
-                   duckSpinner.stop();
-               }
-           }
-
-           if(controller.circle.toggle()){
-               intake.spin(1);
+           if(controller.cross.press()){
+               duckSpinner.blueSpin(.4);
            }else{
-               intake.spin(0);
+               duckSpinner.stop();
            }
 
 
+//
+//        if(controller.LB.press()){
+//            arm.slideUp();
+//        }else if(controller.RB.press()){
+//            arm.slideDown();
+//        }else{
+//            arm.slideStop();
+//        }
+//
+//        if(controller.LTrigger.press()){
+//            arm.armUp();
+//        }else if(controller.RTrigger.press()){
+//            arm.armDown();
+//        }else{
+//            arm.armStop();
+//        }
 
 
+        double drive = -MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).y;
+        double strafe = MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).x;
+        double turning = rotation;
+  //      evansChassis.setDrivePower(power,strafe,turning,drive);
 
-        double drive = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
-        double strafe = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
-        double turning = -controller.rightStick().x;
-
-/*        if(turning!= 0) {
+        if(turning!= 0) {
             inputTurn = turning;
-            releaseAngle = robot.gyro.rawAngle();
-            adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
+            releaseAngle = evansChassis.gyro.rawAngle();
+            adjRateOfChange = MathUtils.pow(evansChassis.gyro.rawAngle(), 2);
         }else if(adjRateOfChange > 1000){
-            releaseAngle = robot.gyro.rawAngle();
-            adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
+            releaseAngle = evansChassis.gyro.rawAngle();
+            adjRateOfChange = MathUtils.pow(evansChassis.gyro.rawAngle(), 2);
             inputTurn = 0;
         }else{
             setPoint = releaseAngle + .5 * .0035 * adjRateOfChange;
-            inputTurn = robot.pid.update(MathUtils.closestAngle(setPoint, robot.gyro.rawAngle()) - robot.gyro.rawAngle());
-        }*/
+            inputTurn = evansChassis.pid.update(MathUtils.closestAngle(setPoint, evansChassis.gyro.rawAngle()) - evansChassis.gyro.rawAngle());
+        }
 
 
 
-        robot.setDrivePower(power, strafe, turning, drive);
+        evansChassis.setDrivePower(power, strafe, inputTurn, drive);
 
 
-        multTelemetry.addData("Controller Left Stick", controller.leftStick());
-        multTelemetry.addData("Controller Right Stick", controller.rightStick());
+
 
 
 
@@ -171,7 +170,7 @@ public class IterativeTeleOp extends OpMode {
 //        multTelemetry.addData("Drive:", drive);
 //        multTelemetry.addData("Strafe:", strafe);
 //        multTelemetry.addData("Turning:", turning);
-        multTelemetry.update();
+//        multTelemetry.update();
     }
 
     @Override
