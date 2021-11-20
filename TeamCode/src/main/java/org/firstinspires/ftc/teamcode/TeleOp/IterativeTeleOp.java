@@ -179,7 +179,8 @@ public class IterativeTeleOp extends OpMode {
         evansChassis.setDrivePower(power, strafe, inputTurn, drive);
 
 
-
+        multTelemetry.addData("Controller Left Stick", controller.LS);
+        multTelemetry.addData("Controller Right Stick", controller.RS);
 
 
 
@@ -191,7 +192,7 @@ public class IterativeTeleOp extends OpMode {
 //        multTelemetry.addData("Drive:", drive);
 //        multTelemetry.addData("Strafe:", strafe);
 //        multTelemetry.addData("Turning:", turning);
-//        multTelemetry.update();
+        multTelemetry.update();
     }
 
     @Override

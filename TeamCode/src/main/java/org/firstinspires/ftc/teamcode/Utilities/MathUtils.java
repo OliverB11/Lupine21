@@ -8,6 +8,7 @@ import org.opencv.core.Point;
 
 import static java.lang.Math.sqrt;
 import static java.lang.Math.toRadians;
+import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.DEGREES;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.RADIANS;
 import static java.lang.Math.abs;
 
@@ -29,12 +30,13 @@ public class MathUtils {
     }
 
     public static Point shift(Point p, double shiftAngle){
-        double rawX = p.x;
-        double rawY = p.y;
-        double x = (rawX * Math.cos(Math.toRadians(shiftAngle))) - (rawY * Math.sin(Math.toRadians(shiftAngle)));
-        double y = (rawX * Math.sin(Math.toRadians(shiftAngle))) + (rawY * Math.cos(Math.toRadians(shiftAngle)));
-        return new Point(x, y);
+        p.y *= -1;
+        double shiftedX = (p.x * sin(shiftAngle, DEGREES) + (p.y * cos(shiftAngle, DEGREES)));
+        double shiftedY = (p.x * cos(shiftAngle, DEGREES) - p.y * sin(shiftAngle, DEGREES));
+        return new Point(shiftedX, shiftedY);
     }
+
+
 
     public static double pow(double value, double exponent) {
         if(value == 0) return 0;

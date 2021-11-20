@@ -44,7 +44,7 @@ public class                                                                    
     public double getAngle(){
 
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZXY, AngleUnit.DEGREES); //angle order changed here
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //angle order changed here
         double currentAngle = angles.firstAngle;
 
         // Update how many times we have wrapped
@@ -61,7 +61,7 @@ public class                                                                    
 
     public double getAngleActual(){
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZXY, AngleUnit.DEGREES);
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         double currentAngle = angles.firstAngle;
 
         // Update how many times we have wrapped
