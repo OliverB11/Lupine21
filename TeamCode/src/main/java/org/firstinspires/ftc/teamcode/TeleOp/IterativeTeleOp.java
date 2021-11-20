@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
+import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Utilities.PID;
-import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
+import org.firstinspires.ftc.teamcode.Z.Side;
+
 import static java.lang.Math.floorMod;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
@@ -21,11 +21,11 @@ public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    public static Mecanum evansChassis;
+    public static Mecanum robot;
     double power;
     Controller controller;
-//    Arm arm;
     DuckWheel duckSpinner;
+    Intake intake;
     private double setPoint = 0;
     private boolean wasTurning;
     public static double releaseAngle = 0;
@@ -40,10 +40,11 @@ public class IterativeTeleOp extends OpMode {
         setOpMode(this);
 
         power = 0.6;
-        evansChassis = new Mecanum();
+        robot = new Mecanum();
         controller = new Controller(gamepad1);
         duckSpinner = new DuckWheel();
-//        arm = new Arm();
+        intake = new Intake();
+
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -57,7 +58,7 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void init_loop() {
 
-        evansChassis.gyro.rawAngle();
+        robot.gyro.rawAngle();
 
 
         multTelemetry.addData("Status", "InitLoop");
@@ -86,75 +87,69 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void loop() {
         controller.controllerUpdate();
-        evansChassis.gyro.update();
-        double correction = evansChassis.pid.update(evansChassis.gyro.rawAngle() - setPoint, true);
+        robot.gyro.update();
+        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint, true);
         double rotation;
         double inputTurn;
 
 
-        if(!(controller.rightStick().x == 0)){
+        if (!(controller.rightStick().x == 0)) {
             rotation = -controller.rightStick().x;
             wasTurning = true;
-        }else{
-            if(wasTurning){
-                setPoint = evansChassis.gyro.rawAngle();
+        } else {
+            if (wasTurning) {
+                setPoint = robot.gyro.rawAngle();
                 wasTurning = false;
             }
             rotation = correction;
         }
 
-           if(controller.RTrigger.press()){
-                power = 0.3;
-            }else{
+        if (controller.RTrigger.press()) {
+            power = 0.3;
+        } else {
             power = 0.6;
         }
 
-           if(controller.cross.press()){
-               duckSpinner.blueSpin(.4);
-           }else{
-               duckSpinner.stop();
-           }
+        if (Side.blue) {
+            if (controller.cross.toggle()) {
+                duckSpinner.blueSpin(.4);
+            } else {
+                duckSpinner.stop();
+            }
+        } else if (Side.red) {
+            if (controller.cross.toggle()) {
+                duckSpinner.blueSpin(-.4);
+            }
+        } else {
+            duckSpinner.stop();
+        }
 
-
-//
-//        if(controller.LB.press()){
-//            arm.slideUp();
-//        }else if(controller.RB.press()){
-//            arm.slideDown();
-//        }else{
-//            arm.slideStop();
-//        }
-//
-//        if(controller.LTrigger.press()){
-//            arm.armUp();
-//        }else if(controller.RTrigger.press()){
-//            arm.armDown();
-//        }else{
-//            arm.armStop();
-//        }
-
-
-        double drive = -MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).y;
-        double strafe = MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).x;
-        double turning = rotation;
-  //      evansChassis.setDrivePower(power,strafe,turning,drive);
-
-        if(turning!= 0) {
-            inputTurn = turning;
-            releaseAngle = evansChassis.gyro.rawAngle();
-            adjRateOfChange = MathUtils.pow(evansChassis.gyro.rawAngle(), 2);
-        }else if(adjRateOfChange > 1000){
-            releaseAngle = evansChassis.gyro.rawAngle();
-            adjRateOfChange = MathUtils.pow(evansChassis.gyro.rawAngle(), 2);
-            inputTurn = 0;
+        if(controller.circle.toggle()){
+            intake.spin(1);
         }else{
-            setPoint = releaseAngle + .5 * .0035 * adjRateOfChange;
-            inputTurn = evansChassis.pid.update(MathUtils.closestAngle(setPoint, evansChassis.gyro.rawAngle()) - evansChassis.gyro.rawAngle());
+            intake.spin(0);
         }
 
 
+        double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
+        double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
+        double turning = rotation;
 
-        evansChassis.setDrivePower(power, strafe, inputTurn, drive);
+        if (turning != 0) {
+            inputTurn = turning;
+            releaseAngle = robot.gyro.rawAngle();
+            adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
+        } else if (adjRateOfChange > 1000) {
+            releaseAngle = robot.gyro.rawAngle();
+            adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
+            inputTurn = 0;
+        } else {
+            setPoint = releaseAngle + .5 * .0035 * adjRateOfChange;
+            inputTurn = robot.pid.update(MathUtils.closestAngle(setPoint, robot.gyro.rawAngle()) - robot.gyro.rawAngle());
+        }
+
+
+        robot.setDrivePower(power, strafe, inputTurn, drive);
 
 
 
@@ -178,6 +173,5 @@ public class IterativeTeleOp extends OpMode {
         /*
                     Y O U R   C O D E   H E R E
                                                    */
-
     }
 }
