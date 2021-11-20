@@ -28,14 +28,14 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 public class BlueLinearAuto extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
-    Mecanum evansChassis;
-    PID evansChassisPid;
+    Mecanum robot;
+    PID pid;
     DuckWheel duckWheel;
 
     public void initialize(){
         setOpMode(this);
-        evansChassisPid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
-        evansChassis = new Mecanum();
+        pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
+        robot = new Mecanum();
         duckWheel = new DuckWheel();
 
         ElapsedTime time = new ElapsedTime();
@@ -53,52 +53,52 @@ public class BlueLinearAuto extends LinearOpMode {
 // DUCK ON LEFT
 
         if(DuckPosition.duckOnLeft) {
-            evansChassis.strafe(.15, 200, 0, 270);
-            evansChassis.strafe(.15, 200, 0, 90);
-            evansChassis.strafe(.15, 200, 0, 270);
-            evansChassis.strafe(.15, 800, 0, 0);
-            duckWheel.blueSpin(.5);
+            robot.strafe(.25, 200, 180, 90);
+            robot.strafe(.25, 200, 180, 270);
+            robot.strafe(.25, 200, 0, 90);
+            robot.strafe(.2, 800, 0, 0);
+            duckWheel.redSpin(.4);
             time.reset();
-            while (time.seconds() < Unfixed.duckWheelTime) {
+            while (time.seconds() < 5) {
 
             }
             duckWheel.stop();
-            evansChassis.strafe(.3, 150, 0, 90);
-            evansChassis.strafe(.3, 4800, 0, 180);
+            robot.strafe(.3, 150, 0, 270);
+            robot.strafe(.3, 4800, 0, 180);
 
 // DUCK IN MIDDLE
 
-        }else if (DuckPosition.duckInMiddle) {
-            evansChassis.strafe(.15, 200, 0, 270);
-            evansChassis.strafe(.15, 200, 0, 90);
-            evansChassis.strafe(.15, 200, 0, 270);
-            evansChassis.strafe(.15, 800, 0, 0);
-            duckWheel.blueSpin(.5);
+        }else if (DuckPosition.duckInMiddle){
+            robot.strafe(.25, 200, 180, 90);
+            robot.strafe(.25, 200, 180, 270);
+            robot.strafe(.25, 200, 0, 90);
+            robot.strafe(.15, 800, 0, 0);
+            duckWheel.redSpin(.4);
             time.reset();
-            while (time.seconds() < Unfixed.duckWheelTime) {
+            while (time.seconds() < 5) {
 
             }
             duckWheel.stop();
-            evansChassis.strafe(.3, 150, 0, 90);
-            evansChassis.strafe(.3, 4800, 0, 180);
-
+            robot.strafe(.3, 150, 0, 270);
+            robot.strafe(.3, 4800, 0, 180);
 
 // DUCK ON RIGHT
 
-        }else if(DuckPosition.duckOnRight) {
-            evansChassis.strafe(.15, 200, 0, 270);
-            evansChassis.strafe(.15, 200, 0, 90);
-            evansChassis.strafe(.15, 200, 0, 270);
-            evansChassis.strafe(.15, 800, 0, 0);
-            duckWheel.blueSpin(.5);
+        }else if(DuckPosition.duckOnRight){
+            robot.strafe(.25, 200, 180, 90);
+            robot.strafe(.25, 200, 180, 270);
+            robot.strafe(.25, 200, 0, 90);
+            robot.strafe(.15, 800, 0, 0);
+            duckWheel.redSpin(.4);
             time.reset();
-            while (time.seconds() < Unfixed.duckWheelTime) {
+            while (time.seconds() < 5) {
 
             }
             duckWheel.stop();
-            evansChassis.strafe(.3, 150, 0, 90);
-            evansChassis.strafe(.3, 4800, 0, 180);
+            robot.strafe(.3, 150, 0, 270);
+            robot.strafe(.3, 4800, 0, 180);
         }
+
 
 
 

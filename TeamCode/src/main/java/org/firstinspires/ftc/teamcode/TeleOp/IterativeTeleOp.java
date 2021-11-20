@@ -159,7 +159,7 @@ public class IterativeTeleOp extends OpMode {
 
         robot.setDrivePower(power, strafe, inputTurn, drive);
 
-        multTelemetry.addData("fr3", robot.fr.getPower());
+
 
 
 

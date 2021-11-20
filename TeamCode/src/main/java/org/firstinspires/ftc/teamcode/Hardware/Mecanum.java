@@ -122,7 +122,7 @@ public class Mecanum {
             curHDist = Math.hypot(curPos.x, curPos.y);
 
             Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), gyro.rawAngle());
-            setDrivePower(power, shiftedPowers.x, pid.update(gyro.rawAngle() - targetAngle), shiftedPowers.y);
+            setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.rawAngle()), shiftedPowers.y);
 
             // Log some data out for debugging
             multTelemetry.addData("curPos", "(" + curPos.x + ", " + curPos.y + ")");

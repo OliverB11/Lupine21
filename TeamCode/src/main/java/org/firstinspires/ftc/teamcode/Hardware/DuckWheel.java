@@ -34,44 +34,4 @@ public class DuckWheel {
         duck2.setPower(0);
     }
 
-    public void redUpdate(){
-        switch(duckState){
-
-            case OFF:
-                duck2.setPower(.5);
-                duck1.setPower(.5);
-                duckState = wheelState.ON;
-                time.reset();
-                break;
-
-            case ON:
-                if(time.seconds()> Unfixed.duckWheelTime) {
-                    duck2.setPower(0);
-                    duck1.setPower(0);
-                    duckState = wheelState.OFF;
-                }
-                break;
-
-        }
-    }
-    public void blueUpdate(){
-        switch(duckState){
-
-            case OFF:
-                duck2.setPower(-0.5);
-                duck1.setPower(-0.5);
-                duckState = wheelState.ON;
-                time.reset();
-                break;
-
-            case ON:
-                if(time.seconds()> Unfixed.duckWheelTime) {
-                    duck2.setPower(0);
-                    duck1.setPower(0);
-                    duckState = wheelState.OFF;
-                }
-                break;
-
-        }
-    }
 }
