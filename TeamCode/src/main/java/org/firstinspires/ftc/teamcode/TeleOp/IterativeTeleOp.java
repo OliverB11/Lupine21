@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
+import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
@@ -23,6 +24,7 @@ public class IterativeTeleOp extends OpMode {
     Controller controller;
 //    Arm arm;
     DuckWheel duckSpinner;
+    Intake intake;
     private double setPoint = 0;
     private boolean wasTurning;
     public static double releaseAngle = 0;
@@ -40,6 +42,7 @@ public class IterativeTeleOp extends OpMode {
         evansChassis = new Mecanum();
         controller = new Controller(gamepad1);
         duckSpinner = new DuckWheel();
+        intake = new Intake();
 //        arm = new Arm();
 
         multTelemetry.addData("Status", "Initialized");
@@ -127,6 +130,12 @@ public class IterativeTeleOp extends OpMode {
                }
            }
 
+           if(controller.circle.toggle()){
+               intake.spin(1);
+           }else{
+               intake.spin(0);
+           }
+
 
 //
 //        if(controller.LB.press()){
@@ -144,6 +153,8 @@ public class IterativeTeleOp extends OpMode {
 //        }else{
 //            arm.armStop();
 //        }
+
+
 
 
         double drive = MathUtils.shift(controller.leftStick(), evansChassis.gyro.rawAngle()).y;

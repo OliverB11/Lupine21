@@ -17,7 +17,17 @@ public class Camera {
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class,id),cameraMonitorViewId);
 
-        webcam.openCameraDeviceAsync(() -> webcam.startStreaming(432,240, OpenCvCameraRotation.UPRIGHT));
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+            @Override
+            public void onOpened() {
+                webcam.startStreaming(432,240, OpenCvCameraRotation.UPRIGHT);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+                //TODO: Exception handling here an no more random crashes!
+            }
+        });
 
         webcam.setPipeline(pipeline);
 
