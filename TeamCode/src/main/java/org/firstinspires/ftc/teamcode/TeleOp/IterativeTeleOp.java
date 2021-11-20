@@ -45,6 +45,11 @@ public class IterativeTeleOp extends OpMode {
         duckSpinner = new DuckWheel();
         intake = new Intake();
 
+        if(!Side.blue && !Side.red){
+            Side.blue = true;
+            Side.red = false;
+        }
+
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -92,6 +97,7 @@ public class IterativeTeleOp extends OpMode {
         double rotation;
         double inputTurn;
 
+        multTelemetry.addData("fr1", robot.fr.getPower());
 
         if (!(controller.rightStick().x == 0)) {
             rotation = -controller.rightStick().x;
@@ -130,6 +136,8 @@ public class IterativeTeleOp extends OpMode {
             intake.spin(0);
         }
 
+        multTelemetry.addData("fr2", robot.fr.getPower());
+
 
         double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
         double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
@@ -150,6 +158,8 @@ public class IterativeTeleOp extends OpMode {
 
 
         robot.setDrivePower(power, strafe, inputTurn, drive);
+
+        multTelemetry.addData("fr3", robot.fr.getPower());
 
 
 

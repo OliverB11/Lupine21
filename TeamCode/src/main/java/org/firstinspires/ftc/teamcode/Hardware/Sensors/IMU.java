@@ -33,8 +33,8 @@ public class                                                                    
 
     public double getUnwrappedAngle(){
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-        double currentAngle = angles.firstAngle;
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double currentAngle = -angles.firstAngle;
 
         return currentAngle;
 
@@ -46,11 +46,11 @@ public class                                                                    
     public double getAngle(){
 
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES); //angle order changed here
-        double currentAngle = angles.firstAngle;
-        multTelemetry.addData("Yaw", angles.firstAngle);
-        multTelemetry.addData("Roll", angles.secondAngle);
-        multTelemetry.addData("Pitch", angles.thirdAngle);
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //angle order changed here
+        double currentAngle = -angles.firstAngle;
+        //multTelemetry.addData("Yaw", angles.firstAngle);
+        //multTelemetry.addData("Roll", angles.secondAngle);
+        //multTelemetry.addData("Pitch", angles.thirdAngle);
 
         // Update how many times we have wrapped
         deltaAngle = updateWraps(previousAngle, currentAngle, deltaAngle);
@@ -66,8 +66,8 @@ public class                                                                    
 
     public double getAngleActual(){
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-        double currentAngle = angles.firstAngle;
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double currentAngle = -angles.firstAngle;
 
         // Update how many times we have wrapped
         deltaAngle = updateWraps(previousAngle, currentAngle, deltaAngle);

@@ -22,7 +22,7 @@ import org.opencv.core.Point;
 import org.openftc.easyopencv.OpenCvPipeline;
 public class Mecanum {
 
-    private DcMotor fr,fl,br,bl;
+    public DcMotor fr,fl,br,bl;
     public Gyro gyro;
     public PID pid;
     public static ElapsedTime time = new ElapsedTime();
@@ -93,6 +93,8 @@ public class Mecanum {
         fl.setPower(flPower);
         br.setPower(brPower);
         bl.setPower(blPower);
+
+        multTelemetry.addData("fr", fr.getPower());
 
     }
     public void strafe(double power, double ticks, double targetAngle, double strafeAngle){
