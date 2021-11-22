@@ -143,7 +143,7 @@ public class IterativeTeleOp extends OpMode {
         double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
         double turning = rotation;
 
-        if (turning != 0) {
+        if (controller.rightStick().x == 0) {
             inputTurn = turning;
             releaseAngle = robot.gyro.rawAngle();
             adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
