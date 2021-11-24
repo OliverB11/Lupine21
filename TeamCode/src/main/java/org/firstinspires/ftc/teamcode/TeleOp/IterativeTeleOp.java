@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
+import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
 import static java.lang.Math.floorMod;
@@ -67,6 +68,7 @@ public class IterativeTeleOp extends OpMode {
 
 
         multTelemetry.addData("Status", "InitLoop");
+
         multTelemetry.update();
     }
 
@@ -96,6 +98,8 @@ public class IterativeTeleOp extends OpMode {
         double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint, true);
         double rotation;
         double inputTurn;
+
+
 
         multTelemetry.addData("fr1", robot.fr.getPower());
 
@@ -136,15 +140,12 @@ public class IterativeTeleOp extends OpMode {
             intake.spin(0);
         }
 
-        multTelemetry.addData("fr2", robot.fr.getPower());
-
 
         double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
         double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
-        double turning = rotation;
 
-        if (controller.rightStick().x == 0) {
-            inputTurn = turning;
+        if (controller.rightStick().x != 0) {
+            inputTurn = rotation;
             releaseAngle = robot.gyro.rawAngle();
             adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
         } else if (adjRateOfChange > 1000) {
@@ -152,7 +153,7 @@ public class IterativeTeleOp extends OpMode {
             adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
             inputTurn = 0;
         } else {
-            setPoint = releaseAngle + .5 * .0035 * adjRateOfChange;
+            setPoint = releaseAngle + Unfixed.releaseAngleAdd * Unfixed.releaseAngleMultiply * adjRateOfChange;
             inputTurn = robot.pid.update(MathUtils.closestAngle(setPoint, robot.gyro.rawAngle()) - robot.gyro.rawAngle());
         }
 
@@ -160,6 +161,8 @@ public class IterativeTeleOp extends OpMode {
         robot.setDrivePower(power, strafe, inputTurn, drive);
 
     }
+
+
 
     @Override
     public void stop() {

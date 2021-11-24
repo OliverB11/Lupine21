@@ -55,7 +55,7 @@ public class Gyro {
     public void reset() { datum = imu.getAngle(); }
 
     public double rawAngle() {
-        return 360 - rawAngle;
+        return rawAngle;
     }
 
     public double IMUAngle() {

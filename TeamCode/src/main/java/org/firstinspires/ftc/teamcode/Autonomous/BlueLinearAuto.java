@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import android.os.Build;
-import android.transition.Slide;
 
 import androidx.annotation.RequiresApi;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -15,13 +13,10 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.IMU;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
-import org.firstinspires.ftc.teamcode.Z.Vision.Camera;
-import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
-import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
+import org.firstinspires.ftc.teamcode.Z.Vision.BlueDuckPosition;
 
 
 @Autonomous(name="BlueLinearAuto", group="Autonomous Linear Opmode")
@@ -37,9 +32,11 @@ public class BlueLinearAuto extends LinearOpMode {
         pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         robot = new Mecanum();
         duckWheel = new DuckWheel();
-
         ElapsedTime time = new ElapsedTime();
+
+
         multTelemetry.addData("Status", "Initalized");
+        multTelemetry.addData("Duck Position:", BlueDuckPosition.whereDuck);
         multTelemetry.update();
     }
 
@@ -52,7 +49,7 @@ public class BlueLinearAuto extends LinearOpMode {
 
 // DUCK ON LEFT
 
-        if(DuckPosition.duckOnLeft) {
+        if(BlueDuckPosition.duckOnLeft) {
             robot.strafe(.25, 200, 180, 90);
             robot.strafe(.25, 200, 180, 270);
             robot.strafe(.25, 200, 0, 90);
@@ -68,7 +65,7 @@ public class BlueLinearAuto extends LinearOpMode {
 
 // DUCK IN MIDDLE
 
-        }else if (DuckPosition.duckInMiddle){
+        }else if (BlueDuckPosition.duckInMiddle){
             robot.strafe(.25, 200, 180, 90);
             robot.strafe(.25, 200, 180, 270);
             robot.strafe(.25, 200, 0, 90);
@@ -84,7 +81,7 @@ public class BlueLinearAuto extends LinearOpMode {
 
 // DUCK ON RIGHT
 
-        }else if(DuckPosition.duckOnRight){
+        }else if(BlueDuckPosition.duckOnRight){
             robot.strafe(.25, 200, 180, 90);
             robot.strafe(.25, 200, 180, 270);
             robot.strafe(.25, 200, 0, 90);

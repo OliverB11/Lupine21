@@ -16,8 +16,6 @@ import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
-import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
-
 
 
 @Autonomous(name="RedLinearAuto", group="Autonomous Linear Opmode")
