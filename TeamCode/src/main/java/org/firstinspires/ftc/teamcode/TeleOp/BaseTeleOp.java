@@ -24,7 +24,11 @@ public class BaseTeleOp extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     public static Mecanum robot;
     double power;
+    DuckWheel duckSpinner;
+    Intake intake;
     Controller controller;
+    double setPoint = 360;
+    boolean wasTurning;
 
 
     /*
@@ -37,6 +41,13 @@ public class BaseTeleOp extends OpMode {
         power = 0.6;
         robot = new Mecanum();
         controller = new Controller(gamepad1);
+        duckSpinner = new DuckWheel();
+        intake = new Intake();
+
+        if(!Side.blue && !Side.red){
+            Side.blue = true;
+            Side.red = false;
+        }
 
 
         multTelemetry.addData("Status", "Initialized");
@@ -77,20 +88,66 @@ public class BaseTeleOp extends OpMode {
      */
     @Override
     public void loop() {
-        controller.controllerUpdate();
+        //Declarations
+        double rotation;
 
-        if (controller.RTrigger.press()) {
-            power = 0.3;
-        } else {
-            power = 0.6;
+
+        // Updates
+        controller.controllerUpdate();
+        robot.gyro.update();
+
+
+
+        // PID
+        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint, true);
+
+
+        if(!(controller.rightStick().x == 0)){
+            rotation = controller.rightStick().x;
+            wasTurning = true;
+        }else{
+            if(wasTurning){
+                setPoint = robot.gyro.rawAngle();
+                wasTurning = false;
+            }
+            rotation = correction;
         }
 
+        // Speed Control
+        if (controller.RTrigger.press()) {
+            power = 0.2;
+        } else {
+            power = 0.4;
+        }
 
-        double drive = controller.leftStick().y;
-        double strafe = controller.leftStick().x;
-        double turn = controller.rightStick().x;
+        // Stuff
+        if (Side.blue) {
+            if (controller.cross.toggle()) {
+                duckSpinner.blueSpin(.4);
+            } else {
+                duckSpinner.stop();
+            }
+        } else if (Side.red) {
+            if (controller.cross.toggle()) {
+                duckSpinner.blueSpin(-.4);
+            }
+        } else {
+            duckSpinner.stop();
+        }
 
-        robot.setDrivePower(power, strafe, turn, drive);
+        if(controller.circle.toggle()){
+            intake.spin(1);
+        }else{
+            intake.spin(0);
+        }
+
+        //Movement control
+        double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
+        double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
+        double turn = -controller.rightStick().x;
+
+        robot.setDrivePower(power, strafe, -rotation, drive);
+
 
 
 

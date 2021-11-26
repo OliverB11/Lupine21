@@ -24,13 +24,11 @@ public class IterativeTeleOp extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     public static Mecanum robot;
     double power;
-    Controller controller;
     DuckWheel duckSpinner;
     Intake intake;
-    private double setPoint = 0;
-    private boolean wasTurning;
-    public static double releaseAngle = 0;
-    public static double adjRateOfChange;
+    Controller controller;
+    double setPoint = 360;
+    boolean wasTurning;
 
 
     /*
@@ -64,9 +62,6 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void init_loop() {
 
-        robot.gyro.rawAngle();
-
-
         multTelemetry.addData("Status", "InitLoop");
 
         multTelemetry.update();
@@ -93,33 +88,39 @@ public class IterativeTeleOp extends OpMode {
      */
     @Override
     public void loop() {
+        //Declarations
+        double rotation;
+
+
+        // Updates
         controller.controllerUpdate();
         robot.gyro.update();
+
+
+
+        // PID
         double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint, true);
-        double rotation;
-        double inputTurn;
 
 
-
-        multTelemetry.addData("fr1", robot.fr.getPower());
-
-        if (!(controller.rightStick().x == 0)) {
-            rotation = -controller.rightStick().x;
+        if(!(controller.rightStick().x == 0)){
+            rotation = controller.rightStick().x;
             wasTurning = true;
-        } else {
-            if (wasTurning) {
+        }else{
+            if(wasTurning){
                 setPoint = robot.gyro.rawAngle();
                 wasTurning = false;
             }
             rotation = correction;
         }
 
+        // Speed Control
         if (controller.RTrigger.press()) {
-            power = 0.3;
+            power = 0.2;
         } else {
-            power = 0.6;
+            power = 0.4;
         }
 
+        // Stuff
         if (Side.blue) {
             if (controller.cross.toggle()) {
                 duckSpinner.blueSpin(.4);
@@ -140,25 +141,15 @@ public class IterativeTeleOp extends OpMode {
             intake.spin(0);
         }
 
-
+        //Movement control
         double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
         double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
+        double turn = -controller.rightStick().x;
 
-        if (controller.rightStick().x != 0) {
-            inputTurn = rotation;
-            releaseAngle = robot.gyro.rawAngle();
-            adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
-        } else if (adjRateOfChange > 1000) {
-            releaseAngle = robot.gyro.rawAngle();
-            adjRateOfChange = MathUtils.pow(robot.gyro.rawAngle(), 2);
-            inputTurn = 0;
-        } else {
-            setPoint = releaseAngle + Unfixed.releaseAngleAdd * Unfixed.releaseAngleMultiply * adjRateOfChange;
-            inputTurn = robot.pid.update(MathUtils.closestAngle(setPoint, robot.gyro.rawAngle()) - robot.gyro.rawAngle());
-        }
+        robot.setDrivePower(power, strafe, -rotation, drive);
 
 
-        robot.setDrivePower(power, strafe, inputTurn, drive);
+
 
     }
 
