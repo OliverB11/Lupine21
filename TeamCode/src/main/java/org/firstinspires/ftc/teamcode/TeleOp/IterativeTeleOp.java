@@ -17,7 +17,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 
-@TeleOp(name="Iterative TeleOp", group="Iterative Opmode")
+@TeleOp(name="TeleOp", group="Iterative Opmode")
 public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
