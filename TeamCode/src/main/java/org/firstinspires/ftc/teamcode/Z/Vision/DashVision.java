@@ -6,7 +6,12 @@ import com.acmerobotics.dashboard.config.Config;
 public class DashVision {
 
     public static boolean DEBUG_MODE = false;
-    public static int rightXvalue = 10;
-    public static int leftXvalue = -10;
+    public static int blueRightXvalue = 290;
+    public static int blueLeftXvalue = 34;
+
+    public static int redRightXvalue = 300;
+    public static int redLeftXvalue = 70;
+
+
 
 }

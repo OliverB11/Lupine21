@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
 import static java.lang.Math.floorMod;
@@ -51,7 +50,7 @@ public class BaseTeleOp extends OpMode {
 
 
         multTelemetry.addData("Status", "Initialized");
-        multTelemetry.update();
+      //  multTelemetry.update();
     }
 
     /*
@@ -62,9 +61,9 @@ public class BaseTeleOp extends OpMode {
     @Override
     public void init_loop() {
 
-        multTelemetry.addData("Status", "InitLoop");
+        //multTelemetry.addData("Status", "InitLoop");
 
-        multTelemetry.update();
+       // multTelemetry.update();
     }
 
     /*
@@ -99,7 +98,7 @@ public class BaseTeleOp extends OpMode {
 
 
         // PID
-        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint, true);
+        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
 
 
         if(!(controller.rightStick().x == 0)){

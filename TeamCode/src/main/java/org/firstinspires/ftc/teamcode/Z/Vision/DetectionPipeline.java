@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Z.Vision;
 
-import org.firstinspires.ftc.teamcode.Utilities.Constants;
+import org.firstinspires.ftc.teamcode.Z.Side;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
@@ -10,8 +10,10 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import java.util.ArrayList;
 import java.util.List;
 import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.DEBUG_MODE;
-import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.leftXvalue;
-import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.rightXvalue;
+import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.blueLeftXvalue;
+import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.blueRightXvalue;
+import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.redLeftXvalue;
+import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.redRightXvalue;
 import static org.opencv.imgproc.Imgproc.CHAIN_APPROX_SIMPLE;
 import static org.opencv.imgproc.Imgproc.COLOR_RGB2HSV;
 import static org.opencv.imgproc.Imgproc.RETR_TREE;
@@ -61,30 +63,63 @@ public class DetectionPipeline extends OpenCvPipeline {
 
 
 
+
+        }
+
+
+
+        if(yellowRects.size()==0){
+            return output;
         }
 
         Rect largestYellowRect = VisionUtils.sortRectsByMaxOption(1,VisionUtils.RECT_OPTION.AREA,yellowRects).get(0);
 
         rectangle(output,largestYellowRect,green,2);
 
-        if(yellowRects.size()==0){
-            return output;
-        }
 
 
 
+        if(Side.blue){
 
-        if(Constants.blueAutoRunning){
 
-            if(largestYellowRect.x >= rightXvalue){
-                multTelemetry.addLine("duck on right");
-            }else if (largestYellowRect.x <= leftXvalue){
-                multTelemetry.addLine("duck on left");
+
+            if(largestYellowRect.x >= blueRightXvalue){
+
+                BlueDuckPosition.duckOnLeft = false;
+                BlueDuckPosition.duckInMiddle = false;
+                BlueDuckPosition.duckOnRight = true;
+            }else if (largestYellowRect.x <= blueLeftXvalue){
+
+                BlueDuckPosition.duckOnLeft = true;
+                BlueDuckPosition.duckInMiddle = false;
+                BlueDuckPosition.duckOnRight = false;
             } else{
-                multTelemetry.addLine("duck in middle");
-            }
-            multTelemetry.update();
 
+                BlueDuckPosition.duckOnLeft = false;
+                BlueDuckPosition.duckInMiddle = true;
+                BlueDuckPosition.duckOnRight = false;
+            }
+
+
+
+        }else if(Side.red){
+            //The red values are the opposite of the blue values, middle condition remains the same
+
+
+            if(largestYellowRect.x >= redRightXvalue){
+
+                RedDuckPosition.duckOnLeft = false;
+                RedDuckPosition.duckInMiddle = false;
+                RedDuckPosition.duckOnRight = true;
+            }else if (largestYellowRect.x <= redLeftXvalue){
+                RedDuckPosition.duckOnLeft = true;
+                RedDuckPosition.duckInMiddle = false;
+                RedDuckPosition.duckOnRight = false;
+            } else{
+                RedDuckPosition.duckOnLeft = false;
+                RedDuckPosition.duckInMiddle = true;
+                RedDuckPosition.duckOnRight = false;
+            }
 
 
 
@@ -97,4 +132,5 @@ public class DetectionPipeline extends OpenCvPipeline {
 
         return output;
     }
+
 }

@@ -8,9 +8,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Utilities.Constants;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
 import static java.lang.Math.floorMod;
@@ -40,7 +38,6 @@ public class IterativeTeleOp extends OpMode {
     public void init() {
         setOpMode(this);
 
-        Constants.blueAutoRunning = true;
         power = 0.6;
         robot = new Mecanum();
         controller = new Controller(gamepad1);
@@ -102,7 +99,7 @@ public class IterativeTeleOp extends OpMode {
 
 
         // PID
-        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint, true);
+        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
 
 
         if(!(controller.rightStick().x == 0)){
@@ -118,9 +115,9 @@ public class IterativeTeleOp extends OpMode {
 
         // Speed Control
         if (controller.RTrigger.press()) {
-            power = 0.2;
+            power = 0.3;
         } else {
-            power = 0.4;
+            power = 0.8;
         }
 
         // Stuff
@@ -147,9 +144,9 @@ public class IterativeTeleOp extends OpMode {
         //Movement control
         double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
         double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
-        double turn = -controller.rightStick().x;
+        double turning = -rotation;
 
-        robot.setDrivePower(power, strafe, -rotation, drive);
+        robot.setDrivePower(power, strafe, turning, drive);
 
 
 

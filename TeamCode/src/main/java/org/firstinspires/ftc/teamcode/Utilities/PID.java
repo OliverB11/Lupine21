@@ -50,29 +50,6 @@ public class PID {
 
 
 
-    public double update(double error, boolean isTuning){
-
-        integralSum += error;
-
-        double deltaTime = (System.currentTimeMillis() - previousTime)/1000.0;
-        double deltaError = error - previousError;
-        double rateOfChange = deltaError/deltaTime;
-
-        previousError = error;
-        previousTime = System.currentTimeMillis();
-
-        double pComponent = error * Unfixed.proportionalWeight;
-        double iComponent = integralSum * Unfixed.integralWeight;
-        double dComponent = rateOfChange * Unfixed.derivativeWeight;
-
-        multTelemetry.addData("P",pComponent);
-        multTelemetry.addData("I",iComponent);
-        multTelemetry.addData("D",dComponent);
-
-
-        return pComponent + iComponent + dComponent;
-    }
-
 
 
 

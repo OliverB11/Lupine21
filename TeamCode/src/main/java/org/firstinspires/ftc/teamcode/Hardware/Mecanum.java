@@ -139,7 +139,7 @@ public class Mecanum {
         double distance = targetAngle - gyro.rawAngle();
 
         current = gyro.rawAngle() - startPos;
-        setDrivePower(power, 0, pid.update(gyro.rawAngle() - targetAngle, true), 0);
+        setDrivePower(power, 0, pid.update(gyro.rawAngle() - targetAngle), 0);
 
     }
 

@@ -16,10 +16,11 @@ import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.Z.Vision.BlueDuckPosition;
 
 
-@Autonomous(name="RedLinearAuto", group="Autonomous Linear Opmode")
-public class RedLinearAuto extends LinearOpMode {
+@Autonomous(name="BlueLinearAutoBack", group="Autonomous Linear Opmode")
+public class BlueLinearAutoBack extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
     Mecanum robot;
@@ -29,10 +30,14 @@ public class RedLinearAuto extends LinearOpMode {
 
     public void initialize(){
         setOpMode(this);
+        Side.red = false;
+        Side.blue = true;
         pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         robot = new Mecanum();
         duckWheel = new DuckWheel();
         ElapsedTime time = new ElapsedTime();
+
+
         multTelemetry.addData("Status", "Initalized");
         multTelemetry.update();
     }
@@ -41,22 +46,36 @@ public class RedLinearAuto extends LinearOpMode {
     @Override
     public void runOpMode(){
         initialize();
-        Side.red = false;
-        Side.blue = true;
 
 
 
 
-        multTelemetry.addLine("Waiting for start");
         multTelemetry.update();
         waitForStart();
 
 
         if (opModeIsActive()){
 
-            /*
-                    Y O U R   C O D E   H E R E
-                                                   */
+// DUCK ON LEFT
+
+            if(BlueDuckPosition.duckOnLeft) {
+                multTelemetry.addData("Auto", "Blue Back Left");
+                multTelemetry.update();
+
+// DUCK IN MIDDLE
+
+            }else if (BlueDuckPosition.duckInMiddle){
+                multTelemetry.addData("Auto", "Blue Back Middle");
+                multTelemetry.update();
+
+
+// DUCK ON RIGHT
+
+            }else if(BlueDuckPosition.duckOnRight){
+                multTelemetry.addData("Auto", "Blue Back Right");
+                multTelemetry.update();
+
+            }
 
         }
     }
