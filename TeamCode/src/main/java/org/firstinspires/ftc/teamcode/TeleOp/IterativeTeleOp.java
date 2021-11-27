@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Utilities.Constants;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
@@ -31,6 +32,7 @@ public class IterativeTeleOp extends OpMode {
     boolean wasTurning;
 
 
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -38,6 +40,7 @@ public class IterativeTeleOp extends OpMode {
     public void init() {
         setOpMode(this);
 
+        Constants.blueAutoRunning = true;
         power = 0.6;
         robot = new Mecanum();
         controller = new Controller(gamepad1);

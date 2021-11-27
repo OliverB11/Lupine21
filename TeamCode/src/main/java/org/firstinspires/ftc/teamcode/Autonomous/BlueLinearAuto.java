@@ -27,6 +27,7 @@ public class BlueLinearAuto extends LinearOpMode {
     PID pid;
     DuckWheel duckWheel;
 
+
     public void initialize(){
         setOpMode(this);
         pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
