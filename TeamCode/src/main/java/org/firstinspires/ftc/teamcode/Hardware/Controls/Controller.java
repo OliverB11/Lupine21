@@ -4,7 +4,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.opencv.core.Point;
 
-public class Controller {
+public class
+Controller {
 
     private final Gamepad gamepad;
 
@@ -41,6 +42,7 @@ public class Controller {
         private boolean LastPressed = false;
         private boolean Toggle = false;
         private boolean IsTapped = false;
+        private boolean released = false;
         float value = 0;
 
         public void Update(boolean _button){
@@ -56,6 +58,7 @@ public class Controller {
                 Toggle = !Toggle;
             }
             LastPressed = IsPressed;
+
         }
 
         public void Update(float inputFloat){

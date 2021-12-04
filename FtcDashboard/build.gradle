@@ -29,8 +29,8 @@ android {
 }
 
 node {
-    version = '12.13.0'
-    //version = '17.1.0'
+    //version = '12.13.0'
+    version = '17.1.0'
     download = true
     distBaseUrl = "https://nodejs.org/dist"
     nodeModulesDir = file("${project.projectDir}/dash")

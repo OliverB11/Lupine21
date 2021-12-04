@@ -104,7 +104,7 @@ public class IterativeTeleOp extends OpMode {
         robot.gyro.update();
 
 
-
+ 
 // PID
         double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
 
@@ -151,17 +151,20 @@ public class IterativeTeleOp extends OpMode {
             }
         }
 
-
-        if(controller2.RTrigger.press()){
-            scorer.spoolUp();
+        if(controller2.up.tap()){
+            scorer.top();
         }
-        if(controller2.LTrigger.press()){
-            scorer.spoolDown();
+        if(controller2.left.tap()){
+            scorer.middle();
+        }
+        if(controller2.right.tap()){
+            scorer.bottom();
         }
 
-        if(controller2.circle.press()){
-            scorer.dump();
-        }        if (Side.blue) {
+
+
+
+        if (Side.blue) {
             if (controller2.cross.toggle()) {
                 duckSpinner.blueSpin(.4);
             } else {
@@ -176,16 +179,6 @@ public class IterativeTeleOp extends OpMode {
         }
 
 
-        if(controller2.RTrigger.press()){
-            scorer.spoolUp();
-        }
-        if(controller2.LTrigger.press()){
-            scorer.spoolDown();
-        }
-
-        if(controller2.circle.press()){
-            scorer.dump();
-        }
 
 
 
@@ -200,8 +193,15 @@ public class IterativeTeleOp extends OpMode {
 
 
 
+//Telemetry
+        multTelemetry.addData("Motor Position", scorer.spool.getCurrentPosition());
+
+
 
     }
+
+
+
 
 
 

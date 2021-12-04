@@ -23,8 +23,6 @@ public class BaseTeleOp extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     public static Mecanum robot;
     double power;
-    DuckWheel duckSpinner;
-    Intake intake;
     Controller controller;
     double setPoint = 360;
     boolean wasTurning;
@@ -40,13 +38,7 @@ public class BaseTeleOp extends OpMode {
         power = 0.6;
         robot = new Mecanum();
         controller = new Controller(gamepad1);
-        duckSpinner = new DuckWheel();
-        intake = new Intake();
 
-        if(!Side.blue && !Side.red){
-            Side.blue = true;
-            Side.red = false;
-        }
 
 
         multTelemetry.addData("Status", "Initialized");
@@ -119,26 +111,6 @@ public class BaseTeleOp extends OpMode {
             power = 0.4;
         }
 
-        // Stuff
-        if (Side.blue) {
-            if (controller.cross.toggle()) {
-                duckSpinner.blueSpin(.4);
-            } else {
-                duckSpinner.stop();
-            }
-        } else if (Side.red) {
-            if (controller.cross.toggle()) {
-                duckSpinner.blueSpin(-.4);
-            }
-        } else {
-            duckSpinner.stop();
-        }
-
-        if(controller.circle.toggle()){
-            intake.spin(1);
-        }else{
-            intake.spin(0);
-        }
 
         //Movement control
         double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
