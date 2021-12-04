@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.BlueDuckPosition;
+import org.firstinspires.ftc.teamcode.Z.Vision.RedDuckPosition;
 
 
 @Autonomous(name="BlueLinearAutoFront", group="Autonomous Linear Opmode")
@@ -48,8 +49,29 @@ public class BlueLinearAutoFront extends LinearOpMode {
     public void runOpMode(){
         initialize();
 
+        time.reset();
+        while(time.seconds()<5){
 
+        }
 
+// DUCK ON LEFT
+
+        if(BlueDuckPosition.duckOnLeft) {
+            multTelemetry.addData("Auto", "Blue Front Left");
+
+// DUCK IN MIDDLE
+
+        }else if (BlueDuckPosition.duckInMiddle){
+            multTelemetry.addData("Auto", "Blue Front Middle");
+
+// DUCK ON RIGHT
+
+        }else if(BlueDuckPosition.duckOnRight) {
+            multTelemetry.addData("Auto", "Blue Front Right");
+// NO DUCK
+        }else{
+            multTelemetry.addData("Auto", "Blue Front None");
+        }
 
 
 
@@ -61,27 +83,8 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
         if (opModeIsActive()){
 
-// DUCK ON LEFT
-
-            if(BlueDuckPosition.duckOnLeft) {
-                multTelemetry.addData("Auto", "Blue Front Left");
-                multTelemetry.update();
 
 
-// DUCK IN MIDDLE
-
-            }else if (BlueDuckPosition.duckInMiddle){
-                multTelemetry.addData("Auto", "Blue Front Middle");
-                multTelemetry.update();
-
-
-// DUCK ON RIGHT
-
-            }else if(BlueDuckPosition.duckOnRight){
-                multTelemetry.addData("Auto", "Blue Front Right");
-                multTelemetry.update();
-
-            }
 
         }
     }

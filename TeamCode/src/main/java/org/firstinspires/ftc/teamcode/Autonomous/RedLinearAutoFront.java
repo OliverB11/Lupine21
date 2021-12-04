@@ -48,6 +48,30 @@ public class RedLinearAutoFront extends LinearOpMode {
     public void runOpMode(){
         initialize();
 
+        time.reset();
+        while(time.seconds()<5){
+
+        }
+
+// DUCK ON LEFT
+
+        if(RedDuckPosition.duckOnLeft) {
+            multTelemetry.addData("Auto", "Red Front Left");
+
+// DUCK IN MIDDLE
+
+        }else if (RedDuckPosition.duckInMiddle){
+            multTelemetry.addData("Auto", "Red Front Middle");
+
+// DUCK ON RIGHT
+
+        }else if(RedDuckPosition.duckOnRight) {
+            multTelemetry.addData("Auto", "Red Front Right");
+// NO DUCK
+        }else{
+            multTelemetry.addData("Auto", "Red Front None");
+        }
+
 
 
 
@@ -58,30 +82,9 @@ public class RedLinearAutoFront extends LinearOpMode {
 
         if (opModeIsActive()){
 
-// DUCK ON LEFT
-
-            if(RedDuckPosition.duckOnLeft) {
-                multTelemetry.addData("Auto", "Red Front Left");
-                multTelemetry.update();
 
 
-// DUCK IN MIDDLE
-
-            }else if (RedDuckPosition.duckInMiddle){
-                multTelemetry.addData("Auto", "Red Front Middle");
-                multTelemetry.update();
-
-
-// DUCK ON RIGHT
-
-            }else if(RedDuckPosition.duckOnRight) {
-                multTelemetry.addData("Auto", "Red Front Right");
-                multTelemetry.update();
-
-            }
-            while(opModeIsActive()){
 
             }
         }
     }
-}

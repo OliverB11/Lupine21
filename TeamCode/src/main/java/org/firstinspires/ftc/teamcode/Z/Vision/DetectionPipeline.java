@@ -30,6 +30,8 @@ public class DetectionPipeline extends OpenCvPipeline {
 
     private Mat output = new Mat();
     private  Mat modifiedYellow = new Mat();
+
+
     List<MatOfPoint> yellowContours = new ArrayList<>();
     Mat yellowHierarchy = new Mat();
     Scalar green = new Scalar(0,255,0);
@@ -37,6 +39,12 @@ public class DetectionPipeline extends OpenCvPipeline {
 
     @Override
     public Mat processFrame(Mat input){
+        BlueDuckPosition.duckOnLeft = false;
+        BlueDuckPosition.duckInMiddle = false;
+        BlueDuckPosition.duckOnRight = false;
+        RedDuckPosition.duckOnLeft = false;
+        RedDuckPosition.duckInMiddle = false;
+        RedDuckPosition.duckOnRight = false;
 
         input.copyTo(output);
         input.copyTo(modifiedYellow);

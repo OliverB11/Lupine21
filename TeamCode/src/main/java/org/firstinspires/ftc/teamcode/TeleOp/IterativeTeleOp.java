@@ -4,10 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
@@ -26,6 +28,8 @@ public class IterativeTeleOp extends OpMode {
     DuckWheel duckSpinner;
     Intake intake;
     Controller controller;
+    Controller controller2;
+    ScoringMechanism scorer;
     double setPoint = 360;
     boolean wasTurning;
 
@@ -41,8 +45,10 @@ public class IterativeTeleOp extends OpMode {
         power = 0.6;
         robot = new Mecanum();
         controller = new Controller(gamepad1);
+        controller2 = new Controller(gamepad2);
         duckSpinner = new DuckWheel();
         intake = new Intake();
+        scorer = new ScoringMechanism();
 
         if(!Side.blue && !Side.red){
             Side.blue = true;
@@ -88,17 +94,18 @@ public class IterativeTeleOp extends OpMode {
      */
     @Override
     public void loop() {
-        //Declarations
+//Declarations
         double rotation;
 
 
-        // Updates
+// Updates
         controller.controllerUpdate();
+        controller2.controllerUpdate();
         robot.gyro.update();
 
 
 
-        // PID
+// PID
         double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
 
 
@@ -113,35 +120,78 @@ public class IterativeTeleOp extends OpMode {
             rotation = correction;
         }
 
-        // Speed Control
+// Speed Control
         if (controller.RTrigger.press()) {
             power = 0.3;
         } else {
             power = 0.8;
         }
 
-        // Stuff
-        if (Side.blue) {
-            if (controller.cross.toggle()) {
-                duckSpinner.blueSpin(.4);
-            } else {
-                duckSpinner.stop();
-            }
-        } else if (Side.red) {
-            if (controller.cross.toggle()) {
-                duckSpinner.blueSpin(-.4);
-            }
-        } else {
-            duckSpinner.stop();
-        }
+// Stuff
 
+    //Controller1 Stuff
         if(controller.circle.toggle()){
             intake.spin(1);
         }else{
             intake.spin(0);
         }
 
-        //Movement control
+    //Controller 2 Stuff
+        if (Side.blue) {
+            if (controller2.cross.toggle()) {
+                duckSpinner.blueSpin(.4);
+            } else {
+                duckSpinner.stop();
+            }
+        } else if (Side.red) {
+            if (controller2.cross.toggle()) {
+                duckSpinner.blueSpin(-.4);
+            } else {
+                duckSpinner.stop();
+            }
+        }
+
+
+        if(controller2.RTrigger.press()){
+            scorer.spoolUp();
+        }
+        if(controller2.LTrigger.press()){
+            scorer.spoolDown();
+        }
+
+        if(controller2.circle.press()){
+            scorer.dump();
+        }        if (Side.blue) {
+            if (controller2.cross.toggle()) {
+                duckSpinner.blueSpin(.4);
+            } else {
+                duckSpinner.stop();
+            }
+        } else if (Side.red) {
+            if (controller2.cross.toggle()) {
+                duckSpinner.blueSpin(-.4);
+            } else {
+                duckSpinner.stop();
+            }
+        }
+
+
+        if(controller2.RTrigger.press()){
+            scorer.spoolUp();
+        }
+        if(controller2.LTrigger.press()){
+            scorer.spoolDown();
+        }
+
+        if(controller2.circle.press()){
+            scorer.dump();
+        }
+
+
+
+
+
+//Movement control
         double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
         double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
         double turning = -rotation;
