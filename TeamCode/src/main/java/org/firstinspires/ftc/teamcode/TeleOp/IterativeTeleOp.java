@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
+import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
 import static java.lang.Math.floorMod;
@@ -106,12 +107,27 @@ public class IterativeTeleOp extends OpMode {
 
  
 // PID
-        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
 
+        if(controller.left.press()){
+            setPoint = 90;
+        }
+        if(controller.up.press()){
+            setPoint = 0;
+        }
+        if(controller.down.press()){
+            setPoint = 180;
+        }
+        if(controller.right.press()){
+            setPoint = 270;
+        }
+
+        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
 
         if(!(controller.rightStick().x == 0)){
             rotation = controller.rightStick().x;
             wasTurning = true;
+        }else if(wasTurning && robot.gyro.rateOfChange() < 4){
+            rotation = controller.rightStick().x;
         }else{
             if(wasTurning){
                 setPoint = robot.gyro.rawAngle();
@@ -130,11 +146,16 @@ public class IterativeTeleOp extends OpMode {
 // Stuff
 
     //Controller1 Stuff
-        if(controller.circle.toggle()){
-            intake.spin(1);
+        if(controller.circle.press()&&!scorer.armUp){
+            intake.spin(Unfixed.intakeSpeed);
+
+        }else if(controller.square.press()&&!scorer.armUp) {
+            intake.spin(-Unfixed.intakeSpeed);
         }else{
             intake.spin(0);
         }
+
+
 
     //Controller 2 Stuff
         if (Side.blue) {
@@ -159,6 +180,9 @@ public class IterativeTeleOp extends OpMode {
         }
         if(controller2.right.tap()){
             scorer.bottom();
+        }
+        if(controller2.down.tap()){
+            scorer.deposit();
         }
 
 

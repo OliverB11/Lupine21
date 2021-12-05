@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
@@ -96,6 +97,8 @@ public class BaseTeleOp extends OpMode {
         if(!(controller.rightStick().x == 0)){
             rotation = controller.rightStick().x;
             wasTurning = true;
+        }else if(wasTurning && robot.gyro.rateOfChange() < 4){
+            rotation = controller.rightStick().x;
         }else{
             if(wasTurning){
                 setPoint = robot.gyro.rawAngle();
@@ -103,6 +106,9 @@ public class BaseTeleOp extends OpMode {
             }
             rotation = correction;
         }
+        multTelemetry.addData("wasTurning", wasTurning);
+        multTelemetry.addData("rotatiion", rotation);
+        multTelemetry.addData("pidresult", correction);
 
         // Speed Control
         if (controller.RTrigger.press()) {
