@@ -59,6 +59,10 @@ public class BlueLinearAutoFront extends LinearOpMode {
         if(BlueDuckPosition.duckOnLeft) {
             multTelemetry.addData("Auto", "Blue Front Left");
 
+            //Ivan, MathUtils.convertInches2Ticks() and MathUtils.centimeters2Ticks() are both useful
+            //You can also make distances config values in Unfixed and that way you don't have to push everytime
+            //Currently you're goals are to first drop the preloaded freight, then do the duckspinner, then do cycles, then park fully in the warehouse facing towards the middle of the feild.
+
 // DUCK IN MIDDLE
 
         }else if (BlueDuckPosition.duckInMiddle){

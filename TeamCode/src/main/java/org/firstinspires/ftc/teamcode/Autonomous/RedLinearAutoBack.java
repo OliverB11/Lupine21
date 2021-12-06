@@ -13,6 +13,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
@@ -57,6 +58,10 @@ public class RedLinearAutoBack extends LinearOpMode {
 
         if(RedDuckPosition.duckOnLeft) {
             multTelemetry.addData("Auto", "Red Back Left");
+
+            //Ivan, MathUtils.convertInches2Ticks() and MathUtils.centimeters2Ticks() are both useful
+            //You can also make distances config values in Unfixed and that way you don't have to push everytime
+            //Currently you're goals are to first drop the preloaded freight, then do the duckspinner, then do cycles, then park fully in the warehouse facing towards the middle of the feild.
 
 // DUCK IN MIDDLE
 
