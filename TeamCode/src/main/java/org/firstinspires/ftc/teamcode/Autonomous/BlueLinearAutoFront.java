@@ -13,11 +13,11 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.BlueDuckPosition;
-import org.firstinspires.ftc.teamcode.Z.Vision.RedDuckPosition;
 
 
 @Autonomous(name="BlueLinearAutoFront", group="Autonomous Linear Opmode")
@@ -27,6 +27,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
     Mecanum robot;
     PID pid;
     DuckWheel duckWheel;
+    private String duckPos = "";
 
 
     public void initialize(){
@@ -67,7 +68,8 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
         }else if (BlueDuckPosition.duckInMiddle){
             multTelemetry.addData("Auto", "Blue Front Middle");
-
+            duckPos = "Middle";
+            multTelemetry.update();
 // DUCK ON RIGHT
 
         }else if(BlueDuckPosition.duckOnRight) {
@@ -87,7 +89,13 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
         if (opModeIsActive()){
 
+            if(duckPos == "Middle") {
+                robot.strafe(0.5, 1650, 0, 130);
 
+                robot.turn(0.4,Unfixed.targetAngleTest1,1);
+
+
+            }
 
 
         }

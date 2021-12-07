@@ -111,7 +111,6 @@ public class DetectionPipeline extends OpenCvPipeline {
 
 
         }else if(Side.red){
-            //The red values are the opposite of the blue values, middle condition remains the same
 
 
             if(largestYellowRect.x >= redRightXvalue){
