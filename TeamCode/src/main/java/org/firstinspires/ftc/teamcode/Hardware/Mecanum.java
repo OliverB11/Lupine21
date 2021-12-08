@@ -54,8 +54,9 @@ public class Mecanum {
     public Point getPosition(){
         double yDist = (fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0;
         double xDist = (fl.getCurrentPosition() - fr.getCurrentPosition() + br.getCurrentPosition() - bl.getCurrentPosition()) / 4.0;
-        return new Point(xDist, yDist);
-    }
+        Point unShiftedDistances = MathUtils.unShift(new Point(xDist, yDist), gyro.rawAngle());
+        return unShiftedDistances;
+        }
 
     public void setAllPower(double power){
         fl.setPower(power);
@@ -130,17 +131,4 @@ public class Mecanum {
         }
         setAllPower(0);
     }
-
-    public void turn(double power, double targetAngle, double seconds){
-        targetAngle = MathUtils.closestAngle(targetAngle, gyro.rawAngle());
-        time.reset();
-        double startPos = gyro.rawAngle();
-        double current;
-        double distance = targetAngle - gyro.rawAngle();
-
-        current = gyro.rawAngle() - startPos;
-        setDrivePower(power, 0, pid.update(gyro.rawAngle() - targetAngle), 0);
-
-    }
-
 }

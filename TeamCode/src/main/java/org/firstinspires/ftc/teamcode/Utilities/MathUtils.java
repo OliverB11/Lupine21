@@ -117,4 +117,12 @@ public class MathUtils {
     public static double convertTicks2Inches(double inches){
         return (0.0207 * inches) + 4.38; // Calculated using desmos
     }
+
+
+    public static Point unShift(Point sp, double shiftAngle){
+        double r = toRadians(shiftAngle);
+        double x = sp.x * Math.sin(r) + sp.y * Math.cos(r);
+        double y = sp.x * Math.cos(r) - sp.y * Math.sin(r);
+        return new Point(x, y);
+    }
 }
