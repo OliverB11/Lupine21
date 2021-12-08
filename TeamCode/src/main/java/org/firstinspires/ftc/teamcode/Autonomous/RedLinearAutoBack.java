@@ -50,9 +50,7 @@ public class RedLinearAutoBack extends LinearOpMode {
         initialize();
 
         time.reset();
-        while(time.seconds()<5){
-
-        }
+        MathUtils.wait(time, 5);
 
 // DUCK ON LEFT
 

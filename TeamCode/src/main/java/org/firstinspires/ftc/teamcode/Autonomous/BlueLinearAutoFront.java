@@ -14,6 +14,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
@@ -51,9 +52,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
         initialize();
 
         time.reset();
-        while(time.seconds()<5){
-
-        }
+        MathUtils.wait(time, 5);
 
 // DUCK ON LEFT
 

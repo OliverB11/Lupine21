@@ -12,6 +12,8 @@ import static java.lang.Math.toRadians;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.RADIANS;
 import static java.lang.Math.abs;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 public class MathUtils {
 
 
@@ -125,4 +127,10 @@ public class MathUtils {
         double y = sp.x * Math.cos(r) - sp.y * Math.sin(r);
         return new Point(x, y);
     }
+
+    public static void wait(ElapsedTime time, double seconds){
+        while(time.seconds()<seconds){
+        }
+    }
+
 }
