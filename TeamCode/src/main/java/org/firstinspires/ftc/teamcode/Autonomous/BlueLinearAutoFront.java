@@ -28,6 +28,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
     Mecanum robot;
     PID pid;
     DuckWheel duckWheel;
+    ScoringMechanism scorer;
     private String duckPos = "";
 
 
@@ -38,6 +39,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
         pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         robot = new Mecanum();
         duckWheel = new DuckWheel();
+        scorer = new ScoringMechanism();
         ElapsedTime time = new ElapsedTime();
 
 
@@ -59,6 +61,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
         if(BlueDuckPosition.duckOnLeft) {
             multTelemetry.addData("Auto", "Blue Front Left");
 
+            duckPos = "Left";
             //Ivan, MathUtils.convertInches2Ticks() and MathUtils.centimeters2Ticks() are both useful
             //You can also make distances config values in Unfixed and that way you don't have to push everytime
             //Currently you're goals are to first drop the preloaded freight, then do the duckspinner, then do cycles, then park fully in the warehouse facing towards the middle of the feild.
@@ -73,9 +76,11 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
         }else if(BlueDuckPosition.duckOnRight) {
             multTelemetry.addData("Auto", "Blue Front Right");
+            duckPos = "Right";
 // NO DUCK
         }else{
             multTelemetry.addData("Auto", "Blue Front None");
+            duckPos = "None";
         }
 
 
@@ -87,15 +92,23 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
 
         if (opModeIsActive()){
+            robot.gyro.reset();
 
             if(duckPos == "Middle") {
-                robot.strafe(0.5, 1650, 0, 130);
+                robot.strafe(0.5, 1690, 0, 130);
 
-                robot.turn(0.4,Unfixed.targetAngleTest1,1);
+                robot.turn(0.4,180,6);
+                scorer.middle();
+                scorer.deposit();
+                robot.strafe(0.5,Unfixed.distanceTest1,0,80);
 
 
+
+            } else if(duckPos == "Left"){
+                
             }
 
+            } else if(duckPos == "Right"){
 
         }
     }
