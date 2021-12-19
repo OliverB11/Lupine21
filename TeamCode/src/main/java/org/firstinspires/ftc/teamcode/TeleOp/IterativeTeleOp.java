@@ -108,18 +108,6 @@ public class IterativeTeleOp extends OpMode {
  
 // PID
 
-        if(controller.left.press()){
-            setPoint = 90;
-        }
-        if(controller.up.press()){
-            setPoint = 0;
-        }
-        if(controller.down.press()){
-            setPoint = 180;
-        }
-        if(controller.right.press()){
-            setPoint = 270;
-        }
 
         double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
 
@@ -146,6 +134,8 @@ public class IterativeTeleOp extends OpMode {
 // Stuff
 
     //Controller1 Stuff
+
+        // CHANGE BACK FROM TOGGLE
         if(controller.circle.press()&&!scorer.armUp){
             intake.spin(Unfixed.intakeSpeed);
 
@@ -155,6 +145,19 @@ public class IterativeTeleOp extends OpMode {
             intake.spin(0);
         }
 
+
+        if(controller.left.press()){
+            setPoint = MathUtils.closestAngle(90, robot.gyro.rawAngle());
+        }
+        if(controller.up.press()){
+            setPoint = MathUtils.closestAngle(0, robot.gyro.rawAngle());
+        }
+        if(controller.down.press()){
+            setPoint = MathUtils.closestAngle(180, robot.gyro.rawAngle());
+        }
+        if(controller.right.press()){
+            setPoint = MathUtils.closestAngle(270, robot.gyro.rawAngle());
+        }
 
 
     //Controller 2 Stuff
@@ -188,22 +191,6 @@ public class IterativeTeleOp extends OpMode {
 
 
 
-        if (Side.blue) {
-            if (controller2.cross.toggle()) {
-                duckSpinner.blueSpin(.4);
-            } else {
-                duckSpinner.stop();
-            }
-        } else if (Side.red) {
-            if (controller2.cross.toggle()) {
-                duckSpinner.blueSpin(-.4);
-            } else {
-                duckSpinner.stop();
-            }
-        }
-
-
-
 
 
 
@@ -213,12 +200,11 @@ public class IterativeTeleOp extends OpMode {
         double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
         double turning = -rotation;
 
-        robot.setDrivePower(power, strafe, turning, drive);
+        robot.setDrivePower(Unfixed.speed, strafe, turning, drive);
 
 
 
 //Telemetry
-        multTelemetry.addData("Motor Position", scorer.spool.getCurrentPosition());
 
 
 

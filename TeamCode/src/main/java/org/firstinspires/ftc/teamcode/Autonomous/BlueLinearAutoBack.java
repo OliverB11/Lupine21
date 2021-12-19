@@ -12,7 +12,9 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
+import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
@@ -28,6 +30,8 @@ public class BlueLinearAutoBack extends LinearOpMode {
     Mecanum robot;
     PID pid;
     DuckWheel duckWheel;
+    Intake intake;
+    ScoringMechanism scorer;
 
 
     public void initialize(){
@@ -37,6 +41,8 @@ public class BlueLinearAutoBack extends LinearOpMode {
         pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         robot = new Mecanum();
         duckWheel = new DuckWheel();
+        intake = new Intake();
+        scorer = new ScoringMechanism();
         ElapsedTime time = new ElapsedTime();
 
 
@@ -52,14 +58,13 @@ public class BlueLinearAutoBack extends LinearOpMode {
         time.reset();
         MathUtils.wait(time, 5);
 
+
+
 // DUCK ON LEFT
 
         if(BlueDuckPosition.duckOnLeft) {
             multTelemetry.addData("Auto", "Blue Back Left");
 
-            //Ivan, MathUtils.convertInches2Ticks() and MathUtils.centimeters2Ticks() are both useful
-            //You can also make distances config values in Unfixed and that way you don't have to push everytime
-            //Currently you're goals are to first drop the preloaded freight, then do the duckspinner, then do cycles, then park fully in the warehouse facing towards the middle of the feild.
 
 // DUCK IN MIDDLE
 
@@ -74,9 +79,6 @@ public class BlueLinearAutoBack extends LinearOpMode {
         }else{
             multTelemetry.addData("Auto", "Blue Back None");
         }
-
-
-
 
         multTelemetry.addLine("Waiting for start");
         multTelemetry.update();

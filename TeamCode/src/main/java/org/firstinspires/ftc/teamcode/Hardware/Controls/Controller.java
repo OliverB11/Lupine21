@@ -4,8 +4,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.opencv.core.Point;
 
-public class
-Controller {
+public class Controller {
 
     private final Gamepad gamepad;
 
