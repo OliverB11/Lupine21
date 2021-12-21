@@ -47,31 +47,38 @@ public class ScoringMechanism {
     }
 
     public void top(){
+
+        bucket.setPosition(0.7);
+        while(time.seconds()<.2){}
         spool.setTargetPosition(-1900);
         armUp = true;
-        while(time.seconds()<.2){}
-        bucket.setPosition(0.7);
+
+
+
     }
 
     public void middle(){
-        spool.setTargetPosition(-1000);
-        armUp = true;
-        while(time.seconds()<.2){}
-        bucket.setPosition(0.7);
+            bucket.setPosition(0.7);
+            while(time.seconds()<.2){}
+            spool.setTargetPosition(-1000);
+            armUp = true;
     }
 
     public void bottom(){
+        bucket.setPosition(0.7);
+        while(time.seconds()<.2){}
         spool.setTargetPosition(-500);
         armUp = true;
-        while(time.seconds()<.2){}
-        bucket.setPosition(0.7);
     }
     public void deposit(){
         bucket.setPosition(0.2);
         time.reset();
         while(time.seconds()<1){}
-        bucket.setPosition(1);
+        bucket.setPosition(0.8);
         spool.setTargetPosition(0);
+        time.reset();
+        while(time.seconds()<2){}
+        bucket.setPosition(1);
         armUp = false;
     }
 }
