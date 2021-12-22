@@ -21,23 +21,6 @@ public class ScoringMechanism {
 
     }
 
-//    public void spoolDown(){
-//        spool.setPower(0.5);
-//    }
-//    public void spoolUp(){
-//        spool.setPower(-0.5);
-//    }
-//    public void spoolStop(){spool.setPower(0);}
-//
-//    public void dump(){
-//        bucket.setPosition(0.2);
-//        time.reset();
-//
-//        while(time.seconds()<1){
-//        }
-//        bucket.setPosition(1);
-//    }
-//}
     public void resetMotors(){
         spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         spool.setTargetPosition(0);
@@ -49,38 +32,42 @@ public class ScoringMechanism {
     public void top(){
         armUp = true;
         bucket.setPosition(0.7);
-        while(time.seconds()<.2){}
-        spool.setTargetPosition(-1900);
-
-
-
-
+        if(time.seconds()>.2) {
+            spool.setTargetPosition(-1700);
+            spool.setPower((spool.getTargetPosition()- spool.getCurrentPosition())/ (double) spool.getTargetPosition()+0.1);
+        }
     }
+
 
     public void middle(){
             armUp = true;
             bucket.setPosition(0.7);
-            while(time.seconds()<.2){}
-            spool.setTargetPosition(-1000);
+            if(time.seconds()>.2) {
+                spool.setTargetPosition(-1000);
+                spool.setPower((spool.getTargetPosition()- spool.getCurrentPosition())/ (double) spool.getTargetPosition()+0.1);
+            }
 
     }
 
     public void bottom(){
         armUp = true;
         bucket.setPosition(0.7);
-        while(time.seconds()<.2){}
-        spool.setTargetPosition(-500);
+        if(time.seconds()>.2) {
+            spool.setTargetPosition(-500);
+            spool.setPower((spool.getTargetPosition()- spool.getCurrentPosition())/ (double) spool.getTargetPosition()+0.1);
+        }
 
     }
     public void deposit(){
         bucket.setPosition(0.2);
-        time.reset();
-        while(time.seconds()<1){}
-        bucket.setPosition(0.8);
-        spool.setTargetPosition(0);
-        time.reset();
-        while(time.seconds()<2){}
-        bucket.setPosition(1);
-        armUp = false;
+        if(time.seconds()>1&&time.seconds()<3) {
+            bucket.setPosition(0.8);
+            spool.setPower(1);
+            spool.setTargetPosition(0);
+            if (time.seconds() > 3) {
+                bucket.setPosition(1);
+                armUp = false;
+            }
+        }
     }
 }

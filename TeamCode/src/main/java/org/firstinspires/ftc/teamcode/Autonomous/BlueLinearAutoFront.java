@@ -12,7 +12,6 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
@@ -30,7 +29,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
     PID pid;
     DuckWheel duckWheel;
     ScoringMechanism scorer;
-    Intake intake;
     private String duckPos = "";
 
 
@@ -42,7 +40,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
         robot = new Mecanum();
         duckWheel = new DuckWheel();
         scorer = new ScoringMechanism();
-        intake = new Intake();
         ElapsedTime time = new ElapsedTime();
 
 
@@ -64,6 +61,9 @@ public class BlueLinearAutoFront extends LinearOpMode {
             multTelemetry.addData("Auto", "Blue Front Left");
 
             duckPos = "Left";
+            //Ivan, MathUtils.convertInches2Ticks() and MathUtils.centimeters2Ticks() are both useful
+            //You can also make distances config values in Unfixed and that way you don't have to push everytime
+            //Currently you're goals are to first drop the preloaded freight, then do the duckspinner, then do cycles, then park fully in the warehouse facing towards the middle of the feild.
 
 // DUCK IN MIDDLE
 
@@ -89,30 +89,9 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
 
         if (opModeIsActive()) {
-//            robot.gyro.reset();
-//
-//            if(duckPos == "Middle") {
-//                robot.strafe(0.5, 1690, 0, 130);
-//
-//                robot.turn(0.4,180,6);
-//                scorer.middle();
-//                scorer.deposit();
-//                robot.strafe(0.5,Unfixed.distanceTest1,0,80);
-//
-//
-//
-//            } else if(duckPos == "Left"){
-//
-//            }
-//
-//            } else if(duckPos == "Right"){
-//
-//        }
-
-
+            robot.gyro.reset();
 
 
         }
     }
 }
-

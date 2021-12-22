@@ -18,6 +18,8 @@ import static java.lang.Math.floorMod;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
+import android.transition.Slide;
+
 
 @TeleOp(name="TeleOp", group="Iterative Opmode")
 public class IterativeTeleOp extends OpMode {
@@ -33,6 +35,10 @@ public class IterativeTeleOp extends OpMode {
     ScoringMechanism scorer;
     double setPoint = 360;
     boolean wasTurning;
+    enum SlideState{
+        TOP, MIDDLE, BOTTOM, DEPOSIT, NONE
+    }
+    SlideState currentSlideState = SlideState.NONE;
 
 
 
@@ -55,7 +61,6 @@ public class IterativeTeleOp extends OpMode {
             Side.blue = true;
             Side.red = false;
         }
-
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -131,6 +136,11 @@ public class IterativeTeleOp extends OpMode {
             power = 0.8;
         }
 
+        //gyro reset ability
+        if(controller.share.tap()){
+            robot.gyro.reset();
+        }
+
 // Stuff
 
     //Controller1 Stuff
@@ -175,18 +185,46 @@ public class IterativeTeleOp extends OpMode {
             }
         }
 
+    // Slide Stuff
+
         if(controller2.up.tap()){
-            scorer.top();
+            currentSlideState = SlideState.TOP;
+            scorer.time.reset();
         }
         if(controller2.left.tap()){
-            scorer.middle();
+            currentSlideState = SlideState.MIDDLE;
+            scorer.time.reset();
         }
         if(controller2.right.tap()){
-            scorer.bottom();
+            currentSlideState = SlideState.BOTTOM;
+            scorer.time.reset();
         }
         if(controller2.down.tap()){
-            scorer.deposit();
+            currentSlideState = SlideState.DEPOSIT;
+            scorer.time.reset();
         }
+
+        switch(currentSlideState){
+            case TOP:
+                scorer.top();
+                break;
+
+            case MIDDLE:
+                scorer.middle();
+                break;
+
+            case BOTTOM:
+                scorer.bottom();
+                break;
+
+            case DEPOSIT:
+                scorer.deposit();
+                break;
+
+            case NONE:
+                break;
+        }
+
 
 
 
