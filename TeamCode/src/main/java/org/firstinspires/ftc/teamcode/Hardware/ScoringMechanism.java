@@ -36,16 +36,16 @@ public class ScoringMechanism {
     public void top() {
 
         armUp = true;
-        if(time.seconds() > 0 && time.seconds() < .3){
+        if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.8);
         }
-        if(time.seconds() > 0.6 && time.seconds() < 1){
+        if(time.seconds() > 0.2 && time.seconds() < .5){
             spool.setTargetPosition(-300);
         }
-        if (time.seconds() > 1.5&& time.seconds() < 1.6 ) {
+        if (time.seconds() > .5 && time.seconds() < .7 ) {
             bucket.setPosition(0.75);
         }
-        if (time.seconds() > 2 && time.seconds() < 2.4) {
+        if (time.seconds() > .7 && time.seconds() < 1) {
             spool.setTargetPosition(-1900);
             spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
         }
@@ -54,17 +54,18 @@ public class ScoringMechanism {
 
     public void middle() {
 
+
         armUp = true;
-        if(time.seconds() > 0 && time.seconds() < .3){
+        if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.8);
         }
-        if(time.seconds() > 0.6 && time.seconds() < 1){
+        if(time.seconds() > 0.2 && time.seconds() < .5){
             spool.setTargetPosition(-300);
         }
-        if (time.seconds() > 1.5&& time.seconds() < 1.6 ) {
+        if (time.seconds() > .5 && time.seconds() < .7 ) {
             bucket.setPosition(0.75);
         }
-        if (time.seconds() > 2 && time.seconds() < 2.4) {
+        if (time.seconds() > .7 && time.seconds() < 1) {
             spool.setTargetPosition(-1000);
             spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
         }
@@ -73,16 +74,16 @@ public class ScoringMechanism {
     public void bottom() {
 
         armUp = true;
-        if(time.seconds() > 0 && time.seconds() < .3){
+        if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.8);
         }
-        if(time.seconds() > 0.6 && time.seconds() < 1){
+        if(time.seconds() > 0.2 && time.seconds() < .5){
             spool.setTargetPosition(-300);
         }
-        if (time.seconds() > 1.5&& time.seconds() < 1.6 ) {
+        if (time.seconds() > .5 && time.seconds() < .7 ) {
             bucket.setPosition(0.75);
         }
-        if (time.seconds() > 2 && time.seconds() < 2.4) {
+        if (time.seconds() > .7 && time.seconds() < 1) {
             spool.setTargetPosition(-500);
             spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
         }
@@ -95,17 +96,17 @@ public class ScoringMechanism {
         if(time.seconds() > 1 && time.seconds() < 1.5){
             bucket.setPosition(0.5);
         }
-        if (time.seconds() > 2.5 && time.seconds() < 3) {
+        if (time.seconds() > 2 && time.seconds() < 2.2) {
             spool.setPower(1);
             spool.setTargetPosition(-800);
         }
-        if (time.seconds() > 3.5 && time.seconds() < 4) {
+        if (time.seconds() > 2.2 && time.seconds() < 2.5) {
             bucket.setPosition(0.77);
         }
-        if (time.seconds() > 4.5 && time.seconds() < 5) {
+        if (time.seconds() > 2.5 && time.seconds() < 3) {
             spool.setTargetPosition(0);
         }
-        if (time.seconds() > 5.5 && time.seconds() < 6) {
+        if (time.seconds() > 3 && time.seconds() < 3.1) {
             bucket.setPosition(0.85);
             armUp = false;
             }

@@ -34,15 +34,18 @@ public class Intake {
     }
 
     public void stop(){
-        multTelemetry.addData("Current % Unfixed" ,intake.getCurrentPosition() % Unfixed.intake);
+        multTelemetry.addData("Current % Unfixed" ,intake.getCurrentPosition() % Unfixed.intakePosition);
         multTelemetry.update();
-//        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        if(intake.getCurrentPosition() % Unfixed.intake > -10 && intake.getCurrentPosition() % Unfixed.intake < 10) {
 //            intake.setTargetPosition(intake.getCurrentPosition());
 //            stopped = true;
 //        }else{
 //            intake.setTargetPosition((int)(intake.getCurrentPosition()+Unfixed.intakeNumber));
 //        }
+
+
         intake.setTargetPosition((int)MathUtils.closestAngle(Unfixed.intakePosition, intake.getCurrentPosition()));
+        stopped = true;
     }
 }
