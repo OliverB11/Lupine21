@@ -41,10 +41,6 @@ public class PID {
         double iComponent = integralSum * -integralWeight;
         double dComponent = rateOfChange * -derivativeWeight;
 
-        multTelemetry.addData("Proportional", pComponent);
-        multTelemetry.addData("Integral", iComponent);
-        multTelemetry.addData("Derivative", dComponent);
-        multTelemetry.update();
 
         return pComponent + iComponent + dComponent;
 

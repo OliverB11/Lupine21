@@ -131,12 +131,12 @@ public class IterativeTeleOp extends OpMode {
 
 // Speed Control
         if (controller.RTrigger.press()) {
-            power = 0.3;
+            power = 0.2;
         } else {
-            power = 0.8;
+            power = 0.4;
         }
 
-        //gyro reset ability
+//gyro reset ability
         if(controller.share.tap()){
             robot.gyro.reset();
         }
@@ -148,12 +148,11 @@ public class IterativeTeleOp extends OpMode {
         // CHANGE BACK FROM TOGGLE
         if(controller.circle.press()&&!scorer.armUp){
             intake.spin(Unfixed.intakeSpeed);
-
         }else if(controller.square.press()&&!scorer.armUp) {
-            intake.spin(-Unfixed.intakeSpeed);
-        }else{
-            intake.spin(0);
-        }
+            intake.backSpin(-Unfixed.intakeSpeed);
+        }else if (!intake.stopped){
+            intake.stop();
+        }else
 
 
         if(controller.left.press()){
@@ -227,18 +226,12 @@ public class IterativeTeleOp extends OpMode {
 
 
 
-
-
-
-
-
-
 //Movement control
         double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
         double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
         double turning = -rotation;
 
-        robot.setDrivePower(Unfixed.speed, strafe, turning, drive);
+        robot.setDrivePower(power, strafe, turning, drive);
 
 
 

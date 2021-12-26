@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Hardware;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import static org.firstinspires.ftc.teamcode.Hardware.DuckWheel.wheelState.OFF;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
@@ -11,8 +10,6 @@ import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 public class DuckWheel {
     CRServo duck1;
     CRServo duck2;
-    public enum wheelState {ON, OFF,}
-    private wheelState duckState = OFF;
     public static ElapsedTime time = new ElapsedTime();
 
     public DuckWheel() {
@@ -33,5 +30,10 @@ public class DuckWheel {
         duck1.setPower(0);
         duck2.setPower(0);
     }
+
+    private double add(double firstNum, double secondNum){
+        return(firstNum+secondNum);
+    }
+
 
 }
