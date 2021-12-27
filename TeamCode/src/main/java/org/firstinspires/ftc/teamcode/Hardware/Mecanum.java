@@ -145,11 +145,4 @@ public class Mecanum {
 
     }
 
-    public void waitFor(double timeout){
-        time.reset();
-        while(time.seconds()<timeout){
-
-        }
-    }
-
 }

@@ -10,7 +10,7 @@ public class Unfixed {
     public static double integralWeight = 0;
     public static double derivativeWeight = 0;
     public static double intakeSpeed = 1;
-    public static int intakePosition = 100;
+    public static int intakePosition = 360;
 
 
 

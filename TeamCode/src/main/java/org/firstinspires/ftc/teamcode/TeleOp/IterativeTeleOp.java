@@ -36,7 +36,7 @@ public class IterativeTeleOp extends OpMode {
     double setPoint = 360;
     boolean wasTurning;
     enum SlideState{
-        TOP, MIDDLE, BOTTOM, DEPOSIT, NONE
+        TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING_FROM_UP, DRIVING_FROM_INTAKE, INTAKE, NONE
     }
     SlideState currentSlideState = SlideState.NONE;
 
@@ -133,7 +133,7 @@ public class IterativeTeleOp extends OpMode {
         if (controller.RTrigger.press()) {
             power = 0.2;
         } else {
-            power = 0.4;
+            power = 0.8;
         }
 
 //gyro reset ability
@@ -146,13 +146,15 @@ public class IterativeTeleOp extends OpMode {
     //Controller1 Stuff
 
         // CHANGE BACK FROM TOGGLE
-        if(controller.circle.press()&&!scorer.armUp){
-            intake.spin(Unfixed.intakeSpeed);
-        }else if(controller.square.press()&&!scorer.armUp) {
-            intake.backSpin(-Unfixed.intakeSpeed);
-        }else if (!intake.stopped){
-            intake.stop();
-        }else
+        if(controller.circle.tap()&&!scorer.armUp){
+            scorer.intake();
+            intake.spin();
+        }else if(controller.square.tap() && !scorer.armUp && currentSlideState == SlideState.INTAKE) {
+            scorer.intake();
+            intake.backSpin();
+//        }else if (!intake.stopped) {
+//            intake.stop();
+//        }
 
 
         if(controller.left.press()){
@@ -166,6 +168,10 @@ public class IterativeTeleOp extends OpMode {
         }
         if(controller.right.press()){
             setPoint = MathUtils.closestAngle(270, robot.gyro.rawAngle());
+        }
+
+        if(controller.RB.tap() && currentSlideState == SlideState.INTAKE){
+            currentSlideState = SlideState.DRIVING_FROM_INTAKE;
         }
 
 
@@ -186,19 +192,20 @@ public class IterativeTeleOp extends OpMode {
 
     // Slide Stuff
 
-        if(controller2.up.tap()){
+        if(controller2.up.tap() && (currentSlideState == SlideState.DRIVING_FROM_INTAKE || currentSlideState == SlideState.DRIVING_FROM_UP)){
+            }
             currentSlideState = SlideState.TOP;
             scorer.time.reset();
         }
-        if(controller2.left.tap()){
+        if(controller2.left.tap() && (currentSlideState == SlideState.DRIVING_FROM_INTAKE || currentSlideState == SlideState.DRIVING_FROM_UP)){
             currentSlideState = SlideState.MIDDLE;
             scorer.time.reset();
         }
-        if(controller2.right.tap()){
+        if(controller2.right.tap() && (currentSlideState == SlideState.DRIVING_FROM_INTAKE || currentSlideState == SlideState.DRIVING_FROM_UP)){
             currentSlideState = SlideState.BOTTOM;
             scorer.time.reset();
         }
-        if(controller2.down.tap()){
+        if(controller2.down.tap() && (currentSlideState == SlideState.DRIVING_FROM_INTAKE || currentSlideState == SlideState.DRIVING_FROM_UP)){
             currentSlideState = SlideState.DEPOSIT;
             scorer.time.reset();
         }
@@ -220,6 +227,15 @@ public class IterativeTeleOp extends OpMode {
                 scorer.deposit();
                 break;
 
+            case DRIVING_FROM_UP:
+                scorer.drivingFromUp();
+
+            case DRIVING_FROM_INTAKE:
+                scorer.drivingFromIntake();
+
+            case INTAKE:
+                scorer.intake();
+
             case NONE:
                 break;
         }
@@ -236,7 +252,8 @@ public class IterativeTeleOp extends OpMode {
 
 
 //Telemetry
-
+        multTelemetry.addData("target", intake.intake.getTargetPosition());
+        multTelemetry.update();
 
 
     }

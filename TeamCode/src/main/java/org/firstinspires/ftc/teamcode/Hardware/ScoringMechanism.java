@@ -103,12 +103,32 @@ public class ScoringMechanism {
         if (time.seconds() > 2.2 && time.seconds() < 2.5) {
             bucket.setPosition(0.77);
         }
+        if(time.seconds() >2.5 && time.seconds() < 2.6){
+            drivingFromUp();
+        }
+    }
+
+    public void drivingFromIntake(){
+        if(time.seconds() > 0 && time.seconds() < .1){
+            bucket.setPosition(0.8);
+        }
+        if(time.seconds() > 0.2 && time.seconds() < .5){
+            spool.setTargetPosition(-300);
+        }
+    }
+
+    public void drivingFromUp(){
+        spool.setTargetPosition(-300);
+        bucket.setPosition(0.8);
+    }
+
+    public void intake(){
         if (time.seconds() > 2.5 && time.seconds() < 3) {
             spool.setTargetPosition(0);
         }
         if (time.seconds() > 3 && time.seconds() < 3.1) {
             bucket.setPosition(0.85);
             armUp = false;
-            }
         }
     }
+}
