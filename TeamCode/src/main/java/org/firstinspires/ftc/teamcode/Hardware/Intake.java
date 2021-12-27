@@ -15,16 +15,16 @@ public class Intake {
 
     public Intake(){
         intake = hardwareMap.get(DcMotor.class, "intake");
-        resetMotors();
+//        resetMotors();
     }
 
-    void resetMotors(){
-        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intake.setTargetPosition(0);
-        intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        intake.setPower(1);
-        intake.setTargetPosition(0);
-    }
+//    void resetMotors(){
+//        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        intake.setTargetPosition(0);
+//        intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        intake.setPower(1);
+//        intake.setTargetPosition(0);
+//    }
 
 //    public void spin(double speed){
 //        multTelemetry.update();
@@ -55,11 +55,12 @@ public class Intake {
 //    }
 
     public void spin() {
-        intake.setTargetPosition(intake.getCurrentPosition() + Unfixed.intakePosition);
+//        intake.setTargetPosition(intake.getCurrentPosition() + Unfixed.intakePosition);
+        intake.setPower(1);
 
     }
 
     public void backSpin(){
-        intake.setTargetPosition(intake.getCurrentPosition() - Unfixed.intakePosition);
+//        intake.setTargetPosition(intake.getCurrentPosition() - Unfixed.intakePosition);
     }
 }
