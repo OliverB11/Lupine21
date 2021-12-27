@@ -58,6 +58,7 @@ public class Intake {
 //        intake.setTargetPosition(intake.getCurrentPosition() + Unfixed.intakePosition);
         intake.setPower(1);
 
+
     }
 
     public void backSpin(){
