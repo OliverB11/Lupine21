@@ -35,11 +35,12 @@ public class IterativeTeleOp extends OpMode {
     ScoringMechanism scorer;
     double setPoint = 360;
     boolean wasTurning;
-    enum SlideState{
+
+    enum SlideState {
         TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING_FROM_UP, DRIVING_FROM_INTAKE, INTAKE, NONE
     }
-    SlideState currentSlideState = SlideState.NONE;
 
+    SlideState currentSlideState = SlideState.INTAKE;
 
 
     /*
@@ -57,7 +58,7 @@ public class IterativeTeleOp extends OpMode {
         intake = new Intake();
         scorer = new ScoringMechanism();
 
-        if(!Side.blue && !Side.red){
+        if (!Side.blue && !Side.red) {
             Side.blue = true;
             Side.red = false;
         }
@@ -110,19 +111,18 @@ public class IterativeTeleOp extends OpMode {
         robot.gyro.update();
 
 
- 
 // PID
 
 
         double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
 
-        if(!(controller.rightStick().x == 0)){
+        if (!(controller.rightStick().x == 0)) {
             rotation = controller.rightStick().x;
             wasTurning = true;
-        }else if(wasTurning && robot.gyro.rateOfChange() < 4){
+        } else if (wasTurning && robot.gyro.rateOfChange() < 4) {
             rotation = controller.rightStick().x;
-        }else{
-            if(wasTurning){
+        } else {
+            if (wasTurning) {
                 setPoint = robot.gyro.rawAngle();
                 wasTurning = false;
             }
@@ -137,137 +137,121 @@ public class IterativeTeleOp extends OpMode {
         }
 
 //gyro reset ability
-        if(controller.share.tap()){
+        if (controller.share.tap()) {
             robot.gyro.reset();
         }
 
 // Stuff
 
     //Controller1 Stuff
-
-        // CHANGE BACK FROM TOGGLE
-        if(controller.circle.tap()&&!scorer.armUp){
+        if (controller.circle.tap() && !scorer.armUp) {
             scorer.intake();
             intake.spin();
-        }else if(controller.square.tap() && !scorer.armUp && currentSlideState == SlideState.INTAKE) {
+        } else if (controller.square.tap() && !scorer.armUp && currentSlideState == SlideState.INTAKE) {
             scorer.intake();
             intake.backSpin();
-//        }else if (!intake.stopped) {
-//            intake.stop();
-//        }
-
-
-        if(controller.left.press()){
-            setPoint = MathUtils.closestAngle(90, robot.gyro.rawAngle());
-        }
-        if(controller.up.press()){
-            setPoint = MathUtils.closestAngle(0, robot.gyro.rawAngle());
-        }
-        if(controller.down.press()){
-            setPoint = MathUtils.closestAngle(180, robot.gyro.rawAngle());
-        }
-        if(controller.right.press()){
-            setPoint = MathUtils.closestAngle(270, robot.gyro.rawAngle());
-        }
-
-        if(controller.RB.tap() && currentSlideState == SlideState.INTAKE){
-            currentSlideState = SlideState.DRIVING_FROM_INTAKE;
+        } else {
         }
 
 
-    //Controller 2 Stuff
-        if (Side.blue) {
-            if (controller2.cross.toggle()) {
-                duckSpinner.blueSpin(.4);
-            } else {
-                duckSpinner.stop();
+            if (controller.left.press()) {
+                setPoint = MathUtils.closestAngle(90, robot.gyro.rawAngle());
             }
-        } else if (Side.red) {
-            if (controller2.cross.toggle()) {
-                duckSpinner.blueSpin(-.4);
-            } else {
-                duckSpinner.stop();
+            if (controller.up.press()) {
+                setPoint = MathUtils.closestAngle(0, robot.gyro.rawAngle());
             }
-        }
-
-    // Slide Stuff
-
-        if(controller2.up.tap() && (currentSlideState == SlideState.DRIVING_FROM_INTAKE || currentSlideState == SlideState.DRIVING_FROM_UP)){
+            if (controller.down.press()) {
+                setPoint = MathUtils.closestAngle(180, robot.gyro.rawAngle());
             }
-            currentSlideState = SlideState.TOP;
-            scorer.time.reset();
-        }
-        if(controller2.left.tap() && (currentSlideState == SlideState.DRIVING_FROM_INTAKE || currentSlideState == SlideState.DRIVING_FROM_UP)){
-            currentSlideState = SlideState.MIDDLE;
-            scorer.time.reset();
-        }
-        if(controller2.right.tap() && (currentSlideState == SlideState.DRIVING_FROM_INTAKE || currentSlideState == SlideState.DRIVING_FROM_UP)){
-            currentSlideState = SlideState.BOTTOM;
-            scorer.time.reset();
-        }
-        if(controller2.down.tap() && (currentSlideState == SlideState.DRIVING_FROM_INTAKE || currentSlideState == SlideState.DRIVING_FROM_UP)){
-            currentSlideState = SlideState.DEPOSIT;
-            scorer.time.reset();
-        }
+            if (controller.right.press()) {
+                setPoint = MathUtils.closestAngle(270, robot.gyro.rawAngle());
+            }
 
-        switch(currentSlideState){
-            case TOP:
-                scorer.top();
-                break;
 
-            case MIDDLE:
-                scorer.middle();
-                break;
+            //Controller 2 Stuff
+            if (Side.blue) {
+                if (controller2.cross.toggle()) {
+                    duckSpinner.blueSpin(.4);
+                } else {
+                    duckSpinner.stop();
+                }
+            } else if (Side.red) {
+                if (controller2.cross.toggle()) {
+                    duckSpinner.blueSpin(-.4);
+                } else {
+                    duckSpinner.stop();
+                }
+            }
 
-            case BOTTOM:
-                scorer.bottom();
-                break;
+            // Slide Stuff
 
-            case DEPOSIT:
-                scorer.deposit();
-                break;
+            if (controller2.up.tap()) {
+                currentSlideState = SlideState.TOP;
+                scorer.time.reset();
+            }
+            if (controller2.left.tap()) {
+                currentSlideState = SlideState.MIDDLE;
+                scorer.time.reset();
+            }
+            if (controller2.right.tap()) {
+                currentSlideState = SlideState.BOTTOM;
+                scorer.time.reset();
+            }
+            if (controller2.down.tap()) {
+                currentSlideState = SlideState.DEPOSIT;
+                scorer.time.reset();
+            }
 
-            case DRIVING_FROM_UP:
-                scorer.drivingFromUp();
+            switch (currentSlideState) {
+                case TOP:
+                    scorer.top();
+                    break;
 
-            case DRIVING_FROM_INTAKE:
-                scorer.drivingFromIntake();
+                case MIDDLE:
+                    scorer.middle();
+                    break;
 
-            case INTAKE:
-                scorer.intake();
+                case BOTTOM:
+                    scorer.bottom();
+                    break;
 
-            case NONE:
-                break;
-        }
+                case DEPOSIT:
+                    scorer.deposit();
+                    break;
 
+                case DRIVING_FROM_UP:
+                    scorer.drivingFromUp();
+
+                case DRIVING_FROM_INTAKE:
+                    scorer.drivingFromIntake();
+
+                case INTAKE:
+                    scorer.intake();
+
+                case NONE:
+                    break;
+            }
 
 
 //Movement control
-        double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
-        double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
-        double turning = -rotation;
+            double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
+            double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
+            double turning = -rotation;
 
-        robot.setDrivePower(power, strafe, turning, drive);
-
+            robot.setDrivePower(power, strafe, turning, drive);
 
 
 //Telemetry
-        multTelemetry.addData("target", intake.intake.getTargetPosition());
-        multTelemetry.update();
 
 
-    }
+        }
 
 
-
-
-
-
-    @Override
-    public void stop() {
+        @Override
+        public void stop(){
 
         /*
                     Y O U R   C O D E   H E R E
                                                    */
-    }
+        }
 }

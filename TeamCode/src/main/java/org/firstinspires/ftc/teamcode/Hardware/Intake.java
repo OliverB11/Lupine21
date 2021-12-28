@@ -55,13 +55,12 @@ public class Intake {
 //    }
 
     public void spin() {
-//        intake.setTargetPosition(intake.getCurrentPosition() + Unfixed.intakePosition);
-        intake.setPower(1);
+        intake.setPower(0.5);
 
 
     }
 
     public void backSpin(){
-//        intake.setTargetPosition(intake.getCurrentPosition() - Unfixed.intakePosition);
+        intake.setPower(-0.5);
     }
 }
