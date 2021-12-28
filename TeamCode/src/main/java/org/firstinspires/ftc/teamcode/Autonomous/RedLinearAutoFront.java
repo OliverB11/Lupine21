@@ -32,6 +32,8 @@ public class RedLinearAutoFront extends LinearOpMode {
     DuckWheel duckWheel;
     ScoringMechanism scorer;
     Intake intake;
+    private String duckPos = "";
+
 
 
     public void initialize(){
@@ -63,17 +65,20 @@ public class RedLinearAutoFront extends LinearOpMode {
 
         if(RedDuckPosition.duckOnLeft) {
             multTelemetry.addData("Auto", "Red Front Left");
+            duckPos = "Left";
 
 
 // DUCK IN MIDDLE
 
         }else if (RedDuckPosition.duckInMiddle){
             multTelemetry.addData("Auto", "Red Front Middle");
+            duckPos = "Middle";
 
 // DUCK ON RIGHT
 
         }else if(RedDuckPosition.duckOnRight) {
             multTelemetry.addData("Auto", "Red Front Right");
+            duckPos = "Right";
 // NO DUCK
         }else{
             multTelemetry.addData("Auto", "Red Front None");
@@ -85,7 +90,14 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 
         if (opModeIsActive()){
+            //WRITE AUTOS HERE
+            if(duckPos == "Right"){
 
+            }else if(duckPos == "Left"){
+
+            }else if(duckPos == "Middle"){
+
+            }
 
 
 

@@ -10,7 +10,7 @@ public class DashVision {
     public static int blueLeftXvalue = 34;
 
     public static int redRightXvalue = 300;
-    public static int redLeftXvalue = 70;
+    public static int redLeftXvalue = 90;
 
 
 

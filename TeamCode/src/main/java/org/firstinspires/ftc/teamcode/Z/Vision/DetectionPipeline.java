@@ -91,6 +91,7 @@ public class DetectionPipeline extends OpenCvPipeline {
 
 
 
+
             if(largestYellowRect.x >= blueRightXvalue){
 
                 BlueDuckPosition.duckOnLeft = false;

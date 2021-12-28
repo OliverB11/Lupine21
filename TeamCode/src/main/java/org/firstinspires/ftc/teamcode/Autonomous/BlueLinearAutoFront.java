@@ -61,9 +61,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
             multTelemetry.addData("Auto", "Blue Front Left");
 
             duckPos = "Left";
-            //Ivan, MathUtils.convertInches2Ticks() and MathUtils.centimeters2Ticks() are both useful
-            //You can also make distances config values in Unfixed and that way you don't have to push everytime
-            //Currently you're goals are to first drop the preloaded freight, then do the duckspinner, then do cycles, then park fully in the warehouse facing towards the middle of the feild.
 
 // DUCK IN MIDDLE
 
@@ -90,6 +87,21 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
         if (opModeIsActive()) {
             robot.gyro.reset();
+            //WRITE AUTOS HERE
+
+            if(duckPos == "Right"){
+               // robot.strafe(0.3,600,robot.gyro.rawAngle(),-90);
+            }else if(duckPos == "Left"){
+              //  robot.strafe(0.3,600,robot.gyro.rawAngle(),90);
+            }else if(duckPos == "Middle"){
+
+              //  robot.strafe(0.3,600,robot.gyro.rawAngle(),0);
+
+            }else{
+
+            }
+            scorer.autoDeposit();
+
 
 
         }

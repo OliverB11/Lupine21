@@ -32,7 +32,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
     DuckWheel duckWheel;
     Intake intake;
     ScoringMechanism scorer;
-
+    private String duckPos = "";
 
     public void initialize(){
         setOpMode(this);
@@ -64,17 +64,20 @@ public class BlueLinearAutoBack extends LinearOpMode {
 
         if(BlueDuckPosition.duckOnLeft) {
             multTelemetry.addData("Auto", "Blue Back Left");
+            duckPos = "Left";
 
 
 // DUCK IN MIDDLE
 
         }else if (BlueDuckPosition.duckInMiddle){
             multTelemetry.addData("Auto", "Blue Back Middle");
+            duckPos ="Middle";
 
 // DUCK ON RIGHT
 
         }else if(BlueDuckPosition.duckOnRight) {
             multTelemetry.addData("Auto", "Blue Back Right");
+            duckPos = "Right";
 // NO DUCK
         }else{
             multTelemetry.addData("Auto", "Blue Back None");
@@ -86,9 +89,14 @@ public class BlueLinearAutoBack extends LinearOpMode {
 
 
         if (opModeIsActive()){
+            //WRITE AUTOS HERE
+            if(duckPos == "Right"){
 
+            }else if(duckPos == "Left"){
 
+            }else if(duckPos == "Middle"){
 
+            }
 
         }
     }
