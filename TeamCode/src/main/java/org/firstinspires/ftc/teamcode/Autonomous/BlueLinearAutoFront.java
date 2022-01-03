@@ -51,7 +51,8 @@ public class BlueLinearAutoFront extends LinearOpMode {
     @Override
     public void runOpMode() {
         initialize();
-
+        multTelemetry.addData("DRIVERS", "WAIT");
+        multTelemetry.update();
         time.reset();
         MathUtils.wait(time, 5);
 
@@ -59,7 +60,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
         if (BlueDuckPosition.duckOnLeft) {
             multTelemetry.addData("Auto", "Blue Front Left");
-
             duckPos = "Left";
 
 // DUCK IN MIDDLE
@@ -67,7 +67,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
         } else if (BlueDuckPosition.duckInMiddle) {
             multTelemetry.addData("Auto", "Blue Front Middle");
             duckPos = "Middle";
-            multTelemetry.update();
 // DUCK ON RIGHT
 
         } else if (BlueDuckPosition.duckOnRight) {
@@ -80,7 +79,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
         }
 
 
-        multTelemetry.addLine("Waiting for start");
         multTelemetry.update();
         waitForStart();
 
@@ -100,7 +98,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
             }else{
 
             }
-            scorer.autoDeposit();
+            
 
 
 

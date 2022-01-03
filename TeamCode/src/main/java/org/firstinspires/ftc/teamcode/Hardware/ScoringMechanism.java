@@ -13,7 +13,7 @@ import org.opencv.android.Utils;
 public class ScoringMechanism {
     public DcMotor spool;
     public Servo bucket;
-    public static ElapsedTime time = new ElapsedTime();
+    public ElapsedTime time = new ElapsedTime();
     public boolean armUp = false;
 
     public ScoringMechanism() {
@@ -73,16 +73,20 @@ public class ScoringMechanism {
 
     public void deposit() {
         armUp = true;
-        if (time.seconds() < .5) {
+        if (time.seconds() > 0 && time.seconds() < 0.5) {
             bucket.setPosition(0);
         }
         if(time.seconds() > 1 && time.seconds() < 1.5){
             bucket.setPosition(0.7);
         }
-        if (time.seconds() > 2 && time.seconds() < 2.2) {
-            drivingFromUp();
+        if(time.seconds() > 1.5 && time.seconds() < 1.7){
+            spool.setTargetPosition(-300);
         }
-        armUp = false;
+        if(time.seconds() > 1.7 && time.seconds() < 1.8){
+            bucket.setPosition(0.7);
+            armUp = false;
+        }
+
     }
 
     public void drivingFromIntake(){
@@ -94,109 +98,54 @@ public class ScoringMechanism {
         }
     }
 
-    public void drivingFromUp(){
-        if(time.seconds() > 0 && time.seconds() < .1){
-            spool.setTargetPosition(-300);
-        }
-        if(time.seconds() > 0.2 && time.seconds() < .5){
-            bucket.setPosition(0.7);
-        }
-    }
 
     public void intake(){
-        if (time.seconds() > 2.5 && time.seconds() < 3) {
+        if (time.seconds() >  0 && time.seconds() < 0.2) {
             spool.setTargetPosition(0);
         }
-        if (time.seconds() > 3 && time.seconds() < 3.1) {
-            bucket.setPosition(0.85);
+        if (time.seconds() > 0.2 && time.seconds() < 0.3) {
+            bucket.setPosition(0.82);
             armUp = false;
         }
     }
 
     public void autoTop() {
         time.reset();
-
-        armUp = true;
-
-            bucket.setPosition(0.7);
-
-wait(0.7);
-            spool.setTargetPosition(-1900);
-            spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
-
-            wait(1.0);
+        bucket.setPosition(0.7);
+        wait(0.7);
+        spool.setTargetPosition(-1900);
+        spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
+        wait(1.0);
     }
 
 
     public void autoMiddle() {
         time.reset();
-        armUp = true;
-        if(time.seconds() > 0 && time.seconds() < .1){
-            bucket.setPosition(0.7);
-        }
-        if (time.seconds() > .1 && time.seconds() < .7) {
-            spool.setTargetPosition(-1000);
-            spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
-        }
+        bucket.setPosition(0.7);
+        wait(0.7);
+        spool.setTargetPosition(-1000);
+        spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
+        wait(1.0);
     }
-
     public void autoBottom() {
         time.reset();
-        armUp = true;
-
-            bucket.setPosition(0.7);
-        if (time.seconds() > .1 && time.seconds() < .7) {
-            spool.setTargetPosition(-500);
-            spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
-        }
+        bucket.setPosition(0.7);
+        wait(0.7);
+        spool.setTargetPosition(-500);
+        spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
+        wait(1.0);
     }
 
     public void autoDeposit() {
-
-        armUp = true;
-        wait(0.5);
-            bucket.setPosition(0);
-
-        wait(1.5);
-
+        bucket.setPosition(0.1);
+        wait(1.0);
+        bucket.setPosition(0.7);
+        wait(0.2);
+        spool.setTargetPosition(0);
+        wait(0.3);
         bucket.setPosition(0.82);
-        wait(2.0);
-
-        drivingFromUp();
-
-        armUp = false;
     }
 
-    public void autoDrivingFromIntake(){
-        time.reset();
-        if(time.seconds() > 0 && time.seconds() < .1){
-            bucket.setPosition(0.7);
-        }
-        if(time.seconds() > 0.2 && time.seconds() < .5){
-            spool.setTargetPosition(-300);
-        }
-    }
-
-    public void autoDrivingFromUp(){
-        time.reset();
-        if(time.seconds() > 0 && time.seconds() < .1){
-            spool.setTargetPosition(-300);
-        }
-        if(time.seconds() > 0.2 && time.seconds() < .5){
-            bucket.setPosition(0.7);
-        }
-    }
-
-    public void autoIntake(){
-        time.reset();
-        if (time.seconds() > 2.5 && time.seconds() < 3) {
-            spool.setTargetPosition(0);
-        }
-        if (time.seconds() > 3 && time.seconds() < 3.1) {
-            bucket.setPosition(0.85);
-            armUp = false;
-        }
-    }
 
     public void wait(double timeout){
         time.reset();

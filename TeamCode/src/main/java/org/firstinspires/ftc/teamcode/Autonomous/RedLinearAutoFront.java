@@ -45,7 +45,6 @@ public class RedLinearAutoFront extends LinearOpMode {
         duckWheel = new DuckWheel();
         intake = new Intake();
         scorer = new ScoringMechanism();
-        ElapsedTime time = new ElapsedTime();
 
 
         multTelemetry.addData("Status", "Initalized");

@@ -44,7 +44,6 @@ public class RedLinearAutoBack extends LinearOpMode {
         duckWheel = new DuckWheel();
         intake = new Intake();
         scorer = new ScoringMechanism();
-        ElapsedTime time = new ElapsedTime();
 
 
         multTelemetry.addData("Status", "Initalized");
@@ -55,7 +54,8 @@ public class RedLinearAutoBack extends LinearOpMode {
     @Override
     public void runOpMode(){
         initialize();
-
+        multTelemetry.addData("DRIVERS", "WAIT");
+        multTelemetry.update();
         time.reset();
         MathUtils.wait(time, 5);
 
@@ -63,6 +63,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
         if(RedDuckPosition.duckOnLeft) {
             multTelemetry.addData("Auto", "Red Back Left");
+            multTelemetry.update();
             duckPos = "Left";
 
 
@@ -85,7 +86,6 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
 
-        multTelemetry.addLine("Waiting for start");
         multTelemetry.update();
         waitForStart();
 
@@ -93,10 +93,16 @@ public class RedLinearAutoBack extends LinearOpMode {
         if (opModeIsActive()){
             //WRITE AUTOS HERE
             if(duckPos == "Right"){
-
+                robot.strafe(.5,1250,0,295);
+                scorer.autoTop();
+                scorer.deposit();
             }else if(duckPos == "Left"){
-
+                robot.strafe(.5,1250,0,295);
+                scorer.autoDeposit();
             }else if(duckPos == "Middle"){
+                robot.strafe(.5,1250,0,295);
+                scorer.autoMiddle();
+                scorer.autoDeposit();
 
             }
 

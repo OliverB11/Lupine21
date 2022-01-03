@@ -4,21 +4,17 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
 import static java.lang.Math.floorMod;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
-
-import android.transition.Slide;
 
 
 @TeleOp(name="TeleOp", group="Iterative Opmode")
@@ -37,10 +33,10 @@ public class IterativeTeleOp extends OpMode {
     boolean wasTurning;
 
     enum SlideState {
-        TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING_FROM_UP, DRIVING_FROM_INTAKE, INTAKE, NONE
+        TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING, INTAKE, NONE
     }
 
-    SlideState currentSlideState = SlideState.INTAKE;
+    SlideState currentSlideState = SlideState.DRIVING;
 
 
     /*
@@ -144,13 +140,24 @@ public class IterativeTeleOp extends OpMode {
 // Stuff
 
     //Controller1 Stuff
-        if (controller.circle.tap() && !scorer.armUp) {
-            scorer.intake();
+        if (controller.circle.press() && !scorer.armUp) {
+            if(currentSlideState != SlideState.INTAKE) {
+                scorer.time.reset();
+                intake.time.reset();
+            }
+            currentSlideState = SlideState.INTAKE;
             intake.spin();
-        } else if (controller.square.tap() && !scorer.armUp && currentSlideState == SlideState.INTAKE) {
-            scorer.intake();
+        } else if (controller.square.press() && !scorer.armUp) {
+            if(currentSlideState != SlideState.INTAKE) {
+                scorer.time.reset();
+                intake.time.reset();
+            }
+            currentSlideState = SlideState.INTAKE;
             intake.backSpin();
-        } else {
+        } else if (!scorer.armUp){
+            currentSlideState = SlideState.DRIVING;
+            scorer.time.reset();
+            intake.stop();
         }
 
 
@@ -219,10 +226,8 @@ public class IterativeTeleOp extends OpMode {
                     scorer.deposit();
                     break;
 
-                case DRIVING_FROM_UP:
-                    scorer.drivingFromUp();
 
-                case DRIVING_FROM_INTAKE:
+                case DRIVING:
                     scorer.drivingFromIntake();
 
                 case INTAKE:
