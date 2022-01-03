@@ -43,11 +43,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
         duckWheel = new DuckWheel();
         intake = new Intake();
         scorer = new ScoringMechanism();
-        ElapsedTime time = new ElapsedTime();
 
-
-        multTelemetry.addData("Status", "Initalized");
-        multTelemetry.update();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -83,19 +79,24 @@ public class BlueLinearAutoBack extends LinearOpMode {
             multTelemetry.addData("Auto", "Blue Back None");
         }
 
-        multTelemetry.addLine("Waiting for start");
         multTelemetry.update();
         waitForStart();
 
 
         if (opModeIsActive()){
+            robot.gyro.reset();
             //WRITE AUTOS HERE
             if(duckPos == "Right"){
-
+                robot.strafe(.5,1250,0,295);
+                scorer.autoTop();
+                scorer.deposit();
             }else if(duckPos == "Left"){
-
+                robot.strafe(.5,1250,0,295);
+                scorer.autoDeposit();
             }else if(duckPos == "Middle"){
-
+                robot.strafe(.5,1250,0,295);
+                scorer.autoMiddle();
+                scorer.autoDeposit();
             }
 
         }

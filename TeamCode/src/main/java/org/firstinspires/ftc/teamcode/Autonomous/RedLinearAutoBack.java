@@ -91,6 +91,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
         if (opModeIsActive()){
+            robot.gyro.reset();
             //WRITE AUTOS HERE
             if(duckPos == "Right"){
                 robot.strafe(.5,1250,0,295);
@@ -103,7 +104,6 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.5,1250,0,295);
                 scorer.autoMiddle();
                 scorer.autoDeposit();
-
             }
 
 

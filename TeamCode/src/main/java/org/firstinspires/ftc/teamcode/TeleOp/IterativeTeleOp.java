@@ -97,6 +97,9 @@ public class IterativeTeleOp extends OpMode {
      */
     @Override
     public void loop() {
+        controller.gamepad.rumble(controller.LTrigger.getValue(), controller.LTrigger.getValue(), 100);
+
+        controller.gamepad.rumble(controller.LTrigger.getValue(), controller.LTrigger.getValue(), 100);
 //Declarations
         double rotation;
 
@@ -178,13 +181,13 @@ public class IterativeTeleOp extends OpMode {
             //Controller 2 Stuff
             if (Side.blue) {
                 if (controller2.cross.toggle()) {
-                    duckSpinner.blueSpin(.4);
+                    duckSpinner.blueSpin(.32);
                 } else {
                     duckSpinner.stop();
                 }
             } else if (Side.red) {
                 if (controller2.cross.toggle()) {
-                    duckSpinner.blueSpin(-.4);
+                    duckSpinner.redSpin(.32);
                 } else {
                     duckSpinner.stop();
                 }

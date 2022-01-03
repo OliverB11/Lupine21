@@ -6,7 +6,7 @@ import org.opencv.core.Point;
 
 public class Controller {
 
-    private final Gamepad gamepad;
+    public final Gamepad gamepad;
 
     public Controller(Gamepad gamepad) {
         this.gamepad = gamepad;
@@ -26,6 +26,7 @@ public class Controller {
         touchpad = new Button();
         RTrigger = new Button();
         LTrigger = new Button();
+
 
 
     }
@@ -64,6 +65,7 @@ public class Controller {
             value = inputFloat;
             Update(inputFloat >= .7);
         }
+
 
 
         public float getValue() {
