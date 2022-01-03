@@ -31,9 +31,6 @@ public class DuckWheel {
         duck2.setPower(0);
     }
 
-    private double add(double firstNum, double secondNum){
-        return(firstNum+secondNum);
-    }
 
 
 }

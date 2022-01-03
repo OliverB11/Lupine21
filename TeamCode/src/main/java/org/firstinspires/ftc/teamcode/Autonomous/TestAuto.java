@@ -24,7 +24,6 @@ public class TestAuto extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
     Mecanum robot;
-    PID pid;
     DuckWheel duckWheel;
     ScoringMechanism scorer;
     Intake intake;
@@ -35,7 +34,6 @@ public class TestAuto extends LinearOpMode {
         Side.red = true;
         Side.blue = false;
         robot = new Mecanum();
-        pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         duckWheel = new DuckWheel();
         intake = new Intake();
         scorer = new ScoringMechanism();
@@ -57,9 +55,7 @@ public class TestAuto extends LinearOpMode {
 
 
         if (opModeIsActive()){
-// Blue back right
-        robot.strafe(0.4,75,0,0);
-        robot.strafe(0.2,300,0,270);
+
 
 
         }

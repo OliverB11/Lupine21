@@ -34,4 +34,11 @@ public class Intake {
     public void stop(){
         intake.setPower(0);
     }
+
+    public void autoSpin(){
+        intake.setPower(0.5);
+    }
+
 }
+
+

@@ -101,6 +101,7 @@ public class Mecanum {
         // Reset our encoders to 0
         resetMotors();
         strafeAngle = strafeAngle - 90;
+        targetAngle= targetAngle - 180;
 
         targetAngle = closestAngle(targetAngle, gyro.rawAngle());
 
@@ -117,31 +118,30 @@ public class Mecanum {
         double curHDist = 0;
 
         while (curHDist < ticks){
+            gyro.update();
             curPos = getPosition();
             curHDist = Math.hypot(curPos.x, curPos.y);
 
             Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), gyro.rawAngle());
             setDrivePower(power, shiftedPowers.x, pid.update(gyro.rawAngle() - targetAngle), shiftedPowers.y);
-
+            multTelemetry.addData("Target", targetAngle);
+            multTelemetry.update();
         }
         setAllPower(0);
     }
 
-    public void turn(double power, double targetAngle, double moe){
-        targetAngle = MathUtils.closestAngle(targetAngle, gyro.rawAngle());
-       // time.reset();
-       // double startPos = gyro.rawAngle();
-       // double current;
-       // double distance = targetAngle - gyro.rawAngle();
-
-        while(Math.abs(targetAngle-gyro.rawAngle())>moe){
+    public void turn(double targetAngle, double power){
+        targetAngle = closestAngle(targetAngle, gyro.rawAngle());
+        while(gyro.rawAngle() != targetAngle) {
             gyro.update();
-            setDrivePower(power, 0, -pid.update( gyro.rawAngle() - targetAngle), 0.2);
+            pid.update(gyro.rawAngle() - targetAngle);
         }
-        setAllPower(0);
+    }
 
-        //current = gyro.rawAngle() - startPos;
-
+    public void sleep(double time, ElapsedTime timer){
+        timer.reset();
+        while(timer.seconds() < time){
+        }
 
     }
 

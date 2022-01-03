@@ -28,7 +28,6 @@ public class RedLinearAutoBack extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
     Mecanum robot;
-    PID pid;
     DuckWheel duckWheel;
     ScoringMechanism scorer;
     Intake intake;
@@ -39,7 +38,6 @@ public class RedLinearAutoBack extends LinearOpMode {
         setOpMode(this);
         Side.red = true;
         Side.blue = false;
-        pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         robot = new Mecanum();
         duckWheel = new DuckWheel();
         intake = new Intake();
@@ -94,18 +92,44 @@ public class RedLinearAutoBack extends LinearOpMode {
             robot.gyro.reset();
             //WRITE AUTOS HERE
             if(duckPos == "Right"){
-                robot.strafe(.5,1250,0,295);
+                robot.strafe(.5,1200,180,295);
                 scorer.autoTop();
-                scorer.deposit();
-            }else if(duckPos == "Left"){
-                robot.strafe(.5,1250,0,295);
                 scorer.autoDeposit();
+                robot.strafe(.5,2600,180,100);
+                robot.strafe(.2,200,180,100);
+                duckWheel.redSpin(.2);
+                robot.sleep(3,time);
+                robot.strafe(.4, 700,280,270);
+                duckWheel.stop();
+                intake.autoSpin();
+                robot.strafe(.4, 700,100,270);
+
+            }else if(duckPos == "Left"){
+                robot.strafe(.5,1200,180,295);
+                scorer.autoDeposit();
+                robot.strafe(.5,2600,180,100);
+                robot.strafe(.2,200,180,100);
+                duckWheel.redSpin(.2);
+                robot.sleep(3,time);
+                duckWheel.stop();
+                intake.autoSpin();
+                robot.strafe(.4, 700,100,270);
+
             }else if(duckPos == "Middle"){
-                robot.strafe(.5,1250,0,295);
+                robot.strafe(.5,1200,180,295);
                 scorer.autoMiddle();
                 scorer.autoDeposit();
-            }
+                robot.strafe(.5,2600,180,100);
+                robot.strafe(.2,200,180,100);
+                duckWheel.redSpin(.2);
+                robot.sleep(3,time);
+                duckWheel.stop();
+                intake.autoSpin();
+                robot.strafe(.4, 700,180,270);
 
+
+
+            }
 
 
 

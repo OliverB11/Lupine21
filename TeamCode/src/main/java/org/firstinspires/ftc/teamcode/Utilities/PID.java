@@ -37,13 +37,12 @@ public class PID {
         previousError = error;
         previousTime = System.currentTimeMillis();
 
-        double pComponent = error * -proportionalWeight;
-        double iComponent = integralSum * -integralWeight;
-        double dComponent = rateOfChange * -derivativeWeight;
+        double pComponent = error * proportionalWeight;
+        double iComponent = integralSum * integralWeight;
+        double dComponent = rateOfChange * derivativeWeight;
 
 
         return pComponent + iComponent + dComponent;
-
     }
 
 
