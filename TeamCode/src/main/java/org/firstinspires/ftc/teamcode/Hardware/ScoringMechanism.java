@@ -41,7 +41,7 @@ public class ScoringMechanism {
             bucket.setPosition(0.7);
         }
         if (time.seconds() > .1 && time.seconds() < .7) {
-            spool.setTargetPosition(-1900);
+            spool.setTargetPosition(-1800);
             spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
         }
     }
@@ -113,7 +113,7 @@ public class ScoringMechanism {
         time.reset();
         bucket.setPosition(0.7);
         wait(0.7);
-        spool.setTargetPosition(-1900);
+        spool.setTargetPosition(-1800);
         spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
         wait(1.0);
     }

@@ -99,10 +99,10 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.2,200,180,100);
                 duckWheel.redSpin(.2);
                 robot.sleep(3,time);
-                robot.strafe(.4, 700,280,270);
+                robot.strafe(.4, 700,180,270);
                 duckWheel.stop();
                 intake.autoSpin();
-                robot.strafe(.4, 700,100,270);
+                robot.strafe(.4, 700,100,0);
 
             }else if(duckPos == "Left"){
                 robot.strafe(.5,1200,180,295);
@@ -113,7 +113,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.sleep(3,time);
                 duckWheel.stop();
                 intake.autoSpin();
-                robot.strafe(.4, 700,100,270);
+                robot.strafe(.4, 700,100,0);
 
             }else if(duckPos == "Middle"){
                 robot.strafe(.5,1200,180,295);
@@ -125,7 +125,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.sleep(3,time);
                 duckWheel.stop();
                 intake.autoSpin();
-                robot.strafe(.4, 700,180,270);
+                robot.strafe(.4, 700,100,0);
 
 
 
