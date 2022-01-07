@@ -20,9 +20,9 @@ public class PID {
 
 
     public PID(double proportional, double integral, double derivative){
-        this.proportionalWeight = proportional;
-        this.integralWeight = integral;
-        this.derivativeWeight = derivative;
+        this.proportionalWeight = -proportional;
+        this.integralWeight = -integral;
+        this.derivativeWeight = -derivative;
     }
 
 

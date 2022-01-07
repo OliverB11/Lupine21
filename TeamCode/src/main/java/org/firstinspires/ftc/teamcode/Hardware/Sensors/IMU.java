@@ -46,11 +46,11 @@ public class                                                                    
     public double getAngle(){
 
         // Get the current angle
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES); //angle order changed here
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //angle order changed here
         double currentAngle = -angles.firstAngle;
-        //multTelemetry.addData("Yaw", angles.firstAngle);
-        //multTelemetry.addData("Roll", angles.secondAngle);
-        //multTelemetry.addData("Pitch", angles.thirdAngle);
+        multTelemetry.addData("Yaw", angles.firstAngle);
+        multTelemetry.addData("Roll", angles.secondAngle);
+        multTelemetry.addData("Pitch", angles.thirdAngle);
 
         // Update how many times we have wrapped
         deltaAngle = updateWraps(previousAngle, currentAngle, deltaAngle);

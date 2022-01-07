@@ -97,9 +97,7 @@ public class IterativeTeleOp extends OpMode {
      */
     @Override
     public void loop() {
-        controller.gamepad.rumble(controller.LTrigger.getValue(), controller.LTrigger.getValue(), 100);
 
-        controller.gamepad.rumble(controller.LTrigger.getValue(), controller.LTrigger.getValue(), 100);
 //Declarations
         double rotation;
 
@@ -129,7 +127,7 @@ public class IterativeTeleOp extends OpMode {
         }
 
 // Speed Control
-        if (controller.RTrigger.press()) {
+        if (controller.RB.press()) {
             power = 0.2;
         } else {
             power = 0.8;
@@ -137,20 +135,21 @@ public class IterativeTeleOp extends OpMode {
 
 //gyro reset ability
         if (controller.share.tap()) {
+            setPoint = 0;
             robot.gyro.reset();
         }
 
 // Stuff
 
     //Controller1 Stuff
-        if (controller.circle.press() && !scorer.armUp) {
+        if (controller.LTrigger.press() && !scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
                 scorer.time.reset();
                 intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
             intake.spin();
-        } else if (controller.square.press() && !scorer.armUp) {
+        } else if (controller.RTrigger.press() && !scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
                 scorer.time.reset();
                 intake.time.reset();
@@ -210,6 +209,8 @@ public class IterativeTeleOp extends OpMode {
             if (controller2.down.tap()) {
                 currentSlideState = SlideState.DEPOSIT;
                 scorer.time.reset();
+                controller.gamepad.rumble(1000);
+                controller2.gamepad.rumble(1000);
             }
 
             switch (currentSlideState) {
