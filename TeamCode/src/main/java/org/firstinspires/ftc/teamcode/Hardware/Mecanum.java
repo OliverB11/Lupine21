@@ -124,8 +124,6 @@ public class Mecanum {
 
             Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), gyro.rawAngle());
             setDrivePower(power, shiftedPowers.x, pid.update(gyro.rawAngle() - targetAngle), shiftedPowers.y);
-            multTelemetry.addData("Target", targetAngle);
-            multTelemetry.update();
         }
         setAllPower(0);
     }

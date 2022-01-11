@@ -139,6 +139,18 @@ public class IterativeTeleOp extends OpMode {
             robot.gyro.reset();
         }
 
+// Switch Sides
+        if(controller2.share.tap()) {
+            if (Side.blue) {
+                Side.blue = false;
+                Side.red = true;
+            } else if (Side.red) {
+                Side.blue = true;
+                Side.red = false;
+            }
+        }
+
+
 // Stuff
 
     //Controller1 Stuff
@@ -180,13 +192,13 @@ public class IterativeTeleOp extends OpMode {
             //Controller 2 Stuff
             if (Side.blue) {
                 if (controller2.cross.toggle()) {
-                    duckSpinner.blueSpin(.32);
+                    duckSpinner.blueSpin(.28);
                 } else {
                     duckSpinner.stop();
                 }
             } else if (Side.red) {
                 if (controller2.cross.toggle()) {
-                    duckSpinner.redSpin(.32);
+                    duckSpinner.redSpin(.28);
                 } else {
                     duckSpinner.stop();
                 }
@@ -245,9 +257,9 @@ public class IterativeTeleOp extends OpMode {
 //Movement control
             double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
             double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
-            double turning = -rotation;
+            double turn = -rotation;
 
-            robot.setDrivePower(power, strafe, turning, drive);
+            robot.setDrivePower(power, strafe, turn, drive);
 
 
 //Telemetry

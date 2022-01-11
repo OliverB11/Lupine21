@@ -28,7 +28,7 @@ public class Intake {
 
     public void backSpin(){
         if(time.seconds() > 0.3 && time.seconds() < 0.4)
-        intake.setPower(-0.5);
+        intake.setPower(-1);
     }
 
     public void stop(){
