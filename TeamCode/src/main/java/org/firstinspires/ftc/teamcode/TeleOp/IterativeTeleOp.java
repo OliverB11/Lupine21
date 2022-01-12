@@ -111,18 +111,19 @@ public class IterativeTeleOp extends OpMode {
 // PID
 
 
-        double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
+
 
         if (!(controller.rightStick().x == 0)) {
             rotation = controller.rightStick().x;
             wasTurning = true;
-        } else if (wasTurning && robot.gyro.rateOfChange() < 4) {
+        } else if (wasTurning && Math.abs(robot.gyro.rateOfChange()) > 0) {
             rotation = controller.rightStick().x;
         } else {
             if (wasTurning) {
                 setPoint = robot.gyro.rawAngle();
                 wasTurning = false;
             }
+            double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
             rotation = correction;
         }
 
@@ -154,14 +155,14 @@ public class IterativeTeleOp extends OpMode {
 // Stuff
 
     //Controller1 Stuff
-        if (controller.LTrigger.press() && !scorer.armUp) {
+        if (controller.RTrigger.press() && !scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
                 scorer.time.reset();
                 intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
             intake.spin();
-        } else if (controller.RTrigger.press() && !scorer.armUp) {
+        } else if (controller.LTrigger.press() && !scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
                 scorer.time.reset();
                 intake.time.reset();

@@ -9,6 +9,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.closestAngle;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.cos;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
+import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.linearOpMode;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
@@ -117,13 +118,18 @@ public class Mecanum {
         Point curPos;
         double curHDist = 0;
 
-        while (curHDist < ticks){
+        while (curHDist < ticks && linearOpMode.opModeIsActive()){
             gyro.update();
             curPos = getPosition();
             curHDist = Math.hypot(curPos.x, curPos.y);
-
+            multTelemetry.addData("Target Angle", targetAngle);
+            multTelemetry.addData("Strafe Angle", strafeAngle);
+            multTelemetry.addData("Gyro", gyro.rawAngle());
             Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), gyro.rawAngle());
             setDrivePower(power, shiftedPowers.x, pid.update(gyro.rawAngle() - targetAngle), shiftedPowers.y);
+            multTelemetry.addData("PID result", pid.getRecent());
+            multTelemetry.update();
+
         }
         setAllPower(0);
     }

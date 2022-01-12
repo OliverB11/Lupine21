@@ -14,6 +14,7 @@ public class PID {
 
     private double previousError = 0;
     private long previousTime = System.currentTimeMillis();
+    private double recentResult = 0;
 
 
 
@@ -42,8 +43,13 @@ public class PID {
         double dComponent = rateOfChange * derivativeWeight;
 
 
+        recentResult = pComponent + iComponent + dComponent;
         return pComponent + iComponent + dComponent;
 
+    }
+
+    public double getRecent(){
+        return recentResult;
     }
 
 
