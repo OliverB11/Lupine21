@@ -74,6 +74,10 @@ public class Gyro {
         else return modAngle > minAngle && modAngle < maxAngle;
     }
 
+    public double absAngularDist(double compareAngle){
+        return Math.abs(compareAngle - rawAngle);
+    }
+
 
     public double rateOfChange(){
         return rateOfChange;

@@ -27,6 +27,7 @@ public class Mecanum {
     public Gyro gyro;
     public PID pid;
     public static ElapsedTime time = new ElapsedTime();
+    private ElapsedTime timeOut = new ElapsedTime();
     public Camera cam;
     private DetectionPipeline pipeline = new DetectionPipeline();
 
@@ -81,6 +82,8 @@ public class Mecanum {
         fl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        timeOut.reset();
     }
 
     public void setDrivePower(double power, double strafe, double turn, double drive){
@@ -97,7 +100,7 @@ public class Mecanum {
 
 
     }
-    public void strafe(double power, double ticks, double targetAngle, double strafeAngle){
+    public void strafe(double power, double ticks, double targetAngle, double strafeAngle, double marginOfError){
 
         // Reset our encoders to 0
         resetMotors();
@@ -118,23 +121,32 @@ public class Mecanum {
         Point curPos;
         double curHDist = 0;
 
-        while (curHDist < ticks && linearOpMode.opModeIsActive()){
+        while (curHDist < ticks && linearOpMode.opModeIsActive() && gyro.absAngularDist(targetAngle) > marginOfError && timeOut.seconds() < ticks/500){
             gyro.update();
             curPos = getPosition();
             curHDist = Math.hypot(curPos.x, curPos.y);
-            multTelemetry.addData("Target Angle", targetAngle);
-            multTelemetry.addData("Strafe Angle", strafeAngle);
-            multTelemetry.addData("Gyro", gyro.rawAngle());
-            Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), gyro.rawAngle());
-            setDrivePower(power, shiftedPowers.x, pid.update(gyro.rawAngle() - targetAngle), shiftedPowers.y);
-            multTelemetry.addData("PID result", pid.getRecent());
+            Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), -gyro.rawAngle());
+            multTelemetry.addData("Shift X", shiftedPowers.x);
+            multTelemetry.addData("Shift Y", shiftedPowers.y);
+            multTelemetry.update();
+            if(curHDist < ticks){
+                setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.rawAngle()), shiftedPowers.y);
+
+            }else{
+                setDrivePower(power, 0, pid.update(targetAngle - gyro.rawAngle()), 0);
+            }
+
             multTelemetry.update();
 
         }
         setAllPower(0);
     }
 
-    public void turn(double targetAngle, double power){
+    public void strafe(double power, double ticks, double targetAngle, double strafeAngle){
+        strafe(power, ticks, targetAngle, strafeAngle, 5);
+    }
+
+    public void turn(double targetAngle){
         targetAngle = closestAngle(targetAngle, gyro.rawAngle());
         while(gyro.rawAngle() != targetAngle) {
             gyro.update();

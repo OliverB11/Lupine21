@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.BlueDuckPosition;
 import org.firstinspires.ftc.teamcode.Z.Vision.RedDuckPosition;
+import org.opencv.core.Point;
 
 
 @Autonomous(name="RedLinearAutoBack", group="Autonomous Linear Opmode")
@@ -93,39 +94,49 @@ public class RedLinearAutoBack extends LinearOpMode {
             //WRITE AUTOS HERE
             if(duckPos == "Right"){
                 robot.strafe(.5,1200,180,295);
+                robot.strafe(.2,100,180,180);
                 scorer.autoTop();
                 scorer.autoDeposit();
-                robot.strafe(.5,2600,180,100);
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2500,180,100);
                 robot.strafe(.2,200,180,100);
                 duckWheel.redSpin(.2);
                 robot.sleep(3,time);
-                robot.strafe(.4, 700,180,270);
+                robot.strafe(.4, 700,180,100);
                 duckWheel.stop();
                 intake.autoSpin();
-                robot.strafe(.4, 700,100,0);
+                robot.strafe(.4, 1000,270,270);
+
+
 
             }else if(duckPos == "Left"){
                 robot.strafe(.5,1200,180,295);
+                robot.strafe(.2,100,180,180);
                 scorer.autoDeposit();
-                robot.strafe(.5,2600,180,100);
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2500,180,100);
                 robot.strafe(.2,200,180,100);
                 duckWheel.redSpin(.2);
                 robot.sleep(3,time);
                 duckWheel.stop();
                 intake.autoSpin();
-                robot.strafe(.4, 700,100,0);
+                robot.strafe(.4, 1000,270,270);
+
+
 
             }else if(duckPos == "Middle"){
                 robot.strafe(.5,1200,180,295);
+                robot.strafe(.2,100,180,180);
                 scorer.autoMiddle();
                 scorer.autoDeposit();
-                robot.strafe(.5,2600,180,100);
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2500,180,100);
                 robot.strafe(.2,200,180,100);
                 duckWheel.redSpin(.2);
                 robot.sleep(3,time);
                 duckWheel.stop();
                 intake.autoSpin();
-                robot.strafe(.4, 700,100,0);
+                robot.strafe(.4, 7100,270,270);
 
 
 
