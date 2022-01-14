@@ -23,7 +23,6 @@ import static org.opencv.core.Core.inRange;
 import static org.opencv.imgproc.Imgproc.drawContours;
 import static org.opencv.imgproc.Imgproc.findContours;
 import static org.opencv.imgproc.Imgproc.rectangle;
-import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
 
 public class DetectionPipeline extends OpenCvPipeline {
@@ -39,12 +38,7 @@ public class DetectionPipeline extends OpenCvPipeline {
 
     @Override
     public Mat processFrame(Mat input){
-        BlueDuckPosition.duckOnLeft = false;
-        BlueDuckPosition.duckInMiddle = false;
-        BlueDuckPosition.duckOnRight = false;
-        RedDuckPosition.duckOnLeft = false;
-        RedDuckPosition.duckInMiddle = false;
-        RedDuckPosition.duckOnRight = false;
+
 
         input.copyTo(output);
         input.copyTo(modifiedYellow);
@@ -94,19 +88,13 @@ public class DetectionPipeline extends OpenCvPipeline {
 
             if(largestYellowRect.x >= blueRightXvalue){
 
-                BlueDuckPosition.duckOnLeft = false;
-                BlueDuckPosition.duckInMiddle = false;
-                BlueDuckPosition.duckOnRight = true;
+                DuckPosition.duckPos = 3;
             }else if (largestYellowRect.x <= blueLeftXvalue){
 
-                BlueDuckPosition.duckOnLeft = true;
-                BlueDuckPosition.duckInMiddle = false;
-                BlueDuckPosition.duckOnRight = false;
+                DuckPosition.duckPos = 1;
             } else{
 
-                BlueDuckPosition.duckOnLeft = false;
-                BlueDuckPosition.duckInMiddle = true;
-                BlueDuckPosition.duckOnRight = false;
+                DuckPosition.duckPos = 2;
             }
 
 
@@ -115,18 +103,11 @@ public class DetectionPipeline extends OpenCvPipeline {
 
 
             if(largestYellowRect.x >= redRightXvalue){
-
-                RedDuckPosition.duckOnLeft = false;
-                RedDuckPosition.duckInMiddle = false;
-                RedDuckPosition.duckOnRight = true;
+                DuckPosition.duckPos = 3;
             }else if (largestYellowRect.x <= redLeftXvalue){
-                RedDuckPosition.duckOnLeft = true;
-                RedDuckPosition.duckInMiddle = false;
-                RedDuckPosition.duckOnRight = false;
+                DuckPosition.duckPos = 1;
             } else{
-                RedDuckPosition.duckOnLeft = false;
-                RedDuckPosition.duckInMiddle = true;
-                RedDuckPosition.duckOnRight = false;
+                DuckPosition.duckPos = 2;
             }
 
 

@@ -19,8 +19,7 @@ import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
-import org.firstinspires.ftc.teamcode.Z.Vision.BlueDuckPosition;
-import org.firstinspires.ftc.teamcode.Z.Vision.RedDuckPosition;
+import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
 
 @Autonomous(name="BlueLinearAutoBack", group="Autonomous Linear Opmode")
@@ -32,7 +31,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
     DuckWheel duckWheel;
     Intake intake;
     ScoringMechanism scorer;
-    private String duckPos = "";
+
 
     public void initialize(){
         setOpMode(this);
@@ -58,25 +57,24 @@ public class BlueLinearAutoBack extends LinearOpMode {
 
 // DUCK ON LEFT
 
-        if(BlueDuckPosition.duckOnLeft) {
-            multTelemetry.addData("Auto", "Blue Back Left");
-            duckPos = "Left";
+        if (DuckPosition.duckPos == 1) {
+            multTelemetry.addData("Auto", "Blue Front Left");
 
 
 // DUCK IN MIDDLE
 
-        }else if (BlueDuckPosition.duckInMiddle){
+        } else if (DuckPosition.duckPos == 2) {
             multTelemetry.addData("Auto", "Blue Back Middle");
-            duckPos ="Middle";
 
 // DUCK ON RIGHT
 
-        }else if(BlueDuckPosition.duckOnRight) {
+        } else if (DuckPosition.duckPos == 3) {
             multTelemetry.addData("Auto", "Blue Back Right");
-            duckPos = "Right";
+
 // NO DUCK
-        }else{
+        } else {
             multTelemetry.addData("Auto", "Blue Back None");
+
         }
 
         multTelemetry.update();
@@ -86,14 +84,20 @@ public class BlueLinearAutoBack extends LinearOpMode {
         if (opModeIsActive()){
             robot.gyro.reset();
             //WRITE AUTOS HERE
-            if(duckPos == "Right"){
+            if(DuckPosition.duckPos == 3){
+                //RIGHT
+
                 robot.strafe(.5,1250,0,295);
                 scorer.autoTop();
                 scorer.deposit();
-            }else if(duckPos == "Left"){
+            }else if(DuckPosition.duckPos == 1){
+                //LEFT
+
                 robot.strafe(.5,1250,0,295);
                 scorer.autoDeposit();
-            }else if(duckPos == "Middle"){
+            }else if(DuckPosition.duckPos == 2){
+                //MIDDLE
+
                 robot.strafe(.5,1250,0,295);
                 scorer.autoMiddle();
                 scorer.autoDeposit();

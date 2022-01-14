@@ -19,8 +19,7 @@ import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
-import org.firstinspires.ftc.teamcode.Z.Vision.BlueDuckPosition;
-import org.firstinspires.ftc.teamcode.Z.Vision.RedDuckPosition;
+import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
 
 @Autonomous(name="RedLinearAutoFront", group="Autonomous Linear Opmode")
@@ -32,7 +31,7 @@ public class RedLinearAutoFront extends LinearOpMode {
     DuckWheel duckWheel;
     ScoringMechanism scorer;
     Intake intake;
-    private String duckPos = "";
+
 
 
 
@@ -62,22 +61,22 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 // DUCK ON LEFT
 
-        if(RedDuckPosition.duckOnLeft) {
+        if(DuckPosition.duckPos == 1) {
             multTelemetry.addData("Auto", "Red Front Left");
-            duckPos = "Left";
+
 
 
 // DUCK IN MIDDLE
 
-        }else if (RedDuckPosition.duckInMiddle){
+        }else if (DuckPosition.duckPos == 2){
             multTelemetry.addData("Auto", "Red Front Middle");
-            duckPos = "Middle";
+
 
 // DUCK ON RIGHT
 
-        }else if(RedDuckPosition.duckOnRight) {
+        }else if(DuckPosition.duckPos == 3) {
             multTelemetry.addData("Auto", "Red Front Right");
-            duckPos = "Right";
+
 // NO DUCK
         }else{
             multTelemetry.addData("Auto", "Red Front None");
@@ -90,11 +89,20 @@ public class RedLinearAutoFront extends LinearOpMode {
 
         if (opModeIsActive()){
             //WRITE AUTOS HERE
-            if(duckPos == "Right"){
 
-            }else if(duckPos == "Left"){
+            if(DuckPosition.duckPos == 1){
+                //LEFT
 
-            }else if(duckPos == "Middle"){
+            }else if(DuckPosition.duckPos == 2){
+                //MIDDLE
+
+            }else if(DuckPosition.duckPos == 3){
+                //RIGHT
+
+
+
+            }else{
+                //NONE
 
             }
 
