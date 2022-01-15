@@ -91,6 +91,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
                 robot.strafe(.5,1200,180,295);
                 robot.strafe(.2,75,180,135);
+                robot.strafe(.2,75,180,0);
                 scorer.autoTop();
                 scorer.autoDeposit();
                 robot.sleep(0.5, time);
@@ -101,6 +102,11 @@ public class RedLinearAutoBack extends LinearOpMode {
                 duckWheel.stop();
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.3,800,0,90);
+
+
+                robot.strafe(.3,300,0,270);
+                robot.strafe(.3,300,0,270);
+                robot.strafe(.3,300,0,270);
 
 
 
@@ -121,6 +127,11 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.3,800,0,90);
 
+
+                robot.strafe(.3,300,0,270);
+                robot.strafe(.3,300,0,270);
+                robot.strafe(.3,300,0,270);
+
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Bottom
@@ -137,6 +148,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 duckWheel.stop();
                 robot.strafe(.3,1000,180,270);
                 robot.strafe(.2,1000,0,45);
+                robot.sleep(0.01, time);
                 robot.strafe(.3,700,0, 60);
 //                robot.strafe(.3,200,0,90);
 
