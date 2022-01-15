@@ -90,7 +90,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 //Top
 
                 robot.strafe(.5,1200,180,295);
-                robot.strafe(.2,25,180,180);
+                robot.strafe(.2,75,180,135);
                 scorer.autoTop();
                 scorer.autoDeposit();
                 robot.sleep(0.5, time);
@@ -99,8 +99,8 @@ public class RedLinearAutoBack extends LinearOpMode {
                 duckWheel.redSpin(.2);
                 robot.sleep(3.5,time);
                 duckWheel.stop();
-                robot.strafe(.3,1200,0,315);
-                robot.strafe(.3,1000,0,90);
+                robot.strafe(.3,1000,180,315);
+                robot.strafe(.3,800,0,90);
 
 
 
@@ -109,7 +109,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 //Middle
 
                 robot.strafe(.5,1200,180,295);
-                robot.strafe(.2,25,180,180);
+                robot.strafe(.2,50,180,135);
                 scorer.autoMiddle();
                 scorer.autoDeposit();
                 robot.sleep(0.5, time);
@@ -118,25 +118,27 @@ public class RedLinearAutoBack extends LinearOpMode {
                 duckWheel.redSpin(.2);
                 robot.sleep(3.5,time);
                 duckWheel.stop();
-                robot.strafe(.3,300,0,0);
-                robot.strafe(.3,1000,0,0);
+                robot.strafe(.3,1000,180,315);
+                robot.strafe(.3,800,0,90);
 
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Bottom
 
                 robot.strafe(.5,1200,180,295);
-                robot.strafe(.2,25,180,180);
-                scorer.autoBottom();
+                robot.strafe(.3,100,180,45);
                 scorer.autoDeposit();
                 robot.sleep(0.5, time);
                 robot.strafe(.5,2500,180,100);
-                robot.strafe(.2,400,180,100);
+                robot.strafe(.2,500,180,100);
+                robot.strafe(.2,100,180,180);
                 duckWheel.redSpin(.2);
                 robot.sleep(3.5,time);
                 duckWheel.stop();
-                robot.strafe(.3,300,0,0);
-                robot.strafe(.3,1000,0,0);
+                robot.strafe(.3,1000,180,270);
+                robot.strafe(.2,1000,0,45);
+                robot.strafe(.3,700,0, 60);
+//                robot.strafe(.3,200,0,90);
 
 
             }
