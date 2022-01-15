@@ -103,7 +103,8 @@ public class Mecanum {
 
         // Reset our encoders to 0
         resetMotors();
-        //timeOut.reset();
+        timeOut.reset();
+
         strafeAngle = strafeAngle - 90;
         targetAngle= targetAngle - 180;
 
@@ -121,7 +122,7 @@ public class Mecanum {
         Point curPos;
         double curHDist = 0;
 
-        while (curHDist < ticks && linearOpMode.opModeIsActive() && gyro.absAngularDist(targetAngle) > marginOfError){// && timeOut.seconds() < ticks/500){
+        while (curHDist < ticks && linearOpMode.opModeIsActive() && gyro.absAngularDist(targetAngle) > marginOfError && timeOut.seconds() < ticks/500){
             gyro.update();
             curPos = getPosition();
             curHDist = Math.hypot(curPos.x, curPos.y);
