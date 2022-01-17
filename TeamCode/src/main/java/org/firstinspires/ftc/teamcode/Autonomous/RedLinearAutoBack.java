@@ -108,7 +108,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
                 while(robot.getColorSensorRed() > Unfixed.howMuchRed){
-                    robot.setDrivePower(.2,0, 0, -.3);
+                    robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
 
@@ -128,12 +128,12 @@ public class RedLinearAutoBack extends LinearOpMode {
                 duckWheel.stop();
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.3,800,0,90);
-                robot.strafe(.2,75,0,180);
+                robot.strafe(.3,75,0,180);
                 while(robot.getColorSensorRed() < Unfixed.howMuchRed){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
                 while(robot.getColorSensorRed() > Unfixed.howMuchRed){
-                    robot.setDrivePower(.2,0, 0, -.3);
+                    robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
 
@@ -154,12 +154,13 @@ public class RedLinearAutoBack extends LinearOpMode {
                 duckWheel.stop();
                 robot.strafe(.3,1000,180,270);
                 intake.stop();
-                robot.strafe(.3,1300,0, 60);
+                robot.strafe(.2,1300,0, 60);
+                robot.strafe(.3,200,0,90);
                 while(robot.getColorSensorRed() < Unfixed.howMuchRed){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
                 while(robot.getColorSensorRed() > Unfixed.howMuchRed){
-                    robot.setDrivePower(.2,0, 0, -.3);
+                    robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
 
