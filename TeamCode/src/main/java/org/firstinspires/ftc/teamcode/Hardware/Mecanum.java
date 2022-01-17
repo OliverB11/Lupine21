@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,10 +13,13 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.linearOpMode;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
+import android.graphics.Color;
+
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
+import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.Camera;
 import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.opencv.core.Mat;
@@ -30,6 +34,7 @@ public class Mecanum {
     private ElapsedTime timeOut = new ElapsedTime();
     public Camera cam;
     private DetectionPipeline pipeline = new DetectionPipeline();
+    public ColorSensor colorSensor;
 
 
 
@@ -51,6 +56,7 @@ public class Mecanum {
         br = hardwareMap.get(DcMotor.class, "br");
         bl = hardwareMap.get(DcMotor.class, "bl");
         cam = new Camera("Camera",pipeline);
+        colorSensor = hardwareMap.get(ColorSensor.class, "color");
         resetMotors();
 
     }
@@ -99,6 +105,15 @@ public class Mecanum {
 
 
     }
+
+    public double getColorSensorRed(){
+        return colorSensor.red();
+    }
+
+    public double getColorSensorBlue(){
+        return colorSensor.blue();
+    }
+
     public void strafe(double power, double ticks, double targetAngle, double strafeAngle, double marginOfError){
 
         // Reset our encoders to 0
@@ -108,27 +123,31 @@ public class Mecanum {
         strafeAngle = strafeAngle - 90;
         targetAngle= targetAngle - 180;
 
+
         targetAngle = closestAngle(targetAngle, gyro.rawAngle());
 
         // Calculate our x and y powers
         double xPower = cos(strafeAngle, DEGREES);
         double yPower = sin(strafeAngle, DEGREES);
 
+
         // Calculate the distances we need to travel
         double xDist = xPower * ticks;
         double yDist = yPower * ticks;
+
+
 
         // Initialize our current position variables
         Point curPos;
         double curHDist = 0;
 
-        while (curHDist < ticks && linearOpMode.opModeIsActive() && gyro.absAngularDist(targetAngle) > marginOfError && timeOut.seconds() < ticks/500){
+        while ((curHDist < ticks || gyro.absAngularDist(targetAngle) > marginOfError) && timeOut.seconds() < ticks/500){
             gyro.update();
             curPos = getPosition();
+
+
             curHDist = Math.hypot(curPos.x, curPos.y);
             Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), -gyro.rawAngle());
-
-            multTelemetry.update();
 
 
             if(curHDist < ticks){
@@ -138,14 +157,13 @@ public class Mecanum {
                 setDrivePower(power, 0, pid.update(targetAngle - gyro.rawAngle()), 0);
             }
 
-            multTelemetry.update();
 
         }
         setAllPower(0);
     }
 
     public void strafe(double power, double ticks, double targetAngle, double strafeAngle){
-        strafe(power, ticks, targetAngle, strafeAngle, 5);
+        strafe(power, ticks, targetAngle, strafeAngle, 8);
     }
 
     public void turn(double targetAngle){

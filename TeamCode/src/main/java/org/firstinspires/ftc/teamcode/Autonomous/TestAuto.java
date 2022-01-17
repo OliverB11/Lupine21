@@ -47,20 +47,18 @@ public class TestAuto extends LinearOpMode {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void runOpMode(){
+
         initialize();
 
-        multTelemetry.addLine("Waiting for start");
-        multTelemetry.update();
         waitForStart();
 
 
+
         if (opModeIsActive()){
-            robot.strafe(0.3,500,180,180);
-            robot.strafe(0.3,500,90,90);
-            robot.strafe(0.3,500,0,0);
-            robot.strafe(0.3,500,270,270);
 
 
         }
     }
+
+
 }

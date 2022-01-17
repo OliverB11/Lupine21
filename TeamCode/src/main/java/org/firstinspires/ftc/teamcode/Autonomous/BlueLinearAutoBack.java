@@ -86,21 +86,59 @@ public class BlueLinearAutoBack extends LinearOpMode {
             //WRITE AUTOS HERE
             if(DuckPosition.duckPos == 3){
                 //RIGHT
-
-                robot.strafe(.5,1250,0,295);
+                //Top
+                robot.strafe(.5,500,180,90);
+                robot.strafe(.5,1200,180,295);
+                robot.strafe(.2,75,180,135);
+                robot.strafe(.2,100,180,0);
                 scorer.autoTop();
-                scorer.deposit();
-            }else if(DuckPosition.duckPos == 1){
-                //LEFT
-
-                robot.strafe(.5,1250,0,295);
                 scorer.autoDeposit();
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2500,180,100);
+                robot.strafe(.2,400,180,100);
+                duckWheel.redSpin(.2);
+                robot.sleep(3.5,time);
+                duckWheel.stop();
+                robot.strafe(.3,1000,180,315);
+                robot.strafe(.3,800,0,90);
+                robot.strafe(.3,50,0,180);
             }else if(DuckPosition.duckPos == 2){
-                //MIDDLE
-
-                robot.strafe(.5,1250,0,295);
+                //Middle
+                //Middle
+                robot.strafe(.5,500,180,90);
+                robot.strafe(.5,1200,180,295);
+                robot.strafe(0.3,50,180,0);
                 scorer.autoMiddle();
                 scorer.autoDeposit();
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2500,180,100);
+                robot.strafe(.2,400,180,100);
+                duckWheel.redSpin(.2);
+                robot.sleep(3.5,time);
+                duckWheel.stop();
+                robot.strafe(.3,1000,180,315);
+                robot.strafe(.3,800,0,90);
+                robot.strafe(.2,75,0,180);
+            }else if(DuckPosition.duckPos == 1){
+                //Left
+                //Bottom
+                robot.strafe(.5,500,180,90);
+                robot.strafe(.5,1200,180,295);
+                robot.strafe(.3,75,180,20);
+                scorer.autoDeposit();
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2500,180,100);
+                robot.strafe(.2,500,180,100);
+                robot.strafe(.2,100,180,180);
+                duckWheel.redSpin(.2);
+                intake.autoSpin();
+                robot.sleep(3.5,time);
+                duckWheel.stop();
+                robot.strafe(.3,1000,180,270);
+                intake.stop();
+                robot.strafe(.2,1000,0,45);
+                robot.strafe(.3,700,0, 60);
+                robot.strafe(.3,90,0,180);
             }
 
         }
