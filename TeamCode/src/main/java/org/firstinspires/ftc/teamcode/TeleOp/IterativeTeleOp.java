@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
-import static java.lang.Math.floorMod;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
@@ -123,8 +122,7 @@ public class IterativeTeleOp extends OpMode {
                 setPoint = robot.gyro.rawAngle();
                 wasTurning = false;
             }
-            double correction = robot.pid.update(robot.gyro.rawAngle() - setPoint);
-            rotation = correction;
+            rotation = robot.pid.update(robot.gyro.rawAngle() - setPoint);
         }
 
 // Speed Control

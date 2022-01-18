@@ -42,6 +42,13 @@ public class MathUtils {
         return new Point(x,y);
     }
 
+    public static double redToBlue(double angle){
+        return(-angle + 180);
+    }
+    public static double blueToRed(double angle){
+        return(-angle + 360);
+    }
+
 
 
 

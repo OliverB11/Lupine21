@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.DEGREES;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.closestAngle;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.cos;
+import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.redToBlue;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.linearOpMode;
@@ -123,13 +124,17 @@ public class Mecanum {
         strafeAngle = strafeAngle - 90;
         targetAngle= targetAngle - 180;
 
+        if(Side.blue){
+            strafeAngle = redToBlue(strafeAngle);
+        }
+
+        //Blue Switch
 
         targetAngle = closestAngle(targetAngle, gyro.rawAngle());
 
         // Calculate our x and y powers
         double xPower = cos(strafeAngle, DEGREES);
         double yPower = sin(strafeAngle, DEGREES);
-
 
         // Calculate the distances we need to travel
         double xDist = xPower * ticks;
@@ -151,11 +156,9 @@ public class Mecanum {
 
 
             if(curHDist < ticks){
+
+
                 setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.rawAngle()), shiftedPowers.y);
-                multTelemetry.addData("Strafe", shiftedPowers.x);
-                multTelemetry.addData("Turn", pid.update(targetAngle - gyro.rawAngle()));
-                multTelemetry.addData("Drive", shiftedPowers.y);
-                multTelemetry.update();
             }else{
                 setDrivePower(power, 0, pid.update(targetAngle - gyro.rawAngle()), 0);
             }

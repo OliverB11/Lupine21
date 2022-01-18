@@ -42,7 +42,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
 
-        multTelemetry.addData("Status", "Initalized");
+        multTelemetry.addData("Drivers", "WAIT");
         multTelemetry.update();
     }
 
@@ -78,7 +78,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
 
-
+        multTelemetry.addData("Drivers", "Run");
         multTelemetry.update();
         waitForStart();
 
@@ -104,10 +104,10 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.3,800,0,90);
                 robot.strafe(.3,50,0,180);
-                while(robot.getColorSensorRed() < Unfixed.howMuchRed){
+                while(robot.getColorSensorBlue() < Unfixed.howMuchRed){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(robot.getColorSensorRed() > Unfixed.howMuchRed){
+                while(robot.getColorSensorBlue() > Unfixed.howMuchRed){
                     robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
@@ -129,10 +129,10 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.3,800,0,90);
                 robot.strafe(.3,75,0,180);
-                while(robot.getColorSensorRed() < Unfixed.howMuchRed){
+                while(robot.getColorSensorBlue() < Unfixed.howMuchRed){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(robot.getColorSensorRed() > Unfixed.howMuchRed){
+                while(robot.getColorSensorBlue() > Unfixed.howMuchRed){
                     robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
@@ -156,10 +156,10 @@ public class RedLinearAutoBack extends LinearOpMode {
                 intake.stop();
                 robot.strafe(.2,1300,0, 60);
                 robot.strafe(.3,200,0,90);
-                while(robot.getColorSensorRed() < Unfixed.howMuchRed){
+                while(robot.getColorSensorBlue() < Unfixed.howMuchRed){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(robot.getColorSensorRed() > Unfixed.howMuchRed){
+                while(robot.getColorSensorBlue() > Unfixed.howMuchRed){
                     robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
