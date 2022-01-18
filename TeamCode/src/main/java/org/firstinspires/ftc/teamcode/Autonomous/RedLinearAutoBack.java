@@ -56,7 +56,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 // DUCK ON LEFT
 
         if(DuckPosition.duckPos == 1) {
-            multTelemetry.addData("Auto", "Red Back Left");
+            multTelemetry.addData("Auto", "Red Back Right");
 
 
 
@@ -69,7 +69,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 // DUCK ON RIGHT
 
         }else if(DuckPosition.duckPos == 3) {
-            multTelemetry.addData("Auto", "Red Back Right");
+            multTelemetry.addData("Auto", "Red Back Left");
 
 // NO DUCK
         }else{

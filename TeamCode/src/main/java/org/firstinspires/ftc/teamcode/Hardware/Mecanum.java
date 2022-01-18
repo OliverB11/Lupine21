@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.DEGREES;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.closestAngle;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.cos;
-import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.redToBlue;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.linearOpMode;
@@ -124,9 +123,6 @@ public class Mecanum {
         strafeAngle = strafeAngle - 90;
         targetAngle= targetAngle - 180;
 
-        if(Side.blue){
-            strafeAngle = redToBlue(strafeAngle);
-        }
 
         //Blue Switch
 
