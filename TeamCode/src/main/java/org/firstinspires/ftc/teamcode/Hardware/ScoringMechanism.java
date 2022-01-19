@@ -74,7 +74,7 @@ public class ScoringMechanism {
     public void deposit() {
         armUp = true;
         if (time.seconds() > 0 && time.seconds() < 0.5) {
-            bucket.setPosition(0);
+            bucket.setPosition(0.1);
         }
         if(time.seconds() > 1 && time.seconds() < 1.5){
             bucket.setPosition(0.7);

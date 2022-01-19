@@ -128,6 +128,8 @@ public class IterativeTeleOp extends OpMode {
 // Speed Control
         if (controller.RB.press()) {
             power = 0.2;
+        }else if(controller.LB.press()){
+            power = 0.5;g
         } else {
             power = 0.8;
         }
