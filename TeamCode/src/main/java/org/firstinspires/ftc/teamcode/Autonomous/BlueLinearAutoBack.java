@@ -91,8 +91,10 @@ public class BlueLinearAutoBack extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
-                robot.strafe(.5,1300,180,Unfixed.s1angle);
-
+                robot.strafe(.5,1400,180,Unfixed.s1angle);
+                robot.strafe(.5,200,180,90);
+                scorer.autoTop();
+                scorer.autoDeposit();
 
 
 
