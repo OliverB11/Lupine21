@@ -12,6 +12,8 @@ public class Unfixed {
     public static double howMuchRed = 70;
     public static double howMuchBlue = 100;
 
+    public static double s1angle = 75;
+
 
 
 

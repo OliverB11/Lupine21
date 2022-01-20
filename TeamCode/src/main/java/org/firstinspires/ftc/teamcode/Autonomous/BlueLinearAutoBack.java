@@ -60,7 +60,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
 // DUCK ON LEFT
 
         if (DuckPosition.duckPos == 3) {
-            multTelemetry.addData("Auto", "Blue Back Left");
+            multTelemetry.addData("Auto", "Blue Back Right");
 
 
 // DUCK IN MIDDLE
@@ -71,7 +71,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
 // DUCK ON RIGHT
 
         } else if (DuckPosition.duckPos == 1) {
-            multTelemetry.addData("Auto", "Blue Back Right");
+            multTelemetry.addData("Auto", "Blue Back Left");
 
 // NO DUCK
         } else {
@@ -79,6 +79,8 @@ public class BlueLinearAutoBack extends LinearOpMode {
 
         }
 
+
+        multTelemetry.addData("Drivers", "Run");
         multTelemetry.update();
         waitForStart();
 
@@ -89,6 +91,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
+                robot.strafe(.5,1300,180,Unfixed.s1angle);
 
 
 

@@ -129,7 +129,7 @@ public class IterativeTeleOp extends OpMode {
         if (controller.RB.press()) {
             power = 0.2;
         }else if(controller.LB.press()){
-            power = 0.5;g
+            power = 0.5;
         } else {
             power = 0.8;
         }
