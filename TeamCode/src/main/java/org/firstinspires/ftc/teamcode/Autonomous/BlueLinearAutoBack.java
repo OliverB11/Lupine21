@@ -91,21 +91,83 @@ public class BlueLinearAutoBack extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
-                robot.strafe(.5,1400,180,Unfixed.s1angle);
-                robot.strafe(.5,200,180,90);
+                robot.strafe(.5,1400,180,65);
+                robot.strafe(.5,180,180,90);
                 scorer.autoTop();
                 scorer.autoDeposit();
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2000, 180,265);
+                intake.autoSpin();
+                robot.strafe(.2,1500,180,270);
+                duckWheel.blueSpin(.2);
+                robot.sleep(3.5,time);
+                duckWheel.stop();
+                robot.strafe(.3,700,180,90);
+                robot.strafe(.3,600,0,270);
+                robot.strafe(.3,1000,0,315);
+                while(robot.getColorSensorBlue() < 100){
+                    robot.setDrivePower(.3, 0, 0, .4);
+                }
+                while(robot.getColorSensorBlue() > 100){
+                    robot.setDrivePower(.3,0, 0, -.3);
+
+                }
+                robot.strafe(.2, 75,0,180);
+
 
 
 
             }else if(DuckPosition.duckPos == 2){
                 //Middle
                 //Middle
+                robot.strafe(.5,1400,180,65);
+                robot.strafe(.5,180,180,90);
+                scorer.autoMiddle();
+                scorer.autoDeposit();
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2000, 180,265);
+                intake.autoSpin();
+                robot.strafe(.2,1500,180,270);
+                duckWheel.blueSpin(.2);
+                robot.sleep(3.5,time);
+                duckWheel.stop();
+                robot.strafe(.3,700,180,90);
+                robot.strafe(.3,600,0,270);
+                robot.strafe(.3,1000,0,315);
+                while(robot.getColorSensorBlue() < 100){
+                    robot.setDrivePower(.3, 0, 0, .4);
+                }
+                while(robot.getColorSensorBlue() > 100){
+                    robot.setDrivePower(.3,0, 0, -.3);
 
+                }
+                robot.strafe(.2, 75,0,180);
 
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Bottom
+                robot.strafe(.5,1400,180,75);
+                robot.strafe(.5,180,180,90);
+                scorer.autoBottom();
+                scorer.autoDeposit();
+                robot.sleep(0.5, time);
+                robot.strafe(.5,2000, 180,265);
+                intake.autoSpin();
+                robot.strafe(.2,1500,180,270);
+                duckWheel.blueSpin(.2);
+                robot.sleep(3.5,time);
+                duckWheel.stop();
+                robot.strafe(.3,700,180,90);
+                robot.strafe(.3,600,0,270);
+                robot.strafe(.3,1000,0,315);
+                while(robot.getColorSensorBlue() < 100){
+                    robot.setDrivePower(.3, 0, 0, .4);
+                }
+                while(robot.getColorSensorBlue() > 100){
+                    robot.setDrivePower(.3,0, 0, -.3);
+
+                }
+                robot.strafe(.2, 75,0,180);
                            }
 
         }

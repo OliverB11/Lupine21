@@ -153,7 +153,8 @@ public class Mecanum {
 
             if(curHDist < ticks){
 
-
+                multTelemetry.addData("Target Angle", targetAngle);
+                multTelemetry.update();
                 setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.rawAngle()), shiftedPowers.y);
             }else{
                 setDrivePower(power, 0, pid.update(targetAngle - gyro.rawAngle()), 0);

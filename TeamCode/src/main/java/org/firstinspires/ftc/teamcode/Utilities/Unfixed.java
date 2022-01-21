@@ -9,10 +9,9 @@ public class Unfixed {
     public static double proportionalWeight = 0.05;
     public static double integralWeight = 0;
     public static double derivativeWeight = 0.002;
-    public static double howMuchRed = 70;
-    public static double howMuchBlue = 100;
 
-    public static double s1angle = 75;
+    public static double sangle = 315;
+    public static double sticks = 1000;
 
 
 
