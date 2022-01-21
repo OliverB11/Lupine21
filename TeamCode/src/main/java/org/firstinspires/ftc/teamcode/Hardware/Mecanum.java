@@ -34,7 +34,6 @@ public class Mecanum {
     private ElapsedTime timeOut = new ElapsedTime();
     public Camera cam;
     private DetectionPipeline pipeline = new DetectionPipeline();
-    public ColorSensor colorSensor;
 
 
 
@@ -56,7 +55,6 @@ public class Mecanum {
         br = hardwareMap.get(DcMotor.class, "br");
         bl = hardwareMap.get(DcMotor.class, "bl");
         cam = new Camera("Camera",pipeline);
-        colorSensor = hardwareMap.get(ColorSensor.class, "color");
         resetMotors();
 
     }
@@ -106,13 +104,6 @@ public class Mecanum {
 
     }
 
-    public double getColorSensorRed(){
-        return colorSensor.red();
-    }
-
-    public double getColorSensorBlue(){
-        return colorSensor.blue();
-    }
 
     public void strafe(double power, double ticks, double targetAngle, double strafeAngle, double marginOfError){
 

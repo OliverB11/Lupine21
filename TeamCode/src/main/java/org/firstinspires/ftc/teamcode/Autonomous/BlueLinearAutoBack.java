@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
@@ -105,10 +106,10 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,700,180,90);
                 robot.strafe(.3,600,0,270);
                 robot.strafe(.3,1000,0,315);
-                while(robot.getColorSensorBlue() < 100){
+                while(Color_Sensor.getColorSensorBlue() < 100){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(robot.getColorSensorBlue() > 100){
+                while(Color_Sensor.getColorSensorBlue() > 100){
                     robot.setDrivePower(.3,0, 0, -.3);
 
                 }
@@ -134,10 +135,10 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,700,180,90);
                 robot.strafe(.3,600,0,270);
                 robot.strafe(.3,1000,0,315);
-                while(robot.getColorSensorBlue() < 100){
+                while(Color_Sensor.getColorSensorBlue() < 100){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(robot.getColorSensorBlue() > 100){
+                while(Color_Sensor.getColorSensorBlue() > 100){
                     robot.setDrivePower(.3,0, 0, -.3);
 
                 }
@@ -160,10 +161,10 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,700,180,90);
                 robot.strafe(.3,600,0,270);
                 robot.strafe(.3,1000,0,315);
-                while(robot.getColorSensorBlue() < 100){
+                while(Color_Sensor.getColorSensorBlue() < 100){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(robot.getColorSensorBlue() > 100){
+                while(Color_Sensor.getColorSensorBlue() > 100){
                     robot.setDrivePower(.3,0, 0, -.3);
 
                 }

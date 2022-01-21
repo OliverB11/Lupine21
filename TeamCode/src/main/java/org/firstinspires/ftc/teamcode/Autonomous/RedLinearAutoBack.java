@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
@@ -104,10 +105,10 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.4,600,0,90);
                 robot.strafe(.3,50,0,180);
-                while(robot.getColorSensorRed() < 70){
+                while(Color_Sensor.getColorSensorBlue() < 70){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(robot.getColorSensorRed() > 70){
+                while(Color_Sensor.getColorSensorBlue() > 70){
                     robot.setDrivePower(.3,0, 0, -.3);
 
                 }
@@ -130,11 +131,11 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.3,800,0,90);
                 robot.strafe(.3,75,0,180);
-                while(robot.getColorSensorRed() < 70){
+                while(Color_Sensor.getColorSensorBlue() < 70){
                     robot.setDrivePower(.3, 0, 0, .4);
 
                 }
-                while(robot.getColorSensorRed() > 70){
+                while(Color_Sensor.getColorSensorBlue() > 70){
                     robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
@@ -158,10 +159,10 @@ public class RedLinearAutoBack extends LinearOpMode {
                 intake.stop();
                 robot.strafe(.2,1300,0, 60);
                 robot.strafe(.3,200,0,90);
-                while(robot.getColorSensorRed() < 70){
+                while(Color_Sensor.getColorSensorBlue() < 70){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(robot.getColorSensorRed() > 70){
+                while(Color_Sensor.getColorSensorBlue() > 70){
                     robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
