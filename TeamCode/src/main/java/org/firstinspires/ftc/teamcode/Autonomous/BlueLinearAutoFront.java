@@ -55,7 +55,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
         multTelemetry.addData("DRIVERS", "WAIT");
         multTelemetry.update();
         time.reset();
-        scorer.colorCheckPosition();
         MathUtils.wait(time, 5);
 
 // DUCK ON LEFT
@@ -89,14 +88,17 @@ public class BlueLinearAutoFront extends LinearOpMode {
             robot.gyro.reset();
             //WRITE AUTOS HERE
 
-            if(DuckPosition.duckPos == 1){
-               //LEFT
+            if(DuckPosition.duckPos == 3){
+                //RIGHT
+                //Top
 
             }else if(DuckPosition.duckPos == 2){
-              //MIDDLE
+                //MIDDLE
+                //Middle
 
-            }else if(DuckPosition.duckPos == 3){
-                //RIGHT
+            }else if(DuckPosition.duckPos == 1){
+                //LEFT
+                //Bottom
 
 
 

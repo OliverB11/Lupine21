@@ -30,6 +30,7 @@ public class IterativeTeleOp extends OpMode {
     ScoringMechanism scorer;
     double setPoint = 360;
     boolean wasTurning;
+    public boolean justRumbled = false;
 
     enum SlideState {
         TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING, INTAKE, NONE
@@ -134,6 +135,7 @@ public class IterativeTeleOp extends OpMode {
             power = 0.8;
         }
 
+
 //gyro reset ability
         if (controller.share.tap()) {
             setPoint = 0;
@@ -222,8 +224,6 @@ public class IterativeTeleOp extends OpMode {
             if (controller2.down.tap()) {
                 currentSlideState = SlideState.DEPOSIT;
                 scorer.time.reset();
-                controller.gamepad.rumble(1000);
-                controller2.gamepad.rumble(1000);
             }
 
             switch (currentSlideState) {

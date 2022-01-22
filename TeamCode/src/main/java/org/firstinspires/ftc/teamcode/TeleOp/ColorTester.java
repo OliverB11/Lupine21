@@ -19,7 +19,7 @@ public class ColorTester extends OpMode {
     public void init() {
         setOpMode(this);
         color = new Color_Sensor();
-        color.init("color");
+        color.init("bucketColor");
 
 
     }
@@ -35,6 +35,13 @@ public class ColorTester extends OpMode {
 
     @Override
     public void loop() {
+
+        if(color.getRed() > 280 && color.getGreen() > 470 && color.getBlue() > 408){
+            multTelemetry.addData("Stuff?", "Yes");
+        }else{
+            multTelemetry.addData("Stuff?", "No");
+        }
+
         multTelemetry.addData("How Much Red", color.getRed());
         multTelemetry.addData("How Much Green", color.getGreen());
         multTelemetry.addData("How Much Blue", color.getBlue());

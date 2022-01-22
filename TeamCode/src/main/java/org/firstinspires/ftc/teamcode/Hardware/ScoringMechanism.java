@@ -150,17 +150,6 @@ public class ScoringMechanism {
         bucket.setPosition(0.82);
     }
 
-    public void colorCheckPosition(){
-        bucket.setPosition(Unfixed.colorBucketPos);
-        wait(.3);
-        spool.setTargetPosition(Unfixed.colorSpoolPos);
-    }
-
-    public void autoIntake(){
-        spool.setTargetPosition(0);
-        wait(0.3);
-        bucket.setPosition(0.82);
-    }
 
 
     public void wait(double timeout){
@@ -171,7 +160,7 @@ public class ScoringMechanism {
     }
 
     public boolean isLoaded(){
-        if(bucketSensor.getRed() > Unfixed.red && bucketSensor.getGreen() > Unfixed.green && bucketSensor.getBlue() > Unfixed.blue){
+        if(bucketSensor.getRed() > 280 && bucketSensor.getGreen() > 470 && bucketSensor.getBlue() > 408){
             return(true);
         }else{
             return(false);

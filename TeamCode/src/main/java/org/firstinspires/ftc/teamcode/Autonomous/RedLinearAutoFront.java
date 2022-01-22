@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+import static org.firstinspires.ftc.teamcode.Utilities.Unfixed.sangle;
+import static org.firstinspires.ftc.teamcode.Utilities.Unfixed.sticks;
 
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
@@ -90,14 +92,22 @@ public class RedLinearAutoFront extends LinearOpMode {
         if (opModeIsActive()){
             //WRITE AUTOS HERE
 
-            if(DuckPosition.duckPos == 1){
-                //LEFT
+            if(DuckPosition.duckPos == 3){
+                //RIGHT
+                //Top
+                robot.strafe(.4, sticks,180, sangle);
+
+
 
             }else if(DuckPosition.duckPos == 2){
                 //MIDDLE
+                //Middle
 
-            }else if(DuckPosition.duckPos == 3){
-                //RIGHT
+
+
+            }else if(DuckPosition.duckPos == 1){
+                //Left
+                //Top
 
 
 
