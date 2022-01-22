@@ -7,18 +7,22 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
 import org.opencv.android.Utils;
 
 public class ScoringMechanism {
     public DcMotor spool;
     public Servo bucket;
+    Color_Sensor bucketSensor;
     public ElapsedTime time = new ElapsedTime();
     public boolean armUp = false;
 
     public ScoringMechanism() {
         spool = hardwareMap.get(DcMotor.class, "spool");
         bucket = hardwareMap.get(Servo.class, "bucket");
+        bucketSensor = new Color_Sensor();
+        bucketSensor.init("bucketColor");
         bucket.setPosition(0.82);
         resetMotors();
 
@@ -146,11 +150,31 @@ public class ScoringMechanism {
         bucket.setPosition(0.82);
     }
 
+    public void colorCheckPosition(){
+        bucket.setPosition(Unfixed.colorBucketPos);
+        wait(.3);
+        spool.setTargetPosition(Unfixed.colorSpoolPos);
+    }
+
+    public void autoIntake(){
+        spool.setTargetPosition(0);
+        wait(0.3);
+        bucket.setPosition(0.82);
+    }
+
 
     public void wait(double timeout){
         time.reset();
         while(time.seconds()<timeout){
 
+        }
+    }
+
+    public boolean isLoaded(){
+        if(bucketSensor.getRed() > Unfixed.red && bucketSensor.getGreen() > Unfixed.green && bucketSensor.getBlue() > Unfixed.blue){
+            return(true);
+        }else{
+            return(false);
         }
     }
 

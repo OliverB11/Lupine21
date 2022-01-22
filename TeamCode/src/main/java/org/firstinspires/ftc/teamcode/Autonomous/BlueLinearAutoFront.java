@@ -14,6 +14,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
@@ -39,6 +40,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
         robot = new Mecanum();
         duckWheel = new DuckWheel();
         scorer = new ScoringMechanism();
+
         ElapsedTime time = new ElapsedTime();
 
 
@@ -53,12 +55,14 @@ public class BlueLinearAutoFront extends LinearOpMode {
         multTelemetry.addData("DRIVERS", "WAIT");
         multTelemetry.update();
         time.reset();
+        scorer.colorCheckPosition();
         MathUtils.wait(time, 5);
 
 // DUCK ON LEFT
 
-        if (DuckPosition.duckPos == 1) {
-            multTelemetry.addData("Auto", "Blue Front Left");
+        if (DuckPosition.duckPos == 3) {
+            multTelemetry.addData("Auto", "Blue Front Right");
+
 
 
 // DUCK IN MIDDLE
@@ -68,15 +72,14 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
 // DUCK ON RIGHT
 
-        } else if (DuckPosition.duckPos == 3) {
-            multTelemetry.addData("Auto", "Blue Front Right");
+        } else if (DuckPosition.duckPos == 1) {
+            multTelemetry.addData("Auto", "Blue Front Left");
 
 // NO DUCK
         } else {
             multTelemetry.addData("Auto", "Blue Front None");
 
         }
-
 
         multTelemetry.update();
         waitForStart();

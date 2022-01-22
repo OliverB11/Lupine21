@@ -4,19 +4,19 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
 public class Color_Sensor {
-    public static ColorSensor colorSensor;
-    public static void init() {
+    public ColorSensor colorSensor;
+    public void init(String mapName) {
 
-        colorSensor = hardwareMap.get(com.qualcomm.robotcore.hardware.ColorSensor.class, "color");
+        colorSensor = hardwareMap.get(com.qualcomm.robotcore.hardware.ColorSensor.class, mapName);
     }
-    public static double getColorSensorRed(){
+    public double getRed(){
         return colorSensor.red();
     }
 
-    public static double getColorSensorBlue(){
+    public double getBlue(){
         return colorSensor.blue();
     }
 
-    public static double getColorSensorGreen(){return colorSensor.green();}
+    public double getGreen(){return colorSensor.green();}
 
 }
