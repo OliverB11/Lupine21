@@ -95,7 +95,12 @@ public class RedLinearAutoFront extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
-                robot.strafe(.4, sticks,180, sangle);
+                robot.strafe(.4, 1600,180, 70);
+                robot.strafe(.2,200,180,0);
+                scorer.autoTop();
+                scorer.autoDeposit();
+                robot.sleep(0.3, time);
+                robot.strafe(.5,1000,270,315);
 
 
 

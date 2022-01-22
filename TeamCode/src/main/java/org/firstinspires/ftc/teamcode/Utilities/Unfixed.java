@@ -10,7 +10,7 @@ public class Unfixed {
     public static double integralWeight = 0;
     public static double derivativeWeight = 0.002;
 
-    public static double sangle = 80;
+    public static double sangle = 75;
     public static double sticks = 1700;
 
 
