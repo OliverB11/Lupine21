@@ -32,8 +32,8 @@ public class BlueLinearAutoBack extends LinearOpMode {
     DuckWheel duckWheel;
     Intake intake;
     ScoringMechanism scorer;
-    Color_Sensor leftColor;
-    Color_Sensor rightColor;
+    Color_Sensor flColor;
+    Color_Sensor frColor;
 
 
     public void initialize(){
@@ -45,10 +45,10 @@ public class BlueLinearAutoBack extends LinearOpMode {
         duckWheel = new DuckWheel();
         intake = new Intake();
         scorer = new ScoringMechanism();
-        leftColor = new Color_Sensor();
-        rightColor = new Color_Sensor();
-        leftColor.init("leftColor");
-        rightColor.init("rightColor");
+        flColor = new Color_Sensor();
+        frColor = new Color_Sensor();
+        flColor.init("flColor");
+        frColor.init("frColor");
 
         multTelemetry.addData("Drivers", "WAIT");
         multTelemetry.update();
@@ -112,10 +112,10 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,700,180,90);
                 robot.strafe(.3,600,0,270);
                 robot.strafe(.3,1000,0,315);
-                while(leftColor.getBlue() < 100 && rightColor.getBlue() < 100){
+                while(flColor.getBlue() < 100 && frColor.getBlue() < 100){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(leftColor.getBlue() > 100 && rightColor.getBlue() < 100){
+                while(flColor.getBlue() > 100 && frColor.getBlue() < 100){
                     robot.setDrivePower(.3,0, 0, -.3);
 
                 }
@@ -141,10 +141,10 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,700,180,90);
                 robot.strafe(.3,600,0,270);
                 robot.strafe(.3,1000,0,315);
-                while(leftColor.getBlue() < 100 && rightColor.getBlue() < 100){
+                while(flColor.getBlue() < 100 && frColor.getBlue() < 100){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(leftColor.getBlue() > 100 && rightColor.getBlue() < 100){
+                while(flColor.getBlue() > 100 && frColor.getBlue() < 100){
                     robot.setDrivePower(.3,0, 0, -.3);
 
                 }
@@ -167,10 +167,10 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,700,180,90);
                 robot.strafe(.3,600,0,270);
                 robot.strafe(.3,1000,0,315);
-                while(leftColor.getBlue() < 100 && rightColor.getBlue() < 100){
+                while(flColor.getBlue() < 100 && frColor.getBlue() < 100){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(leftColor.getBlue() > 100 && rightColor.getBlue() < 100){
+                while(flColor.getBlue() > 100 && frColor.getBlue() < 100){
                     robot.setDrivePower(.3,0, 0, -.3);
 
                 }

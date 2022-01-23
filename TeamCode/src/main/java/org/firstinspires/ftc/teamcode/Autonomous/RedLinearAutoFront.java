@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
@@ -31,6 +32,10 @@ public class RedLinearAutoFront extends LinearOpMode {
     DuckWheel duckWheel;
     ScoringMechanism scorer;
     Intake intake;
+    Color_Sensor flColor;
+    Color_Sensor frColor;
+    Color_Sensor blColor;
+    Color_Sensor brColor;
 
 
 
@@ -44,6 +49,15 @@ public class RedLinearAutoFront extends LinearOpMode {
         duckWheel = new DuckWheel();
         intake = new Intake();
         scorer = new ScoringMechanism();
+        flColor = new Color_Sensor();
+        frColor = new Color_Sensor();
+        blColor = new Color_Sensor();
+        brColor = new Color_Sensor();
+        flColor.init("flColor");
+        frColor.init("frColor");
+        frColor.init("blColor");
+        frColor.init("brColor");
+
 
 
         multTelemetry.addData("Status", "Initalized");

@@ -29,8 +29,8 @@ public class RedLinearAutoBack extends LinearOpMode {
     DuckWheel duckWheel;
     ScoringMechanism scorer;
     Intake intake;
-    Color_Sensor leftColor;
-    Color_Sensor rightColor;
+    Color_Sensor flColor;
+    Color_Sensor frColor;
 
 
     public void initialize(){
@@ -41,10 +41,10 @@ public class RedLinearAutoBack extends LinearOpMode {
         duckWheel = new DuckWheel();
         intake = new Intake();
         scorer = new ScoringMechanism();
-        leftColor = new Color_Sensor();
-        rightColor = new Color_Sensor();
-        leftColor.init("leftColor");
-        rightColor.init("rightColor");
+        flColor = new Color_Sensor();
+        frColor = new Color_Sensor();
+        flColor.init("flColor");
+        frColor.init("frColor");
 
 
 
@@ -111,10 +111,10 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.4,600,0,90);
                 robot.strafe(.3,50,0,180);
-                while(leftColor.getRed() < 70 && rightColor.getRed() < 70){
+                while(flColor.getRed() < 70 && frColor.getRed() < 70){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(leftColor.getRed() > 70 && rightColor.getRed() < 70){
+                while(flColor.getRed() > 70 && frColor.getRed() < 70){
                     robot.setDrivePower(.3,0, 0, -.3);
 
                 }
@@ -137,11 +137,11 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.strafe(.3,1000,180,315);
                 robot.strafe(.3,800,0,90);
                 robot.strafe(.3,75,0,180);
-                while(leftColor.getRed() < 70 && rightColor.getRed() < 70){
+                while(flColor.getRed() < 70 && frColor.getRed() < 70){
                     robot.setDrivePower(.3, 0, 0, .4);
 
                 }
-                while(leftColor.getRed() > 70 && rightColor.getRed() < 70){
+                while(flColor.getRed() > 70 && frColor.getRed() < 70){
                     robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
@@ -165,10 +165,10 @@ public class RedLinearAutoBack extends LinearOpMode {
                 intake.stop();
                 robot.strafe(.2,1300,0, 60);
                 robot.strafe(.3,200,0,90);
-                while(leftColor.getRed() < 70 && rightColor.getRed() < 70){
+                while(flColor.getRed() < 70 && frColor.getRed() < 70){
                     robot.setDrivePower(.3, 0, 0, .4);
                 }
-                while(leftColor.getRed() > 70 && rightColor.getRed() < 70){
+                while(flColor.getRed() > 70 && frColor.getRed() < 70){
                     robot.setDrivePower(.3,0, 0, -.3);
                 }
                 robot.strafe(.2, 75,0,180);
