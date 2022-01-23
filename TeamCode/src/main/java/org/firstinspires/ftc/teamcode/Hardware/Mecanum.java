@@ -34,7 +34,7 @@ public class Mecanum {
 
     public Mecanum(){
         gyro = new Gyro();
-        pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.derivativeWeight);
+        pid = new PID(0.05, 0, 0.002);
         initRobot();
     }
 

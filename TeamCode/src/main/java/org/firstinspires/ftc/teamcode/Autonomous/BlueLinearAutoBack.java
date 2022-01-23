@@ -28,7 +28,6 @@ public class BlueLinearAutoBack extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
     Mecanum robot;
-    PID pid;
     DuckWheel duckWheel;
     Intake intake;
     ScoringMechanism scorer;
@@ -40,7 +39,6 @@ public class BlueLinearAutoBack extends LinearOpMode {
         setOpMode(this);
         Side.red = false;
         Side.blue = true;
-        pid = new PID(Unfixed.proportionalWeight, Unfixed.integralWeight, Unfixed.integralWeight);
         robot = new Mecanum();
         duckWheel = new DuckWheel();
         intake = new Intake();
