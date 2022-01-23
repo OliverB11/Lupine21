@@ -5,11 +5,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
-import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
-import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
-import org.opencv.android.Utils;
 
 public class ScoringMechanism {
     public DcMotor spool;

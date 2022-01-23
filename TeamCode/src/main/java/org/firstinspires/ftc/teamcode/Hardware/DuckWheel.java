@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
-import org.firstinspires.ftc.teamcode.Utilities.Unfixed;
-
 public class DuckWheel {
     CRServo duck1;
     CRServo duck2;
