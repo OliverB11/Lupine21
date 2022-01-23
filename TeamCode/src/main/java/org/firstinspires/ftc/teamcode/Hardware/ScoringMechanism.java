@@ -93,7 +93,8 @@ public class ScoringMechanism {
 
     }
 
-    public void drivingFromIntake(){
+
+    public void driving(){
         if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.7);
         }

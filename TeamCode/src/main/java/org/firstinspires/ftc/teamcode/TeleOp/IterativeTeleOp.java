@@ -225,6 +225,10 @@ public class IterativeTeleOp extends OpMode {
                 currentSlideState = SlideState.DEPOSIT;
                 scorer.time.reset();
             }
+            if (controller2.circle.tap()){
+                currentSlideState = SlideState.DRIVING;
+                scorer.time.reset();
+            }
 
             switch (currentSlideState) {
                 case TOP:
@@ -245,7 +249,7 @@ public class IterativeTeleOp extends OpMode {
 
 
                 case DRIVING:
-                    scorer.drivingFromIntake();
+                    scorer.driving();
 
                 case INTAKE:
                     scorer.intake();
