@@ -118,6 +118,7 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 
 
+
             }else if(DuckPosition.duckPos == 2){
                 //MIDDLE
                 //Middle
