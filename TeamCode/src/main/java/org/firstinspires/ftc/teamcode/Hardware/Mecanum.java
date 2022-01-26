@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.sangle;
+import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.sticks;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.DEGREES;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.closestAngle;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.cos;
@@ -15,6 +17,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
+import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.Camera;
 import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.opencv.core.Point;
@@ -138,8 +141,6 @@ public class Mecanum {
 
             if(curHDist < ticks){
 
-                multTelemetry.addData("Target Angle", targetAngle);
-                multTelemetry.update();
                 setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.rawAngle()), shiftedPowers.y);
             }else{
                 setDrivePower(power, 0, pid.update(targetAngle - gyro.rawAngle()), 0);
@@ -166,7 +167,39 @@ public class Mecanum {
         timer.reset();
         while(timer.seconds() < time){
         }
+    }
 
+    public void cycle(Intake intake, ScoringMechanism scorer){
+        intake.autoSpin();
+
+        if(Side.red){
+            time.reset();
+            while (!scorer.isLoaded()) {
+                multTelemetry.addData("Is Loaded?", scorer.isLoaded());
+                multTelemetry.update();
+                if (time.seconds() < 4) {
+                    strafe(.3, 100, 270, 270);
+                }else{
+                    strafe(.5, 100, 270, 90);
+                    time.reset();
+                }
+            }
+
+            intake.autoBackSpin();
+            strafe(.2,100,270,180);
+            strafe(.5, 2000, 270, 90);
+            intake.stop();
+            strafe(.4, 600, 270, 10);
+            strafe(.2, 600, 210, 5);
+            scorer.autoTop();
+            scorer.autoDeposit();
+            strafe(.2, 600, 210, 185);
+            strafe(.4, 600, 270, 190);
+            strafe(.2,100,270,180);
+
+        }else if(Side.blue){
+
+        }
     }
 
 }

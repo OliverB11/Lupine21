@@ -158,7 +158,7 @@ public class ScoringMechanism {
     }
 
     public boolean isLoaded(){
-        if(bucketSensor.getRed() > 280 && bucketSensor.getGreen() > 470 && bucketSensor.getBlue() > 408){
+        if(bucketSensor.getRed() > 120 && bucketSensor.getGreen() > 200){
             return(true);
         }else{
             return(false);

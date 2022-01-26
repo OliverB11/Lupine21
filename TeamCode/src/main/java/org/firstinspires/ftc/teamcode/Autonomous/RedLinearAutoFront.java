@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.sangle;
+import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.sticks;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
@@ -58,7 +60,7 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 
 
-        multTelemetry.addData("Status", "Initalized");
+        multTelemetry.addData("DRIVERS", "Wait");
         multTelemetry.update();
     }
 
@@ -105,12 +107,14 @@ public class RedLinearAutoFront extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
-                robot.strafe(.4, 1600,180, 70);
-                robot.strafe(.2,200,180,0);
+                robot.strafe(.4, 1500,180, 70);
                 scorer.autoTop();
                 scorer.autoDeposit();
                 robot.sleep(0.3, time);
-                robot.strafe(.5,1000,270,315);
+                robot.strafe(.3,200,180,180);
+                robot.strafe(.5,1250,270,225);
+                robot.cycle(intake,scorer);
+
 
 
 

@@ -34,6 +34,8 @@ public class Intake {
         intake.setPower(0.5);
     }
 
+    public void autoBackSpin(){intake.setPower(-1);}
+
 }
 
 
