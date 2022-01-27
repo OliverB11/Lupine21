@@ -13,6 +13,10 @@ import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
+import android.graphics.Color;
+
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
@@ -108,6 +112,8 @@ public class Mecanum {
         resetMotors();
         timeOut.reset();
 
+
+
         strafeAngle = strafeAngle - 90;
         targetAngle= targetAngle - 180;
 
@@ -169,33 +175,58 @@ public class Mecanum {
         }
     }
 
-    public void cycle(Intake intake, ScoringMechanism scorer){
-        intake.autoSpin();
-
+    public void cycle(Intake intake, ScoringMechanism scorer, Color_Sensor flColor, Color_Sensor frColor, Color_Sensor blColor, Color_Sensor brColor, Distance_Sensor distance){
+        double backingUp = 0;
         if(Side.red){
-            time.reset();
-            while (!scorer.isLoaded()) {
-                multTelemetry.addData("Is Loaded?", scorer.isLoaded());
+            while(blColor.getRed() < 100 & brColor.getRed() < 100){
+                strafe(.5,100,270,270);
+                multTelemetry.addData("Stage", "Going Towards White Line");
                 multTelemetry.update();
-                if (time.seconds() < 4) {
+            }
+            intake.autoSpin();
+            while (!scorer.isLoaded()) {
+                distance.distanceUpdate();
+                intake.updateEncoders();
+                if (distance.getCM() > 20 && !intake.jammed()) {
+                    intake.autoSpin();
                     strafe(.3, 100, 270, 270);
+                    multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
+                    multTelemetry.update();
                 }else{
-                    strafe(.5, 100, 270, 90);
-                    time.reset();
+                    intake.autoBackSpin();
+                    strafe(.6, 100, 270, 90);
+                    multTelemetry.addData("Stage", "Retreating Fast");
+                    multTelemetry.update();
+
                 }
             }
 
             intake.autoBackSpin();
+            multTelemetry.addData("Stage", "Going Into Wall");
+            multTelemetry.update();
             strafe(.2,100,270,180);
-            strafe(.5, 2000, 270, 90);
+
+            while(backingUp < 10) {
+                if (distance.isChanging) {
+                    strafe(.6, 100, 270, 90);
+                    multTelemetry.addData("Stage", "Not Stuck, Going Backwards");
+                    multTelemetry.update();
+                    backingUp ++;
+                }else{
+                    strafe(.6,100,270,270);
+                    multTelemetry.addData("Stage", "Stuck, Going Forwards");
+                    multTelemetry.update();
+                    backingUp --;
+                }
+            }
             intake.stop();
-            strafe(.4, 600, 270, 10);
-            strafe(.2, 600, 210, 5);
+            strafe(.5, 600, 270, 10);
+            strafe(.2, 700, 210, 5);
             scorer.autoTop();
             scorer.autoDeposit();
-            strafe(.2, 600, 210, 185);
-            strafe(.4, 600, 270, 190);
-            strafe(.2,100,270,180);
+            strafe(.6, 600, 210, 185);
+            strafe(.5, 600, 270, 190);
+            strafe(.3,200,270,180);
 
         }else if(Side.blue){
 

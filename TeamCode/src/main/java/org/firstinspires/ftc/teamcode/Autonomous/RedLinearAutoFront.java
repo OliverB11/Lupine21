@@ -6,10 +6,9 @@ import androidx.annotation.RequiresApi;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.sangle;
-import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.sticks;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
@@ -18,6 +17,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
+import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
 import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
@@ -37,6 +37,7 @@ public class RedLinearAutoFront extends LinearOpMode {
     Color_Sensor frColor;
     Color_Sensor blColor;
     Color_Sensor brColor;
+    Distance_Sensor distance;
 
 
 
@@ -53,14 +54,16 @@ public class RedLinearAutoFront extends LinearOpMode {
         frColor = new Color_Sensor();
         blColor = new Color_Sensor();
         brColor = new Color_Sensor();
+        distance = new Distance_Sensor();
         flColor.init("flColor");
         frColor.init("frColor");
         frColor.init("blColor");
         frColor.init("brColor");
+        distance.init("distance");
 
 
 
-        multTelemetry.addData("DRIVERS", "Wait");
+        multTelemetry.addData("Status", "Initalized");
         multTelemetry.update();
     }
 
@@ -107,14 +110,14 @@ public class RedLinearAutoFront extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
-                robot.strafe(.4, 1500,180, 70);
+                robot.strafe(.6, 1500,180, 70);
                 scorer.autoTop();
                 scorer.autoDeposit();
                 robot.sleep(0.3, time);
-                robot.strafe(.3,200,180,180);
-                robot.strafe(.5,1250,270,225);
-                robot.cycle(intake,scorer);
-
+                robot.strafe(.5,200,180,180);
+                robot.strafe(.6,1250,270,225);
+                robot.cycle(intake, scorer, flColor, frColor, blColor, brColor, distance);
+                robot.strafe(.5,800,270,270);
 
 
 

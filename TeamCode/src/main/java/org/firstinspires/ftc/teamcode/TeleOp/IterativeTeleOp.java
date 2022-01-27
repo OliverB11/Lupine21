@@ -106,6 +106,8 @@ public class IterativeTeleOp extends OpMode {
         controller.controllerUpdate();
         controller2.controllerUpdate();
         robot.gyro.update();
+        intake.updateEncoders();
+
 
 
 // PID
@@ -268,7 +270,8 @@ public class IterativeTeleOp extends OpMode {
 
 
 //Telemetry
-
+            multTelemetry.addData("Is Moving?", intake.isMoving);
+            multTelemetry.update();
 
         }
 

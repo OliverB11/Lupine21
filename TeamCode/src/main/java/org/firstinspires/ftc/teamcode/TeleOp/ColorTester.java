@@ -19,7 +19,7 @@ public class ColorTester extends OpMode {
     public void init() {
         setOpMode(this);
         color = new Color_Sensor();
-        color.init("bucketColor");
+        color.init("flColor");
 
 
     }
