@@ -53,7 +53,6 @@ public class Mecanum {
         fl = hardwareMap.get(DcMotor.class, "fl");
         br = hardwareMap.get(DcMotor.class, "br");
         bl = hardwareMap.get(DcMotor.class, "bl");
-
         flColor = new Color_Sensor();
         frColor = new Color_Sensor();
         blColor = new Color_Sensor();

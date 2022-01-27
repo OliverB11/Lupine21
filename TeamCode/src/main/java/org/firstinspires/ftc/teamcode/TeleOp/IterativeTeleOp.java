@@ -189,7 +189,12 @@ public class IterativeTeleOp extends OpMode {
             }
 
 
-            //Controller 2 Stuff
+        //Controller 2 Stuff
+
+            robot.capper.up(controller2.LTrigger.getValue());
+            robot.capper.down(controller2.RTrigger.getValue());
+
+
             if (Side.blue) {
                 if (controller2.cross.toggle()) {
                     robot.duckWheel.blueSpin(.28);
