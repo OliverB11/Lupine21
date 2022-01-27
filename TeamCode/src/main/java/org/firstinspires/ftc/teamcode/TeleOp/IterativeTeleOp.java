@@ -5,10 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
-import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
@@ -21,13 +22,10 @@ public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    public static Mecanum robot;
+    public static Robot robot;
     double power;
-    DuckWheel duckSpinner;
-    Intake intake;
     Controller controller;
     Controller controller2;
-    ScoringMechanism scorer;
     double setPoint = 360;
     boolean wasTurning;
     public boolean justRumbled = false;
@@ -47,12 +45,9 @@ public class IterativeTeleOp extends OpMode {
         setOpMode(this);
 
         power = 0.6;
-        robot = new Mecanum();
+        robot = new Robot();
         controller = new Controller(gamepad1);
         controller2 = new Controller(gamepad2);
-        duckSpinner = new DuckWheel();
-        intake = new Intake();
-        scorer = new ScoringMechanism();
 
         if (!Side.blue && !Side.red) {
             Side.blue = true;
@@ -105,8 +100,8 @@ public class IterativeTeleOp extends OpMode {
 // Updates
         controller.controllerUpdate();
         controller2.controllerUpdate();
-        robot.gyro.update();
-        intake.updateEncoders();
+        robot.chassis.gyro.update();
+        robot.intake.updateEncoders();
 
 
 
@@ -118,14 +113,14 @@ public class IterativeTeleOp extends OpMode {
         if (!(controller.rightStick().x == 0)) {
             rotation = controller.rightStick().x;
             wasTurning = true;
-        } else if (wasTurning && Math.abs(robot.gyro.rateOfChange()) > 0) {
+        } else if (wasTurning && Math.abs(robot.chassis.gyro.rateOfChange()) > 0) {
             rotation = controller.rightStick().x;
         } else {
             if (wasTurning) {
-                setPoint = robot.gyro.rawAngle();
+                setPoint = robot.chassis.gyro.rawAngle();
                 wasTurning = false;
             }
-            rotation = robot.pid.update(robot.gyro.rawAngle() - setPoint);
+            rotation = robot.chassis.pid.update(robot.chassis.gyro.rawAngle() - setPoint);
         }
 
 // Speed Control
@@ -141,7 +136,7 @@ public class IterativeTeleOp extends OpMode {
 //gyro reset ability
         if (controller.share.tap()) {
             setPoint = 0;
-            robot.gyro.reset();
+            robot.chassis.gyro.reset();
         }
 
 // Switch Sides
@@ -159,53 +154,53 @@ public class IterativeTeleOp extends OpMode {
 // Stuff
 
     //Controller1 Stuff
-        if (controller.RTrigger.press() && !scorer.armUp) {
+        if (controller.RTrigger.press() && !robot.scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
-                scorer.time.reset();
-                intake.time.reset();
+                robot.scorer.time.reset();
+                robot.intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
-            intake.spin();
-        } else if (controller.LTrigger.press() && !scorer.armUp) {
+            robot.intake.spin();
+        } else if (controller.LTrigger.press() && !robot.scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
-                scorer.time.reset();
-                intake.time.reset();
+                robot.scorer.time.reset();
+                robot.intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
-            intake.backSpin();
-        } else if (!scorer.armUp){
+            robot.intake.backSpin();
+        } else if (!robot.scorer.armUp){
             currentSlideState = SlideState.DRIVING;
-            scorer.time.reset();
-            intake.stop();
+            robot.scorer.time.reset();
+            robot.intake.stop();
         }
 
 
             if (controller.left.press()) {
-                setPoint = MathUtils.closestAngle(90, robot.gyro.rawAngle());
+                setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.rawAngle());
             }
             if (controller.up.press()) {
-                setPoint = MathUtils.closestAngle(0, robot.gyro.rawAngle());
+                setPoint = MathUtils.closestAngle(0, robot.chassis.gyro.rawAngle());
             }
             if (controller.down.press()) {
-                setPoint = MathUtils.closestAngle(180, robot.gyro.rawAngle());
+                setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.rawAngle());
             }
             if (controller.right.press()) {
-                setPoint = MathUtils.closestAngle(270, robot.gyro.rawAngle());
+                setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.rawAngle());
             }
 
 
             //Controller 2 Stuff
             if (Side.blue) {
                 if (controller2.cross.toggle()) {
-                    duckSpinner.blueSpin(.28);
+                    robot.duckWheel.blueSpin(.28);
                 } else {
-                    duckSpinner.stop();
+                    robot.duckWheel.stop();
                 }
             } else if (Side.red) {
                 if (controller2.cross.toggle()) {
-                    duckSpinner.redSpin(.28);
+                    robot.duckWheel.redSpin(.28);
                 } else {
-                    duckSpinner.stop();
+                    robot.duckWheel.stop();
                 }
             }
 
@@ -213,48 +208,48 @@ public class IterativeTeleOp extends OpMode {
 
             if (controller2.up.tap()) {
                 currentSlideState = SlideState.TOP;
-                scorer.time.reset();
+                robot.scorer.time.reset();
             }
             if (controller2.left.tap()) {
                 currentSlideState = SlideState.MIDDLE;
-                scorer.time.reset();
+                robot.scorer.time.reset();
             }
             if (controller2.right.tap()) {
                 currentSlideState = SlideState.BOTTOM;
-                scorer.time.reset();
+                robot.scorer.time.reset();
             }
             if (controller2.down.tap()) {
                 currentSlideState = SlideState.DEPOSIT;
-                scorer.time.reset();
+                robot.scorer.time.reset();
             }
             if (controller2.circle.tap()){
                 currentSlideState = SlideState.DRIVING;
-                scorer.time.reset();
+                robot.scorer.time.reset();
             }
 
             switch (currentSlideState) {
                 case TOP:
-                    scorer.top();
+                    robot.scorer.top();
                     break;
 
                 case MIDDLE:
-                    scorer.middle();
+                    robot.scorer.middle();
                     break;
 
                 case BOTTOM:
-                    scorer.bottom();
+                    robot.scorer.bottom();
                     break;
 
                 case DEPOSIT:
-                    scorer.deposit();
+                    robot.scorer.deposit();
                     break;
 
 
                 case DRIVING:
-                    scorer.driving();
+                    robot.scorer.driving();
 
                 case INTAKE:
-                    scorer.intake();
+                    robot.scorer.intake();
 
                 case NONE:
                     break;
@@ -262,15 +257,15 @@ public class IterativeTeleOp extends OpMode {
 
 
 //Movement control
-            double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
-            double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
+            double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.rawAngle()).y;
+            double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.rawAngle()).x;
             double turn = -rotation;
 
-            robot.setDrivePower(power, strafe, turn, drive);
+            robot.chassis.setDrivePower(power, strafe, turn, drive);
 
 
 //Telemetry
-            multTelemetry.addData("Is Moving?", intake.isMoving);
+            multTelemetry.addData("Is Moving?", robot.intake.isMoving);
             multTelemetry.update();
 
         }

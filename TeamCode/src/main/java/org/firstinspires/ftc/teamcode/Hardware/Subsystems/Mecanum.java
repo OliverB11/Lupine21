@@ -1,11 +1,9 @@
-package org.firstinspires.ftc.teamcode.Hardware;
+package org.firstinspires.ftc.teamcode.Hardware.Subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.sangle;
-import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.sticks;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.DEGREES;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.closestAngle;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.cos;
@@ -13,14 +11,11 @@ import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.sin;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
-import android.graphics.Color;
-
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
-import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.Camera;
 import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
@@ -29,8 +24,9 @@ import org.opencv.core.Point;
 public class Mecanum {
 
     public DcMotor fr,fl,br,bl;
-    public Gyro gyro;
+    public Color_Sensor flColor, frColor, blColor, brColor;
     public PID pid;
+    public Gyro gyro;
     public static ElapsedTime time = new ElapsedTime();
     private ElapsedTime timeOut = new ElapsedTime();
     public Camera cam;
@@ -39,23 +35,33 @@ public class Mecanum {
 
 
 
+
     public Mecanum(){
-        gyro = new Gyro();
         pid = new PID(0.05, 0, 0.002);
-        initRobot();
+        gyro = new Gyro();
+        cam = new Camera("Camera",pipeline);
+        initChassis();
     }
 
 
 
 
-    public void initRobot() {
+    public void initChassis() {
 
 
         fr = hardwareMap.get(DcMotor.class, "fr");
         fl = hardwareMap.get(DcMotor.class, "fl");
         br = hardwareMap.get(DcMotor.class, "br");
         bl = hardwareMap.get(DcMotor.class, "bl");
-        cam = new Camera("Camera",pipeline);
+
+        flColor = new Color_Sensor();
+        frColor = new Color_Sensor();
+        blColor = new Color_Sensor();
+        brColor = new Color_Sensor();
+        flColor.init("flColor");
+        frColor.init("frColor");
+        blColor.init("blColor");
+        brColor.init("brColor");
         resetMotors();
 
     }
@@ -175,7 +181,7 @@ public class Mecanum {
         }
     }
 
-    public void cycle(Intake intake, ScoringMechanism scorer, Color_Sensor flColor, Color_Sensor frColor, Color_Sensor blColor, Color_Sensor brColor, Distance_Sensor distance){
+    public void cycle(Intake intake, ScoringMechanism scorer, Distance_Sensor distance){
         double backingUp = 0;
         if(Side.red){
             while(blColor.getRed() < 100 & brColor.getRed() < 100){
@@ -187,49 +193,50 @@ public class Mecanum {
             while (!scorer.isLoaded()) {
                 distance.distanceUpdate();
                 intake.updateEncoders();
-                if (distance.getCM() > 20 && !intake.jammed()) {
+                if(!distance.isChanging){
+                    strafe(.3,100,270,90);
+                }
+                if (distance.getCM() > 10 && !intake.jammed()) {
                     intake.autoSpin();
                     strafe(.3, 100, 270, 270);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
-                    multTelemetry.update();
                 }else{
                     intake.autoBackSpin();
                     strafe(.6, 100, 270, 90);
                     multTelemetry.addData("Stage", "Retreating Fast");
-                    multTelemetry.update();
-
                 }
+                multTelemetry.update();
             }
 
-            intake.autoBackSpin();
-            multTelemetry.addData("Stage", "Going Into Wall");
-            multTelemetry.update();
-            strafe(.2,100,270,180);
-
-            while(backingUp < 10) {
-                if (distance.isChanging) {
-                    strafe(.6, 100, 270, 90);
-                    multTelemetry.addData("Stage", "Not Stuck, Going Backwards");
-                    multTelemetry.update();
-                    backingUp ++;
-                }else{
-                    strafe(.6,100,270,270);
-                    multTelemetry.addData("Stage", "Stuck, Going Forwards");
-                    multTelemetry.update();
-                    backingUp --;
-                }
-            }
-            intake.stop();
-            strafe(.5, 600, 270, 10);
-            strafe(.2, 700, 210, 5);
-            scorer.autoTop();
-            scorer.autoDeposit();
-            strafe(.6, 600, 210, 185);
-            strafe(.5, 600, 270, 190);
-            strafe(.3,200,270,180);
-
-        }else if(Side.blue){
-
+//            intake.autoBackSpin();
+//            multTelemetry.addData("Stage", "Going Into Wall");
+//            multTelemetry.update();
+//            strafe(.2,100,270,180);
+//
+//            while(backingUp < 10) {
+//                if (distance.isChanging) {
+//                    strafe(.6, 100, 270, 90);
+//                    multTelemetry.addData("Stage", "Not Stuck, Going Backwards");
+//                    multTelemetry.update();
+//                    backingUp ++;
+//                }else{
+//                    strafe(.6,100,270,270);
+//                    multTelemetry.addData("Stage", "Stuck, Going Forwards");
+//                    multTelemetry.update();
+//                    backingUp --;
+//                }
+//            }
+//            intake.stop();
+//            strafe(.5, 600, 270, 10);
+//            strafe(.2, 700, 210, 5);
+//            scorer.autoTop();
+//            scorer.autoDeposit();
+//            strafe(.6, 600, 210, 185);
+//            strafe(.5, 600, 270, 190);
+//            strafe(.3,200,270,180);
+//
+//        }else if(Side.blue){
+//
         }
     }
 

@@ -6,21 +6,18 @@ import androidx.annotation.RequiresApi;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
-import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Utilities.PID;
-import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
@@ -116,8 +113,8 @@ public class RedLinearAutoFront extends LinearOpMode {
                 robot.sleep(0.3, time);
                 robot.strafe(.5,200,180,180);
                 robot.strafe(.6,1250,270,225);
-                robot.cycle(intake, scorer, flColor, frColor, blColor, brColor, distance);
-                robot.strafe(.5,800,270,270);
+                robot.cycle(intake, scorer, distance);
+//                robot.strafe(.5,800,270,270);
 
 
 

@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
 @Autonomous(name="BaseAuto", group="Autonomous Linear Opmode")

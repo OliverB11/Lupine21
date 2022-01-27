@@ -11,11 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
-import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
@@ -25,26 +21,15 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 public class RedLinearAutoBack extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
-    Mecanum robot;
-    DuckWheel duckWheel;
-    ScoringMechanism scorer;
-    Intake intake;
-    Color_Sensor flColor;
-    Color_Sensor frColor;
+    Robot robot;
+
 
 
     public void initialize(){
         setOpMode(this);
         Side.red = true;
         Side.blue = false;
-        robot = new Mecanum();
-        duckWheel = new DuckWheel();
-        intake = new Intake();
-        scorer = new ScoringMechanism();
-        flColor = new Color_Sensor();
-        frColor = new Color_Sensor();
-        flColor.init("flColor");
-        frColor.init("frColor");
+        robot = new Robot();
 
 
 
@@ -91,87 +76,87 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
         if (opModeIsActive()){
-            robot.gyro.reset();
+            robot.chassis.gyro.reset();
             //WRITE AUTOS HERE
 
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
-                robot.strafe(.5,1200,180,295);
-                robot.strafe(.2,75,180,135);
-                robot.strafe(.2,100,180,0);
-                scorer.autoTop();
-                scorer.autoDeposit();
-                robot.sleep(0.5, time);
-                robot.strafe(.5,2500,180,100);
-                robot.strafe(.2,400,180,100);
-                duckWheel.redSpin(.2);
-                robot.sleep(3.5,time);
-                duckWheel.stop();
-                robot.strafe(.3,1000,180,315);
-                robot.strafe(.4,600,0,90);
-                robot.strafe(.3,50,0,180);
-                while(flColor.getRed() < 70 && frColor.getRed() < 70){
-                    robot.setDrivePower(.3, 0, 0, .4);
+                robot.chassis.strafe(.5,1200,180,295);
+                robot.chassis.strafe(.2,75,180,135);
+                robot.chassis.strafe(.2,100,180,0);
+                robot.scorer.autoTop();
+                robot.scorer.autoDeposit();
+                robot.chassis.sleep(0.5, time);
+                robot.chassis.strafe(.5,2500,180,100);
+                robot.chassis.strafe(.2,400,180,100);
+                robot.duckWheel.redSpin(.2);
+                robot.chassis.sleep(3.5,time);
+                robot.duckWheel.stop();
+                robot.chassis.strafe(.3,1000,180,315);
+                robot.chassis.strafe(.4,600,0,90);
+                robot.chassis.strafe(.3,50,0,180);
+                while(robot.chassis.flColor.getRed() < 70 && robot.chassis.frColor.getRed() < 70){
+                    robot.chassis.setDrivePower(.3, 0, 0, .4);
                 }
-                while(flColor.getRed() > 70 && frColor.getRed() < 70){
-                    robot.setDrivePower(.3,0, 0, -.3);
+                while(robot.chassis.flColor.getRed() > 70 && robot.chassis.frColor.getRed() < 70){
+                    robot.chassis.setDrivePower(.3,0, 0, -.3);
 
                 }
-                robot.strafe(.2, 75,0,180);
+                robot.chassis.strafe(.2, 75,0,180);
 
 
             }else if(DuckPosition.duckPos == 2){
                 //Middle
                 //Middle
-                robot.strafe(.5,1200,180,295);
-                robot.strafe(0.3,50,180,0);
-                scorer.autoMiddle();
-                scorer.autoDeposit();
-                robot.sleep(0.5, time);
-                robot.strafe(.5,2500,180,100);
-                robot.strafe(.2,400,180,100);
-                duckWheel.redSpin(.2);
-                robot.sleep(3.5,time);
-                duckWheel.stop();
-                robot.strafe(.3,1000,180,315);
-                robot.strafe(.3,800,0,90);
-                robot.strafe(.3,75,0,180);
-                while(flColor.getRed() < 70 && frColor.getRed() < 70){
-                    robot.setDrivePower(.3, 0, 0, .4);
+                robot.chassis.strafe(.5,1200,180,295);
+                robot.chassis.strafe(0.3,50,180,0);
+                robot.scorer.autoMiddle();
+                robot.scorer.autoDeposit();
+                robot.chassis.sleep(0.5, time);
+                robot.chassis.strafe(.5,2500,180,100);
+                robot.chassis.strafe(.2,400,180,100);
+                robot.duckWheel.redSpin(.2);
+                robot.chassis.sleep(3.5,time);
+                robot.duckWheel.stop();
+                robot.chassis.strafe(.3,1000,180,315);
+                robot.chassis.strafe(.3,800,0,90);
+                robot.chassis.strafe(.3,75,0,180);
+                while(robot.chassis.flColor.getRed() < 70 && robot.chassis.frColor.getRed() < 70){
+                    robot.chassis.setDrivePower(.3, 0, 0, .4);
 
                 }
-                while(flColor.getRed() > 70 && frColor.getRed() < 70){
-                    robot.setDrivePower(.3,0, 0, -.3);
+                while(robot.chassis.flColor.getRed() > 70 && robot.chassis.frColor.getRed() < 70){
+                    robot.chassis.setDrivePower(.3,0, 0, -.3);
                 }
-                robot.strafe(.2, 75,0,180);
+                robot.chassis.strafe(.2, 75,0,180);
 
 
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Bottom
-                robot.strafe(.5,1200,180,295);
-                robot.strafe(.3,75,180,20);
-                scorer.autoDeposit();
-                robot.sleep(0.5, time);
-                robot.strafe(.5,2500,180,100);
-                robot.strafe(.2,500,180,100);
-                robot.strafe(.2,100,180,180);
-                duckWheel.redSpin(.2);
-                intake.autoSpin();
-                robot.sleep(3.5,time);
-                duckWheel.stop();
-                robot.strafe(.3,1000,180,270);
-                intake.stop();
-                robot.strafe(.2,1300,0, 60);
-                robot.strafe(.3,200,0,90);
-                while(flColor.getRed() < 70 && frColor.getRed() < 70){
-                    robot.setDrivePower(.3, 0, 0, .4);
+                robot.chassis.strafe(.5,1200,180,295);
+                robot.chassis.strafe(.3,75,180,20);
+                robot.scorer.autoDeposit();
+                robot.chassis.sleep(0.5, time);
+                robot.chassis.strafe(.5,2500,180,100);
+                robot.chassis.strafe(.2,500,180,100);
+                robot.chassis.strafe(.2,100,180,180);
+                robot.duckWheel.redSpin(.2);
+                robot.intake.autoSpin();
+                robot.chassis.sleep(3.5,time);
+                robot.duckWheel.stop();
+                robot.chassis.strafe(.3,1000,180,270);
+                robot.intake.stop();
+                robot.chassis.strafe(.2,1300,0, 60);
+                robot.chassis.strafe(.3,200,0,90);
+                while(robot.chassis.flColor.getRed() < 70 && robot.chassis.frColor.getRed() < 70){
+                    robot.chassis.setDrivePower(.3, 0, 0, .4);
                 }
-                while(flColor.getRed() > 70 && frColor.getRed() < 70){
-                    robot.setDrivePower(.3,0, 0, -.3);
+                while(robot.chassis.flColor.getRed() > 70 && robot.chassis.frColor.getRed() < 70){
+                    robot.chassis.setDrivePower(.3,0, 0, -.3);
                 }
-                robot.strafe(.2, 75,0,180);
+                robot.chassis.strafe(.2, 75,0,180);
 
 
             }

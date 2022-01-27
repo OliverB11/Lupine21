@@ -11,30 +11,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
 @Autonomous(name="TestAuto", group="Autonomous Linear Opmode")
 public class TestAuto extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
-    Mecanum robot;
-    DuckWheel duckWheel;
-    ScoringMechanism scorer;
-    Intake intake;
+    Robot robot;
 
 
     public void initialize(){
         setOpMode(this);
         Side.red = true;
         Side.blue = false;
-        robot = new Mecanum();
-        duckWheel = new DuckWheel();
-        intake = new Intake();
-        scorer = new ScoringMechanism();
+        robot = new Robot();
         ElapsedTime time = new ElapsedTime();
 
 

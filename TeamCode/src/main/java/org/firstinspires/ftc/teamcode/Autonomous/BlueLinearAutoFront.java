@@ -11,14 +11,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
-import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Utilities.PID;
-import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
@@ -27,32 +26,18 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 public class BlueLinearAutoFront extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
-    Mecanum robot;
-    DuckWheel duckWheel;
-    ScoringMechanism scorer;
-    Intake intake;
-    Color_Sensor flColor;
-    Color_Sensor frColor;
-    Color_Sensor blColor;
-    Color_Sensor brColor;
+    Robot robot;
+
+
 
 
     public void initialize() {
         setOpMode(this);
         Side.red = false;
         Side.blue = true;
-        robot = new Mecanum();
-        duckWheel = new DuckWheel();
-        scorer = new ScoringMechanism();
-        intake = new Intake();
-        flColor = new Color_Sensor();
-        frColor = new Color_Sensor();
-        blColor = new Color_Sensor();
-        brColor = new Color_Sensor();
-        flColor.init("flColor");
-        frColor.init("frColor");
-        frColor.init("blColor");
-        frColor.init("brColor");
+        robot = new Robot();
+
+
 
         ElapsedTime time = new ElapsedTime();
 
@@ -98,7 +83,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
 
         if (opModeIsActive()) {
-            robot.gyro.reset();
+            robot.chassis.gyro.reset();
             //WRITE AUTOS HERE
 
             if(DuckPosition.duckPos == 3){

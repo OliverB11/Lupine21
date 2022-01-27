@@ -5,14 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
-import org.firstinspires.ftc.teamcode.Hardware.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.ScoringMechanism;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
-import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 
@@ -21,7 +18,7 @@ public class BaseTeleOp extends OpMode {
 
     // Declare Things
     private ElapsedTime runtime = new ElapsedTime();
-    public static Mecanum robot;
+    public static Robot robot;
     double power;
     Controller controller;
     Controller controller2;
@@ -38,7 +35,7 @@ public class BaseTeleOp extends OpMode {
 
         //Set power and initialize things
         power = 0.6;
-        robot = new Mecanum();
+        robot = new Robot();
         controller = new Controller(gamepad1);
         controller2 = new Controller(gamepad2);
 
@@ -78,7 +75,7 @@ public class BaseTeleOp extends OpMode {
 // Updates (Don't forget these)
         controller.controllerUpdate();
         controller2.controllerUpdate();
-        robot.gyro.update();
+        robot.chassis.gyro.update();
 
 
 // PID
@@ -86,14 +83,14 @@ public class BaseTeleOp extends OpMode {
         if (!(controller.rightStick().x == 0)) {
             rotation = controller.rightStick().x;
             wasTurning = true;
-        } else if (wasTurning && Math.abs(robot.gyro.rateOfChange()) > 0) {
+        } else if (wasTurning && Math.abs(robot.chassis.gyro.rateOfChange()) > 0) {
             rotation = controller.rightStick().x;
         } else {
             if (wasTurning) {
-                setPoint = robot.gyro.rawAngle();
+                setPoint = robot.chassis.gyro.rawAngle();
                 wasTurning = false;
             }
-            rotation = robot.pid.update(robot.gyro.rawAngle() - setPoint);
+            rotation = robot.chassis.pid.update(robot.chassis.gyro.rawAngle() - setPoint);
         }
 
 // Speed Control
@@ -109,7 +106,7 @@ public class BaseTeleOp extends OpMode {
 //Gyro Reset ability
         if (controller.share.tap()) {
             setPoint = 0;
-            robot.gyro.reset();
+            robot.chassis.gyro.reset();
         }
 
 // Switch Sides
@@ -135,16 +132,16 @@ public class BaseTeleOp extends OpMode {
 
         //Automatic Turning
         if (controller.left.press()) {
-            setPoint = MathUtils.closestAngle(90, robot.gyro.rawAngle());
+            setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.rawAngle());
         }
         if (controller.up.press()) {
-            setPoint = MathUtils.closestAngle(0, robot.gyro.rawAngle());
+            setPoint = MathUtils.closestAngle(0, robot.chassis.gyro.rawAngle());
         }
         if (controller.down.press()) {
-            setPoint = MathUtils.closestAngle(180, robot.gyro.rawAngle());
+            setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.rawAngle());
         }
         if (controller.right.press()) {
-            setPoint = MathUtils.closestAngle(270, robot.gyro.rawAngle());
+            setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.rawAngle());
         }
 
 
@@ -152,11 +149,11 @@ public class BaseTeleOp extends OpMode {
 
 
         //Movement control
-        double drive = -MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).y;
-        double strafe = MathUtils.shift(controller.leftStick(), robot.gyro.rawAngle()).x;
+        double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.rawAngle()).y;
+        double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.rawAngle()).x;
         double turn = -rotation;
 
-        robot.setDrivePower(power, strafe, turn, drive);
+        robot.chassis.setDrivePower(power, strafe, turn, drive);
 
 
         //Telemetry

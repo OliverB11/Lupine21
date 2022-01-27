@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.checkerframework.checker.units.qual.C;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 
 import static java.lang.Math.floorMod;
@@ -13,14 +14,13 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 @TeleOp(name="Color Tester", group="Iterative Opmode")
 public class ColorTester extends OpMode {
-    Color_Sensor color;
+
+    Robot robot;
 
     @Override
     public void init() {
         setOpMode(this);
-        color = new Color_Sensor();
-        color.init("flColor");
-
+        robot = new Robot();
 
     }
 
@@ -36,15 +36,15 @@ public class ColorTester extends OpMode {
     @Override
     public void loop() {
 
-        if(color.getRed() > 280 && color.getGreen() > 470 && color.getBlue() > 408){
-            multTelemetry.addData("Stuff?", "Yes");
+        if(robot.chassis.flColor.getRed() > 100){
+            multTelemetry.addData("Line?", "Yes");
         }else{
-            multTelemetry.addData("Stuff?", "No");
+            multTelemetry.addData("Line?", "No");
         }
 
-        multTelemetry.addData("How Much Red", color.getRed());
-        multTelemetry.addData("How Much Green", color.getGreen());
-        multTelemetry.addData("How Much Blue", color.getBlue());
+        multTelemetry.addData("How Much Red", robot.chassis.flColor.getRed());
+        multTelemetry.addData("How Much Green", robot.chassis.flColor.getGreen());
+        multTelemetry.addData("How Much Blue", robot.chassis.flColor.getBlue());
         multTelemetry.update();
     }
 
