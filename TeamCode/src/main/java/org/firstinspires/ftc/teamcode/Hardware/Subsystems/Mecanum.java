@@ -207,35 +207,35 @@ public class Mecanum {
                 multTelemetry.update();
             }
 
-//            intake.autoBackSpin();
-//            multTelemetry.addData("Stage", "Going Into Wall");
-//            multTelemetry.update();
-//            strafe(.2,100,270,180);
-//
-//            while(backingUp < 10) {
-//                if (distance.isChanging) {
-//                    strafe(.6, 100, 270, 90);
-//                    multTelemetry.addData("Stage", "Not Stuck, Going Backwards");
-//                    multTelemetry.update();
-//                    backingUp ++;
-//                }else{
-//                    strafe(.6,100,270,270);
-//                    multTelemetry.addData("Stage", "Stuck, Going Forwards");
-//                    multTelemetry.update();
-//                    backingUp --;
-//                }
-//            }
-//            intake.stop();
-//            strafe(.5, 600, 270, 10);
-//            strafe(.2, 700, 210, 5);
-//            scorer.autoTop();
-//            scorer.autoDeposit();
-//            strafe(.6, 600, 210, 185);
-//            strafe(.5, 600, 270, 190);
-//            strafe(.3,200,270,180);
-//
-//        }else if(Side.blue){
-//
+            intake.autoBackSpin();
+            multTelemetry.addData("Stage", "Going Into Wall");
+            multTelemetry.update();
+            strafe(.2,100,270,180);
+
+            while(backingUp < 10) {
+                if (distance.isChanging) {
+                    strafe(.6, 100, 270, 90);
+                    multTelemetry.addData("Stage", "Not Stuck, Going Backwards");
+                    multTelemetry.update();
+                    backingUp ++;
+                }else{
+                    strafe(.6,100,270,270);
+                    multTelemetry.addData("Stage", "Stuck, Going Forwards");
+                    multTelemetry.update();
+                    backingUp --;
+                }
+            }
+            intake.stop();
+            strafe(.5, 600, 270, 10);
+            strafe(.2, 700, 210, 5);
+            scorer.autoTop();
+            scorer.autoDeposit();
+            strafe(.6, 600, 210, 185);
+            strafe(.5, 600, 270, 190);
+            strafe(.3,200,270,180);
+
+        }else if(Side.blue){
+
         }
     }
 
