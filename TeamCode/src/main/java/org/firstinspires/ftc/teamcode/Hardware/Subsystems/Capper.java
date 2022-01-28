@@ -5,17 +5,21 @@ import com.qualcomm.robotcore.hardware.Servo;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
 public class Capper {
-    public CRServo capperServo;
+    public Servo capperServo;
     public boolean capperUp = false;
 
     public Capper(){
-        capperServo = hardwareMap.get(CRServo.class, "capperServo");
+        capperServo = hardwareMap.get(Servo.class, "capperServo");
     }
 
-    public void down(float speed){
-        capperServo.setPower(speed);
+    public void up(float placement){
+        capperServo.setPosition(0.5 + (placement/10));
     }
-    public void up(float speed){
-        capperServo.setPower(-speed);
+    public void down(float placement){
+        capperServo.setPosition(9 + (placement/10));
+    }
+
+    public void resting(){
+        capperServo.setPosition(0);
     }
 }

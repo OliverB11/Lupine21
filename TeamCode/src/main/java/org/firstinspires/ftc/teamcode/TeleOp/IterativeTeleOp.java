@@ -34,6 +34,12 @@ public class IterativeTeleOp extends OpMode {
         TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING, INTAKE, NONE
     }
 
+    enum CapperState {
+        UP, DOWN, RESTING
+    }
+
+    CapperState currentCapperState = CapperState.RESTING;
+
     SlideState currentSlideState = SlideState.DRIVING;
 
 
@@ -191,8 +197,31 @@ public class IterativeTeleOp extends OpMode {
 
         //Controller 2 Stuff
 
-            robot.capper.up(controller2.LTrigger.getValue());
-            robot.capper.down(controller2.RTrigger.getValue());
+            if(controller2.LB.tap()){
+                switch (currentCapperState){
+                    case DOWN:
+                        currentCapperState = CapperState.RESTING;
+                        break;
+                    case RESTING:
+                        currentCapperState = CapperState.UP;
+                        break;
+                    case UP:
+                        currentCapperState = CapperState.DOWN;
+                        break;
+                }
+            }
+
+            switch(currentCapperState){
+                case DOWN:
+                    robot.capper.down(controller2.RTrigger.getValue());
+                    break;
+                case RESTING:
+                    robot.capper.resting();
+                    break;
+                case UP:
+                    robot.capper.up(controller2.RTrigger.getValue());
+                    break;
+            }
 
 
             if (Side.blue) {
