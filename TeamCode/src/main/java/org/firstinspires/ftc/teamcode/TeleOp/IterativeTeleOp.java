@@ -211,6 +211,20 @@ public class IterativeTeleOp extends OpMode {
                 }
             }
 
+        if(controller2.RB.tap()){
+            switch (currentCapperState){
+                case DOWN:
+                    currentCapperState = CapperState.UP;
+                    break;
+                case RESTING:
+                    currentCapperState = CapperState.DOWN;
+                    break;
+                case UP:
+                    currentCapperState = CapperState.RESTING;
+                    break;
+            }
+        }
+
             switch(currentCapperState){
                 case DOWN:
                     robot.capper.down(controller2.RTrigger.getValue());

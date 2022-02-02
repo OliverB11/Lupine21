@@ -29,6 +29,7 @@ public class Mecanum {
     public Gyro gyro;
     public static ElapsedTime time = new ElapsedTime();
     private ElapsedTime timeOut = new ElapsedTime();
+    private ElapsedTime loopTimer1 = new ElapsedTime();
     public Camera cam;
     private DetectionPipeline pipeline = new DetectionPipeline();
 
@@ -187,32 +188,41 @@ public class Mecanum {
                 strafe(.5,100,270,270);
                 multTelemetry.addData("Stage", "Going Towards White Line");
                 multTelemetry.update();
+                sleep(0.1,time);
             }
             intake.autoSpin();
             while (!scorer.isLoaded()) {
                 distance.distanceUpdate();
+
                 intake.updateEncoders();
                 if(!distance.isChanging){
-                    strafe(.3,100,270,90);
+                    strafe(.5,100,270,90);
+                    multTelemetry.addData("Stage", "Retreating");
+                    multTelemetry.addData("Is changing", distance.isChanging);
+                    multTelemetry.addData("Distance Sensor", distance.getCM());
                 }
-                if (distance.getCM() > 10 && !intake.jammed()) {
+                if (!intake.jammed()) {
                     intake.autoSpin();
                     strafe(.3, 100, 270, 270);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
+                    multTelemetry.addData("Distance Sensor", distance.getCM());
                 }else{
                     intake.autoBackSpin();
                     strafe(.6, 100, 270, 90);
-                    multTelemetry.addData("Stage", "Retreating Fast");
+                    multTelemetry.addData("Stage", "Retreating");
+                    multTelemetry.addData("jammer",intake.jammed());
+                    multTelemetry.addData("Distance Sensor", distance.getCM());
                 }
                 multTelemetry.update();
             }
 
-            intake.autoBackSpin();
+            intake.stop();
+           // intake.autoBackSpin();
             multTelemetry.addData("Stage", "Going Into Wall");
             multTelemetry.update();
             strafe(.2,100,270,180);
 
-            while(backingUp < 10) {
+            while(backingUp < 12) {
                 if (distance.isChanging) {
                     strafe(.6, 100, 270, 90);
                     multTelemetry.addData("Stage", "Not Stuck, Going Backwards");
@@ -225,7 +235,7 @@ public class Mecanum {
                     backingUp --;
                 }
             }
-            intake.stop();
+
             strafe(.5, 600, 270, 10);
             strafe(.2, 700, 210, 5);
             scorer.autoTop();

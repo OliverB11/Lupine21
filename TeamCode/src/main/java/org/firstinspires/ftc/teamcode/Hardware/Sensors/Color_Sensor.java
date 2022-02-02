@@ -20,3 +20,4 @@ public class Color_Sensor {
     public double getGreen(){return colorSensor.green();}
 
 }
+

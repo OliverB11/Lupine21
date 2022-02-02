@@ -42,9 +42,9 @@ public class ColorTester extends OpMode {
             multTelemetry.addData("Line?", "No");
         }
 
-        multTelemetry.addData("How Much Red", robot.chassis.flColor.getRed());
-        multTelemetry.addData("How Much Green", robot.chassis.flColor.getGreen());
-        multTelemetry.addData("How Much Blue", robot.chassis.flColor.getBlue());
+        multTelemetry.addData("How Much Red", robot.chassis.blColor.getRed());
+        multTelemetry.addData("How Much Green", robot.chassis.blColor.getGreen());
+        multTelemetry.addData("How Much Blue", robot.chassis.blColor.getBlue());
         multTelemetry.update();
     }
 
