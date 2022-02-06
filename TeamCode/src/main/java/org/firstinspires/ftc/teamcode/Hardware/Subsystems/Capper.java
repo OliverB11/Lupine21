@@ -15,6 +15,7 @@ public class Capper {
     public void up(float placement){
         capperServo.setPosition(0.5 + (placement/10));
     }
+
     public void down(float placement){
         capperServo.setPosition(9 + (placement/10));
     }
