@@ -114,7 +114,10 @@ public class RedLinearAutoFront extends LinearOpMode {
                 robot.strafe(.5,200,180,180);
                 robot.strafe(.6,1250,270,225);
                 robot.cycle(intake, scorer, distance);
-//                robot.strafe(.5,800,270,270);
+                robot.strafe(.5,1400,270,270);
+                robot.strafe(.4,500,270,0);
+                robot.strafe(.4,300,0,0);
+                robot.strafe(.4,300,0,270);
 
 
 

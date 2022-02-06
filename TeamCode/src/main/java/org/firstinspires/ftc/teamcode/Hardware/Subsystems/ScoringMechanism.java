@@ -43,8 +43,7 @@ public class ScoringMechanism {
         }
         if (time.seconds() > .1 && time.seconds() < .7) {
             spool.setTargetPosition(-1800);
-            spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
-        }
+            spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);        }
     }
 
 
@@ -56,8 +55,7 @@ public class ScoringMechanism {
         }
         if (time.seconds() > .1 && time.seconds() < .7) {
             spool.setTargetPosition(-1000);
-            spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
-        }
+            spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);        }
     }
 
     public void bottom() {
@@ -68,8 +66,7 @@ public class ScoringMechanism {
         }
         if (time.seconds() > .1 && time.seconds() < .7) {
             spool.setTargetPosition(-500);
-            spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
-        }
+            spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);        }
     }
 
     public void deposit() {
@@ -116,7 +113,7 @@ public class ScoringMechanism {
         bucket.setPosition(0.7);
         wait(0.7);
         spool.setTargetPosition(-1800);
-        spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
+        spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
         wait(1.0);
     }
 
@@ -126,7 +123,7 @@ public class ScoringMechanism {
         bucket.setPosition(0.7);
         wait(0.7);
         spool.setTargetPosition(-1000);
-        spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
+        spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
         wait(1.0);
     }
     public void autoBottom() {
@@ -134,7 +131,7 @@ public class ScoringMechanism {
         bucket.setPosition(0.7);
         wait(0.7);
         spool.setTargetPosition(-500);
-        spool.setPower((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition() + 0.2);
+        spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
         wait(1.0);
     }
 

@@ -13,11 +13,11 @@ public class Capper {
     }
 
     public void up(float placement){
-        capperServo.setPosition(0.5 + (placement/10));
+        capperServo.setPosition(0.5 + (placement/20));
     }
 
     public void down(float placement){
-        capperServo.setPosition(9 + (placement/10));
+        capperServo.setPosition(0.9 + (placement/20));
     }
 
     public void resting(){
