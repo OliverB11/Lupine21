@@ -14,6 +14,7 @@ public class ScoringMechanism {
     Color_Sensor bucketSensor;
     public ElapsedTime time = new ElapsedTime();
     public boolean armUp = false;
+    public boolean readyForRumble = false;
 
     public ScoringMechanism() {
         spool = hardwareMap.get(DcMotor.class, "spool");
@@ -36,7 +37,7 @@ public class ScoringMechanism {
 
 
     public void top() {
-
+        readyForRumble = false;
         armUp = true;
         if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.7);
@@ -48,7 +49,7 @@ public class ScoringMechanism {
 
 
     public void middle() {
-
+        readyForRumble = false;
         armUp = true;
         if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.7);
@@ -59,7 +60,7 @@ public class ScoringMechanism {
     }
 
     public void bottom() {
-
+        readyForRumble = false;
         armUp = true;
         if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.7);
@@ -70,6 +71,7 @@ public class ScoringMechanism {
     }
 
     public void deposit() {
+        readyForRumble = false;
         armUp = true;
         if (time.seconds() > 0 && time.seconds() < 0.5) {
             bucket.setPosition(0.1);
@@ -89,6 +91,7 @@ public class ScoringMechanism {
 
 
     public void driving(){
+        readyForRumble = false;
         if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.7);
         }
@@ -105,6 +108,7 @@ public class ScoringMechanism {
         if (time.seconds() > 0.2 && time.seconds() < 0.3) {
             bucket.setPosition(0.82);
             armUp = false;
+            readyForRumble = true;
         }
     }
 

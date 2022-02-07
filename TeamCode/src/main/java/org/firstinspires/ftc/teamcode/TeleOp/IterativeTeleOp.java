@@ -28,7 +28,7 @@ public class IterativeTeleOp extends OpMode {
     Controller controller2;
     double setPoint = 360;
     boolean wasTurning;
-    public boolean justRumbled = false;
+    boolean wasLoaded = false;
 
     enum SlideState {
         TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING, INTAKE, NONE
@@ -156,6 +156,15 @@ public class IterativeTeleOp extends OpMode {
             }
         }
 
+// Rumble
+        if(currentSlideState == SlideState.INTAKE) {
+            if (!wasLoaded && robot.scorer.isLoaded()) {
+                controller.gamepad.rumble(2000);
+                controller2.gamepad.rumble(2000);
+            }
+            wasLoaded = robot.scorer.isLoaded();
+        }
+
 
 // Stuff
 
@@ -166,7 +175,11 @@ public class IterativeTeleOp extends OpMode {
                 robot.intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
-            robot.intake.spin();
+            if(robot.scorer.isLoaded()) {
+                robot.intake.backSpin();
+            }else{
+                robot.intake.spin();
+            }
         } else if (controller.LTrigger.press() && !robot.scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
                 robot.scorer.time.reset();
@@ -313,7 +326,7 @@ public class IterativeTeleOp extends OpMode {
 
 
 //Telemetry
-            multTelemetry.addData("Is Moving?", robot.intake.isMoving);
+            multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
             multTelemetry.update();
 
         }
