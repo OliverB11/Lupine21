@@ -5,19 +5,50 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
 public class Color_Sensor {
     public ColorSensor colorSensor;
+    public int redCacheValue, blueCacheValue, greenCacheValue = 0;
+
     public void init(String mapName) {
 
         colorSensor = hardwareMap.get(com.qualcomm.robotcore.hardware.ColorSensor.class, mapName);
     }
-    public double getRed(){
-        return colorSensor.red();
+
+    /**
+     * ONCE PER LOOP AND ONCE PER LOOP ONLY !!!!!!
+     * @return
+     */
+    public double updateRed(){
+        redCacheValue = colorSensor.red();
+        return redCacheValue;
     }
 
-    public double getBlue(){
-        return colorSensor.blue();
+    /**
+     * ONCE PER LOOP AND ONCE PER LOOP ONLY !!!!!!
+     * @return
+     */
+    public double updateBlue(){
+        blueCacheValue = colorSensor.blue();
+        return blueCacheValue;
     }
 
-    public double getGreen(){return colorSensor.green();}
+    /**
+     * ONCE PER LOOP AND ONCE PER LOOP ONLY !!!!!!
+     * @return
+     */
+    public double updateGreen(){
+        greenCacheValue = colorSensor.green();
+        return greenCacheValue;
+    }
 
+    public int getRedCacheValue() {
+        return redCacheValue;
+    }
+
+    public int getBlueCacheValue() {
+        return blueCacheValue;
+    }
+
+    public int getGreenCacheValue() {
+        return greenCacheValue;
+    }
 }
 

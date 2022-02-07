@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 
 import static java.lang.Math.floorMod;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
@@ -36,15 +34,15 @@ public class ColorTester extends OpMode {
     @Override
     public void loop() {
 
-        if(robot.chassis.flColor.getRed() > 100){
+        if(robot.chassis.flColor.updateRed() > 100){
             multTelemetry.addData("Line?", "Yes");
         }else{
             multTelemetry.addData("Line?", "No");
         }
 
-        multTelemetry.addData("How Much Red", robot.chassis.blColor.getRed());
-        multTelemetry.addData("How Much Green", robot.chassis.blColor.getGreen());
-        multTelemetry.addData("How Much Blue", robot.chassis.blColor.getBlue());
+        multTelemetry.addData("How Much Red", robot.chassis.blColor.updateRed());
+        multTelemetry.addData("How Much Green", robot.chassis.blColor.updateGreen());
+        multTelemetry.addData("How Much Blue", robot.chassis.blColor.updateBlue());
         multTelemetry.update();
     }
 

@@ -108,6 +108,7 @@ public class IterativeTeleOp extends OpMode {
         controller2.controllerUpdate();
         robot.chassis.gyro.update();
         robot.intake.updateEncoders();
+        robot.scorer.updateBucketSensor();
 
 
 
@@ -135,7 +136,7 @@ public class IterativeTeleOp extends OpMode {
         }else if(controller.LB.press()){
             power = 0.5;
         } else {
-            power = 0.8;
+            power = 1;
         }
 
 
@@ -156,14 +157,7 @@ public class IterativeTeleOp extends OpMode {
             }
         }
 
-// Rumble
-        if(currentSlideState == SlideState.INTAKE) {
-            if (!wasLoaded && robot.scorer.isLoaded()) {
-                controller.gamepad.rumble(2000);
-                controller2.gamepad.rumble(2000);
-            }
-            wasLoaded = robot.scorer.isLoaded();
-        }
+
 
 
 // Stuff
@@ -177,6 +171,10 @@ public class IterativeTeleOp extends OpMode {
             currentSlideState = SlideState.INTAKE;
             if(robot.scorer.isLoaded()) {
                 robot.intake.backSpin();
+                if(!wasLoaded){
+                    controller.gamepad.rumble(2000);
+                    controller2.gamepad.rumble(2000);
+                }
             }else{
                 robot.intake.spin();
             }
@@ -315,7 +313,10 @@ public class IterativeTeleOp extends OpMode {
                 case NONE:
                     break;
             }
-
+// Rumble
+        if(currentSlideState == SlideState.INTAKE) {
+            wasLoaded = robot.scorer.isLoaded();
+        }
 
 //Movement control
             double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.rawAngle()).y;

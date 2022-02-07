@@ -36,6 +36,7 @@ public class ScoringMechanism {
     }
 
 
+
     public void top() {
         readyForRumble = false;
         armUp = true;
@@ -158,8 +159,13 @@ public class ScoringMechanism {
         }
     }
 
+    public void updateBucketSensor(){
+        bucketSensor.updateRed();
+        bucketSensor.updateGreen();
+    }
+
     public boolean isLoaded(){
-        if(bucketSensor.getRed() > 120 && bucketSensor.getGreen() > 200){
+        if(bucketSensor.getRedCacheValue() > 120 && bucketSensor.getGreenCacheValue() > 200){
             return(true);
         }else{
             return(false);

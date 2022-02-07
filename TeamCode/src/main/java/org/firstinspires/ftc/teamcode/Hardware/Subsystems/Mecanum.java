@@ -28,12 +28,12 @@ public class Mecanum {
     public PID pid;
     public Gyro gyro;
     public static ElapsedTime time = new ElapsedTime();
-    private ElapsedTime timeOut = new ElapsedTime();
+    private final ElapsedTime timeOut = new ElapsedTime();
     private ElapsedTime loopTimer1 = new ElapsedTime();
     public Camera cam;
     private DetectionPipeline pipeline = new DetectionPipeline();
-
-
+    public double dist = 0;
+    public double cycleDist = 0;
 
 
 
@@ -78,6 +78,13 @@ public class Mecanum {
         br.setPower(power);
     }
 
+    public void countDistReset(){
+        dist = (fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0;
+    }
+
+    public double countDist(){
+        return((fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0 - dist);
+    }
     public void resetMotors(){
         fr.setDirection(DcMotorSimple.Direction.FORWARD);
         fl.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -182,67 +189,62 @@ public class Mecanum {
     }
 
     public void cycle(Intake intake, ScoringMechanism scorer, Distance_Sensor distance){
+        cycleDist = 8;
         double backingUp = 0;
         if(Side.red){
-            while(blColor.getRed() < 100 & brColor.getRed() < 100){
-                strafe(.5,100,270,270);
-                multTelemetry.addData("Stage", "Going Towards White Line");
-                multTelemetry.update();
-                sleep(0.1,time);
-            }
-            intake.autoSpin();
-            while (!scorer.isLoaded()) {
-                distance.distanceUpdate();
 
+            strafe(.6,1000,270,270);
+
+            intake.autoSpin();
+            scorer.updateBucketSensor();
+            while (!scorer.isLoaded()) {
+
+                distance.distanceUpdate();
+                scorer.updateBucketSensor();
                 intake.updateEncoders();
+
                 if(!distance.isChanging){
-                    strafe(.5,100,270,90);
+                    intake.autoBackSpin();
+                    strafe(.6,100,270,90);
                     multTelemetry.addData("Stage", "Retreating");
-                    multTelemetry.addData("Is changing", distance.isChanging);
-                    multTelemetry.addData("Distance Sensor", distance.getCM());
+                    cycleDist = cycleDist - 1;
                 }
                 if (!intake.jammed()) {
                     intake.autoSpin();
                     strafe(.3, 100, 270, 270);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
-                    multTelemetry.addData("Distance Sensor", distance.getCM());
+                    cycleDist = cycleDist + 1;
                 }else{
                     intake.autoBackSpin();
                     strafe(.6, 100, 270, 90);
                     multTelemetry.addData("Stage", "Retreating");
-                    multTelemetry.addData("jammer",intake.jammed());
-                    multTelemetry.addData("Distance Sensor", distance.getCM());
+                    cycleDist = cycleDist - 1;
                 }
+
+                multTelemetry.addData("isChanging", distance.isChanging);
                 multTelemetry.update();
             }
 
             intake.stop();
-           // intake.autoBackSpin();
+            //intake.autoBackSpin();
             multTelemetry.addData("Stage", "Going Into Wall");
             multTelemetry.update();
             strafe(.2,100,270,180);
 
-            while(backingUp < 12) {
-                if (distance.isChanging) {
-                    strafe(.6, 100, 270, 90);
-                    multTelemetry.addData("Stage", "Not Stuck, Going Backwards");
-                    multTelemetry.update();
-                    backingUp ++;
-                }else{
-                    strafe(.6,100,270,270);
-                    multTelemetry.addData("Stage", "Stuck, Going Forwards");
-                    multTelemetry.update();
-                    backingUp --;
-                }
-            }
+            multTelemetry.addData("Stage", "Leaving Warehouse");
+            multTelemetry.update();
+            strafe(.6,2200,270,95);
+
+            multTelemetry.addData("Stage", "Out of warehouse");
+            multTelemetry.update();
 
             strafe(.5, 600, 270, 10);
-            strafe(.2, 700, 210, 5);
+            strafe(.4, 300, 210, 5);
             scorer.autoTop();
             scorer.autoDeposit();
             strafe(.6, 600, 210, 185);
             strafe(.5, 600, 270, 190);
-            strafe(.3,200,270,180);
+            strafe(.4,200,270,180);
 
         }else if(Side.blue){
 
