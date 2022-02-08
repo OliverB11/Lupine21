@@ -133,7 +133,7 @@ public class Mecanum {
 
         //Blue Switch
 
-        targetAngle = closestAngle(targetAngle, gyro.rawAngle());
+        targetAngle = closestAngle(targetAngle, gyro.angle());
 
         // Calculate our x and y powers
         double xPower = cos(strafeAngle, DEGREES);
@@ -155,14 +155,14 @@ public class Mecanum {
 
 
             curHDist = Math.hypot(curPos.x, curPos.y);
-            Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), -gyro.rawAngle());
+            Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), -gyro.angle());
 
 
             if(curHDist < ticks){
 
-                setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.rawAngle()), shiftedPowers.y);
+                setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.angle()), shiftedPowers.y);
             }else{
-                setDrivePower(power, 0, pid.update(targetAngle - gyro.rawAngle()), 0);
+                setDrivePower(power, 0, pid.update(targetAngle - gyro.angle()), 0);
             }
 
 
@@ -177,10 +177,10 @@ public class Mecanum {
     }
 
     public void turn(double targetAngle){
-        targetAngle = closestAngle(targetAngle, gyro.rawAngle());
-        while(gyro.rawAngle() != targetAngle) {
+        targetAngle = closestAngle(targetAngle, gyro.angle());
+        while(gyro.angle() != targetAngle) {
             gyro.update();
-            pid.update(gyro.rawAngle() - targetAngle);
+            pid.update(gyro.angle() - targetAngle);
         }
     }
 
@@ -191,14 +191,12 @@ public class Mecanum {
     }
 
     public void cycle(Intake intake, ScoringMechanism scorer, Distance_Sensor distance,int cycleNo){
-        cycleDist = 8;
-        double backingUp = 0;
         if(Side.red){
 
-            strafe(.6,1000,270,270);
+            strafe(.6,1200,270,270);
 
             if (cycleNo != 1){
-                strafe(.4,200,270,0);
+                strafe(.4,600,270,0);
             }
 
             intake.autoSpin();
@@ -213,18 +211,15 @@ public class Mecanum {
                     intake.autoBackSpin();
                     strafe(.6,100,270,90);
                     multTelemetry.addData("Stage", "Retreating");
-                    cycleDist = cycleDist - 1;
                 }
                 if (!intake.jammed()) {
                     intake.autoSpin();
                     strafe(.2, 100, 270, 270);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
-                    cycleDist = cycleDist + 1;
                 }else{
                     intake.autoBackSpin();
                     strafe(.6, 100, 270, 90);
                     multTelemetry.addData("Stage", "Retreating");
-                    cycleDist = cycleDist - 1;
                 }
 
                 multTelemetry.addData("isChanging", distance.isChanging);
@@ -236,25 +231,84 @@ public class Mecanum {
             multTelemetry.addData("Stage", "Going Into Wall");
             multTelemetry.update();
             strafe(.2,100,270,180);
+            if (cycleNo != 1){
+                strafe(.4,400,270,180);
+            }
 
             multTelemetry.addData("Stage", "Leaving Warehouse");
             multTelemetry.update();
-            strafe(.6,2200,270,95);
+            strafe(.6,2000,270,95);
 
             intake.stop();
             multTelemetry.addData("Stage", "Out of warehouse");
             multTelemetry.update();
-
-            strafe(.5, 600, 270, 10);
-            strafe(.4, 300, 190, 5);
             scorer.autoTop();
+            strafe(.5, 400, 270, 10);
+            strafe(.4, 300, 190, 5);
             scorer.autoDeposit();
             strafe(.6, 600, 210, 185);
             strafe(.5, 600, 270, 190);
-            strafe(.4,200,270,180);
+            strafe(.4,300,270,180);
+
+
 
         }else if(Side.blue){
+            strafe(.6,1200,90,90);
 
+            if (cycleNo != 1){
+                strafe(.4,600,90,0);
+            }
+
+            intake.autoSpin();
+            scorer.updateBucketSensor();
+            while (!scorer.isLoaded()) {
+
+                distance.distanceUpdate();
+                scorer.updateBucketSensor();
+                intake.updateEncoders();
+
+                if(!distance.isChanging){
+                    intake.autoBackSpin();
+                    strafe(.6,100,90,270);
+                    multTelemetry.addData("Stage", "Retreating");
+                }
+                if (!intake.jammed()) {
+                    intake.autoSpin();
+                    strafe(.2, 100, 90, 90);
+                    multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
+                }else{
+                    intake.autoBackSpin();
+                    strafe(.6, 100, 90, 270);
+                    multTelemetry.addData("Stage", "Retreating");
+                }
+
+                multTelemetry.addData("isChanging", distance.isChanging);
+                multTelemetry.update();
+            }
+
+            intake.stop();
+            intake.autoBackSpin();
+            multTelemetry.addData("Stage", "Going Into Wall");
+            multTelemetry.update();
+            strafe(.2,100,90,180);
+            if (cycleNo != 1){
+                strafe(.4,400,90,180);
+            }
+
+            multTelemetry.addData("Stage", "Leaving Warehouse");
+            multTelemetry.update();
+            strafe(.6,2000,90,275);
+
+            intake.stop();
+            multTelemetry.addData("Stage", "Out of warehouse");
+            multTelemetry.update();
+            scorer.autoTop();
+            strafe(.5, 400, 90, 350);
+            strafe(.4, 300, 170, 355);
+            scorer.autoDeposit();
+            strafe(.6, 600, 250, 175);
+            strafe(.5, 600, 90, 170);
+            strafe(.4,300,90,180);
         }
     }
 

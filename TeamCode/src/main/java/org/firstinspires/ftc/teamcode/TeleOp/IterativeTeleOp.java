@@ -6,10 +6,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
@@ -124,10 +120,10 @@ public class IterativeTeleOp extends OpMode {
             rotation = controller.rightStick().x;
         } else {
             if (wasTurning) {
-                setPoint = robot.chassis.gyro.rawAngle();
+                setPoint = robot.chassis.gyro.angle();
                 wasTurning = false;
             }
-            rotation = robot.chassis.pid.update(robot.chassis.gyro.rawAngle() - setPoint);
+            rotation = robot.chassis.pid.update(robot.chassis.gyro.angle() - setPoint);
         }
 
 // Speed Control
@@ -193,16 +189,16 @@ public class IterativeTeleOp extends OpMode {
 
 
             if (controller.left.press()) {
-                setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.rawAngle());
+                setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.angle());
             }
             if (controller.up.press()) {
-                setPoint = MathUtils.closestAngle(0, robot.chassis.gyro.rawAngle());
+                setPoint = MathUtils.closestAngle(0, robot.chassis.gyro.angle());
             }
             if (controller.down.press()) {
-                setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.rawAngle());
+                setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.angle());
             }
             if (controller.right.press()) {
-                setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.rawAngle());
+                setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.angle());
             }
 
 
@@ -319,8 +315,8 @@ public class IterativeTeleOp extends OpMode {
         }
 
 //Movement control
-            double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.rawAngle()).y;
-            double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.rawAngle()).x;
+            double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).y;
+            double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).x;
             double turn = -rotation;
 
             robot.chassis.setDrivePower(power, strafe, turn, drive);

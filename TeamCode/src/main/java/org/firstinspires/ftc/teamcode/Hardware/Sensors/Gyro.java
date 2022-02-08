@@ -54,7 +54,7 @@ public class Gyro {
 
     public void reset() { datum = imu.getAngle(); }
 
-    public double rawAngle() {
+    public double angle() {
         return 360 - rawAngle;
     }
 
@@ -75,7 +75,7 @@ public class Gyro {
     }
 
     public double absAngularDist(double compareAngle){
-        return Math.abs(compareAngle - rawAngle());
+        return Math.abs(compareAngle - angle());
     }
 
 

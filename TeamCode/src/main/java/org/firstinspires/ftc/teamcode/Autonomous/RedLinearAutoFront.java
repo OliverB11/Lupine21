@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
@@ -26,14 +27,7 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 public class RedLinearAutoFront extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
-    Mecanum robot;
-    DuckWheel duckWheel;
-    ScoringMechanism scorer;
-    Intake intake;
-    Color_Sensor flColor;
-    Color_Sensor frColor;
-    Color_Sensor blColor;
-    Color_Sensor brColor;
+    Robot robot;
     Distance_Sensor distance;
 
 
@@ -43,19 +37,8 @@ public class RedLinearAutoFront extends LinearOpMode {
         setOpMode(this);
         Side.red = true;
         Side.blue = false;
-        robot = new Mecanum();
-        duckWheel = new DuckWheel();
-        intake = new Intake();
-        scorer = new ScoringMechanism();
-        flColor = new Color_Sensor();
-        frColor = new Color_Sensor();
-        blColor = new Color_Sensor();
-        brColor = new Color_Sensor();
+        robot = new Robot();
         distance = new Distance_Sensor();
-        flColor.init("flColor");
-        frColor.init("frColor");
-        frColor.init("blColor");
-        frColor.init("brColor");
         distance.init("distance");
 
 
@@ -107,17 +90,17 @@ public class RedLinearAutoFront extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
-                scorer.autoTop();
-                robot.strafe(.6, 1350,180, 70);
-                scorer.autoDeposit();
-                robot.sleep(0.3, time);
-                robot.strafe(.5,200,180,180);
-                robot.strafe(.6,1250,270,225);
-                robot.cycle(intake, scorer, distance,1);
-                robot.cycle(intake, scorer, distance,2);
-                robot.strafe(.7,1100,270,270);
-              //  robot.strafe(.4,300,0,0);
-              //  robot.strafe(.4,300,0,270);
+                robot.scorer.autoTop();
+                robot.chassis.strafe(.6, 1150,180, 70);
+                robot.scorer.autoDeposit();
+                robot.chassis.sleep(0.3, time);
+                robot.chassis.strafe(.5,200,180,180);
+                robot.chassis.strafe(.6,1250,270,225);
+                robot.chassis.cycle(robot.intake, robot.scorer, distance,1);
+                robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
+                robot.chassis.strafe(.7,1100,270,270);
+                robot.chassis.strafe(.4,300,0,0);
+
 
 
 
@@ -125,13 +108,31 @@ public class RedLinearAutoFront extends LinearOpMode {
             }else if(DuckPosition.duckPos == 2){
                 //MIDDLE
                 //Middle
-
+                robot.scorer.autoMiddle();
+                robot.chassis.strafe(.6, 1150,180, 70);
+                robot.scorer.autoDeposit();
+                robot.chassis.sleep(0.3, time);
+                robot.chassis.strafe(.5,200,180,180);
+                robot.chassis.strafe(.6,1250,270,225);
+                robot.chassis.cycle(robot.intake, robot.scorer, distance,1);
+                robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
+                robot.chassis.strafe(.7,1400,270,270);
+                robot.chassis.strafe(.4,300,0,0);
 
 
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Top
-
+                robot.scorer.autoBottom();
+                robot.chassis.strafe(.6, 1150,180, 70);
+                robot.scorer.autoDeposit();
+                robot.chassis.sleep(0.3, time);
+                robot.chassis.strafe(.5,200,180,180);
+                robot.chassis.strafe(.6,1250,270,225);
+                robot.chassis.cycle(robot.intake, robot.scorer, distance,1);
+                robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
+                robot.chassis.strafe(.7,1100,270,270);
+                robot.chassis.strafe(.4,300,0,0);
 
 
             }else{
