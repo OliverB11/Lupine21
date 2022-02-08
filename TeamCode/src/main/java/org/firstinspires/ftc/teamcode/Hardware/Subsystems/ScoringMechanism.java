@@ -116,28 +116,25 @@ public class ScoringMechanism {
     public void autoTop() {
         time.reset();
         bucket.setPosition(0.7);
-        wait(0.7);
+        wait(0.4);
         spool.setTargetPosition(-1800);
         spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
-        wait(1.0);
     }
 
 
     public void autoMiddle() {
         time.reset();
         bucket.setPosition(0.7);
-        wait(0.7);
+        wait(0.4);
         spool.setTargetPosition(-1000);
         spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
-        wait(1.0);
     }
     public void autoBottom() {
         time.reset();
         bucket.setPosition(0.7);
-        wait(0.7);
+        wait(0.4);
         spool.setTargetPosition(-500);
         spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
-        wait(1.0);
     }
 
     public void autoDeposit() {

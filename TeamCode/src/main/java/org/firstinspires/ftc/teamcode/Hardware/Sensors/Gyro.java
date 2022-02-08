@@ -75,7 +75,7 @@ public class Gyro {
     }
 
     public double absAngularDist(double compareAngle){
-        return Math.abs(compareAngle - rawAngle);
+        return Math.abs(compareAngle - rawAngle());
     }
 
 

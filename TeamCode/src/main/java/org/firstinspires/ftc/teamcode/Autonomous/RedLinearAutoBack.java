@@ -82,16 +82,16 @@ public class RedLinearAutoBack extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
+                robot.scorer.autoTop();
                 robot.chassis.strafe(.5,1200,180,295);
                 robot.chassis.strafe(.2,75,180,135);
                 robot.chassis.strafe(.2,100,180,0);
-                robot.scorer.autoTop();
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
-                robot.chassis.strafe(.5,2500,180,100);
+                robot.chassis.strafe(.5,2500,180,100, 10);
                 robot.chassis.strafe(.2,400,180,100);
-                robot.duckWheel.redSpin(.2);
-                robot.chassis.sleep(3.5,time);
+                robot.duckWheel.redSpin(.7);
+                robot.chassis.sleep(3.8,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,1000,180,315);
                 robot.chassis.strafe(.4,600,0,90);
