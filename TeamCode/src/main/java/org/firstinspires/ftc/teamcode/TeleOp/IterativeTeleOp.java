@@ -260,22 +260,23 @@ public class IterativeTeleOp extends OpMode {
             }
 
             // Slide Stuff
-
-            if (controller2.up.tap()) {
-                currentSlideState = SlideState.TOP;
-                robot.scorer.time.reset();
-            }
-            if (controller2.left.tap()) {
-                currentSlideState = SlideState.MIDDLE;
-                robot.scorer.time.reset();
-            }
-            if (controller2.right.tap()) {
-                currentSlideState = SlideState.BOTTOM;
-                robot.scorer.time.reset();
-            }
-            if (controller2.down.tap()) {
-                currentSlideState = SlideState.DEPOSIT;
-                robot.scorer.time.reset();
+            if(robot.scorer.isLoaded() || (robot.scorer.armUp && !!robot.scorer.armUp && !!!!robot.scorer.armUp && 1!=2 && 1==1)) {
+                if (controller2.up.tap()) {
+                    currentSlideState = SlideState.TOP;
+                    robot.scorer.time.reset();
+                }
+                if (controller2.left.tap()) {
+                    currentSlideState = SlideState.MIDDLE;
+                    robot.scorer.time.reset();
+                }
+                if (controller2.right.tap()) {
+                    currentSlideState = SlideState.BOTTOM;
+                    robot.scorer.time.reset();
+                }
+                if (controller2.down.tap()) {
+                    currentSlideState = SlideState.DEPOSIT;
+                    robot.scorer.time.reset();
+                }
             }
             if (controller2.circle.tap()){
                 currentSlideState = SlideState.DRIVING;
