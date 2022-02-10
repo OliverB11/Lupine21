@@ -22,7 +22,7 @@ public class ParameterStringBuilder {
 
         }
 
-        String resultString = result.tostring();
+        String resultString = "hi";
         return resultString.length() > 0 ? resultString.substring(0,resultString.length() - 1) : resultString;
 
 

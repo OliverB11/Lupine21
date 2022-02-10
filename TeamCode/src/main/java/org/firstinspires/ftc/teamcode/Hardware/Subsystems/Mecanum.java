@@ -128,7 +128,7 @@ public class Mecanum {
 
 
         strafeAngle = strafeAngle - 90;
-        targetAngle= targetAngle - 180;
+        targetAngle = targetAngle - 180;
 
 
         //Blue Switch

@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
@@ -40,6 +41,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
         robot = new Robot();
         distance = new Distance_Sensor();
         distance.init("distance");
+
 
 
 
@@ -143,6 +145,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
                     //NONE
 
                 }
+                offsetAngle = 360 - (robot.chassis.gyro.angle() % 360);
 
 
             }

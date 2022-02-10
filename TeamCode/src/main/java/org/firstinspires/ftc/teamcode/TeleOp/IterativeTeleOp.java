@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Z.Side;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
 
 @TeleOp(name="TeleOp", group="Iterative Opmode")
@@ -124,6 +125,7 @@ public class IterativeTeleOp extends OpMode {
                 setPoint = robot.chassis.gyro.angle();
                 wasTurning = false;
             }
+            setPoint = setPoint + offsetAngle;
             rotation = robot.chassis.pid.update(robot.chassis.gyro.angle() - setPoint);
         }
 
@@ -166,13 +168,8 @@ public class IterativeTeleOp extends OpMode {
                 robot.intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
-            rumbleTime.reset();
             if(robot.scorer.isLoaded()) {
                 robot.intake.backSpin();
-                if(!wasLoaded && rumbleTime.seconds() > .4){
-                    controller.gamepad.rumble(1000);
-                    controller2.gamepad.rumble(1000);
-                }
             }else{
                 robot.intake.spin();
             }
@@ -187,8 +184,9 @@ public class IterativeTeleOp extends OpMode {
             currentSlideState = SlideState.DRIVING;
             robot.scorer.time.reset();
             robot.intake.stop();
+        }else{
+            robot.intake.backSpin();
         }
-
 
             if (controller.left.press()) {
                 setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.angle());
@@ -262,7 +260,7 @@ public class IterativeTeleOp extends OpMode {
             }
 
             // Slide Stuff
-            if(robot.scorer.isLoaded() || robot.scorer.drivingPos ||(robot.scorer.armUp && !!robot.scorer.armUp && !!!!robot.scorer.armUp && 1!=2 && 1==1 && 1+1 == 2 && 2 > 1)) {
+            if(robot.scorer.isLoaded() || currentSlideState == SlideState.DRIVING || robot.scorer.armUp) {
                 if (controller2.up.tap()) {
                     currentSlideState = SlideState.TOP;
                     robot.scorer.time.reset();
@@ -322,11 +320,13 @@ public class IterativeTeleOp extends OpMode {
             double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).x;
             double turn = -rotation;
 
+
             robot.chassis.setDrivePower(power, strafe, turn, drive);
 
 
 //Telemetry
             multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
+            multTelemetry.addData("Was Loaded?", wasLoaded);
             multTelemetry.update();
 
         }

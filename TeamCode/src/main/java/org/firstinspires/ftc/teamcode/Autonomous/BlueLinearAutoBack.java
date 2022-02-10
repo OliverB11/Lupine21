@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
@@ -165,7 +166,8 @@ public class BlueLinearAutoBack extends LinearOpMode {
                     robot.chassis.flColor.updateBlue();
                 }
                 robot.chassis.strafe(.2, 75,0,180);
-                           }
+            }
+            offsetAngle = 360 - (robot.chassis.gyro.angle() % 360);
 
         }
     }
