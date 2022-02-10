@@ -18,6 +18,7 @@ public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    private ElapsedTime rumbleTime = new ElapsedTime();
     public static Robot robot;
     double power;
     Controller controller;
@@ -165,11 +166,12 @@ public class IterativeTeleOp extends OpMode {
                 robot.intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
+            rumbleTime.reset();
             if(robot.scorer.isLoaded()) {
                 robot.intake.backSpin();
-                if(!wasLoaded){
-                    controller.gamepad.rumble(2000);
-                    controller2.gamepad.rumble(2000);
+                if(!wasLoaded && rumbleTime.seconds() > .4){
+                    controller.gamepad.rumble(1000);
+                    controller2.gamepad.rumble(1000);
                 }
             }else{
                 robot.intake.spin();
@@ -260,7 +262,7 @@ public class IterativeTeleOp extends OpMode {
             }
 
             // Slide Stuff
-            if(robot.scorer.isLoaded() || (robot.scorer.armUp && !!robot.scorer.armUp && !!!!robot.scorer.armUp && 1!=2 && 1==1)) {
+            if(robot.scorer.isLoaded() || (robot.scorer.armUp && !!robot.scorer.armUp && !!!!robot.scorer.armUp && 1!=2 && 1==1 && 1+1 == 2 && 2 > 1)) {
                 if (controller2.up.tap()) {
                     currentSlideState = SlideState.TOP;
                     robot.scorer.time.reset();
