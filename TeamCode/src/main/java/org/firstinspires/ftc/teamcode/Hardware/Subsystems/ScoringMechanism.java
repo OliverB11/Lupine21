@@ -15,6 +15,7 @@ public class ScoringMechanism {
     public ElapsedTime time = new ElapsedTime();
     public boolean armUp = false;
     public boolean readyForRumble = false;
+    public boolean drivingPos = true;
 
     public ScoringMechanism() {
         spool = hardwareMap.get(DcMotor.class, "spool");
@@ -93,6 +94,7 @@ public class ScoringMechanism {
 
     public void driving(){
         readyForRumble = false;
+        drivingPos = true;
         if(time.seconds() > 0 && time.seconds() < .1){
             bucket.setPosition(0.7);
         }
@@ -103,6 +105,7 @@ public class ScoringMechanism {
 
 
     public void intake(){
+        drivingPos = false;
         if (time.seconds() >  0 && time.seconds() < 0.2) {
             spool.setTargetPosition(0);
         }

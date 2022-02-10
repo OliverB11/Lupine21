@@ -262,7 +262,7 @@ public class IterativeTeleOp extends OpMode {
             }
 
             // Slide Stuff
-            if(robot.scorer.isLoaded() || (robot.scorer.armUp && !!robot.scorer.armUp && !!!!robot.scorer.armUp && 1!=2 && 1==1 && 1+1 == 2 && 2 > 1)) {
+            if(robot.scorer.isLoaded() || robot.scorer.drivingPos ||(robot.scorer.armUp && !!robot.scorer.armUp && !!!!robot.scorer.armUp && 1!=2 && 1==1 && 1+1 == 2 && 2 > 1)) {
                 if (controller2.up.tap()) {
                     currentSlideState = SlideState.TOP;
                     robot.scorer.time.reset();
