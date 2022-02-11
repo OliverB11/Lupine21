@@ -34,15 +34,13 @@ public class ColorTester extends OpMode {
     @Override
     public void loop() {
 
-        if(robot.chassis.flColor.updateRed() > 100){
-            multTelemetry.addData("Line?", "Yes");
-        }else{
-            multTelemetry.addData("Line?", "No");
-        }
-
-        multTelemetry.addData("How Much Red", robot.chassis.blColor.updateRed());
-        multTelemetry.addData("How Much Green", robot.chassis.blColor.updateGreen());
-        multTelemetry.addData("How Much Blue", robot.chassis.blColor.updateBlue());
+        robot.scorer.updateBucketSensor();
+//        multTelemetry.addData("How Much Red", robot.scorer.blColor.updateRed());
+//        multTelemetry.addData("How Much Green", robot.chassis.blColor.updateGreen());
+//        multTelemetry.addData("How Much Blue", robot.chassis.blColor.updateBlue());
+        multTelemetry.addData("Red",robot.scorer.bucketSensor.getRedCacheValue());
+        multTelemetry.addData("Green", robot.scorer.bucketSensor.getGreenCacheValue());
+        multTelemetry.addData("IsLoaded?",robot.scorer.isLoaded());
         multTelemetry.update();
     }
 

@@ -11,9 +11,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
-@Disabled
-@TeleOp(name = "LinearTeleOp", group="Linear TeleOp")
+//@Disabled
+@TeleOp(name = "ResetGyro", group="Linear TeleOp")
 public class LinearTeleOp extends LinearOpMode {
 
     // Declare OpMode members.
@@ -41,6 +42,7 @@ public class LinearTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            offsetAngle = 0;
 
             /*
                     Y O U R   C O D E   H E R E

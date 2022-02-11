@@ -49,7 +49,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 // DUCK ON LEFT
 
         if(DuckPosition.duckPos == 1) {
-            multTelemetry.addData("Auto", "Red Back Right");
+            multTelemetry.addData("Auto", "Red Back Left");
 
 
 
@@ -62,7 +62,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 // DUCK ON RIGHT
 
         }else if(DuckPosition.duckPos == 3) {
-            multTelemetry.addData("Auto", "Red Back Left");
+            multTelemetry.addData("Auto", "Red Back Right");
 
 // NO DUCK
         }else{
@@ -91,7 +91,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,2500,180,100, 10);
                 robot.chassis.strafe(.2,400,180,100);
-                robot.duckWheel.redSpin(.7);
+                robot.duckWheel.redSpin(.5);
                 robot.chassis.sleep(3.8,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,1000,180,315);
@@ -122,7 +122,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,2500,180,100);
                 robot.chassis.strafe(.2,400,180,100);
-                robot.duckWheel.redSpin(.2);
+                robot.duckWheel.redSpin(.5);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,1000,180,315);
@@ -153,7 +153,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.5,2500,180,100);
                 robot.chassis.strafe(.2,500,180,100);
                 robot.chassis.strafe(.2,100,180,180);
-                robot.duckWheel.redSpin(.2);
+                robot.duckWheel.redSpin(.5);
                 robot.intake.autoSpin();
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();

@@ -196,10 +196,12 @@ public class Mecanum {
 
     public void cycle(Intake intake, ScoringMechanism scorer, Distance_Sensor distance,int cycleNo){
         if(Side.red){
-
+            multTelemetry.addData("isLoaded", scorer.isLoaded());
+            multTelemetry.update();
             strafe(.6,1200,270,270);
 
             if (cycleNo != 1){
+                strafe(.4,300,270,270);
                 strafe(.4,600,270,0);
             }
 
@@ -218,7 +220,7 @@ public class Mecanum {
                 }
                 if (!intake.jammed()) {
                     intake.autoSpin();
-                    strafe(.2, 100, 270, 270);
+                    strafe(.15, 100, 270, 270);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
                 }else{
                     intake.autoBackSpin();
@@ -226,12 +228,13 @@ public class Mecanum {
                     multTelemetry.addData("Stage", "Retreating");
                 }
 
-                multTelemetry.addData("isChanging", distance.isChanging);
+                multTelemetry.addData("isLoaded", scorer.isLoaded());
                 multTelemetry.update();
             }
 
             intake.stop();
             intake.autoBackSpin();
+
             multTelemetry.addData("Stage", "Going Into Wall");
             multTelemetry.update();
             strafe(.2,100,270,180);

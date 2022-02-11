@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 public class ScoringMechanism {
     public DcMotor spool;
     public Servo bucket;
-    Color_Sensor bucketSensor;
+    public Color_Sensor bucketSensor;
     public ElapsedTime time = new ElapsedTime();
     public boolean armUp = false;
     public boolean readyForRumble = false;
