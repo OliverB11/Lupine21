@@ -9,7 +9,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
 public class Camera {
 
-    private OpenCvCamera webcam;
+    private final OpenCvCamera webcam;
 
     public Camera(String id, OpenCvPipeline pipeline){
 
