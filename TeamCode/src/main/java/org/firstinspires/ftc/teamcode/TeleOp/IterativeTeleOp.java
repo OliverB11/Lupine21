@@ -125,7 +125,7 @@ public class IterativeTeleOp extends OpMode {
                 setPoint = robot.chassis.gyro.angle();
                 wasTurning = false;
             }
-            setPoint = setPoint + offsetAngle;
+
             rotation = robot.chassis.pid.update(robot.chassis.gyro.angle() - setPoint);
         }
 
