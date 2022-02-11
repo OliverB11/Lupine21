@@ -122,11 +122,12 @@ public class IterativeTeleOp extends OpMode {
             rotation = controller.rightStick().x;
         } else {
             if (wasTurning) {
-                setPoint = robot.chassis.gyro.angle();
+                setPoint = robot.chassis.gyro.angle(true);
                 wasTurning = false;
             }
 
-            rotation = robot.chassis.pid.update(robot.chassis.gyro.angle() - setPoint);
+            rotation = robot.chassis.pid.update(robot.chassis.gyro.angle(true) - setPoint);
+
         }
 
 // Speed Control
@@ -141,8 +142,10 @@ public class IterativeTeleOp extends OpMode {
 
 //gyro reset ability
         if (controller.share.tap()) {
-            setPoint = 0;
+            setPoint = offsetAngle;
             robot.chassis.gyro.reset();
+            controller.gamepad.rumble(500);
+            setPoint = setPoint + 180;
         }
 
 // Switch Sides
@@ -189,16 +192,16 @@ public class IterativeTeleOp extends OpMode {
         }
 
             if (controller.left.press()) {
-                setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.angle());
+                setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.angle(true));
             }
             if (controller.up.press()) {
-                setPoint = MathUtils.closestAngle(0, robot.chassis.gyro.angle());
+                setPoint = MathUtils.closestAngle(0, robot.chassis.gyro.angle(true));
             }
             if (controller.down.press()) {
-                setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.angle());
+                setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.angle(true));
             }
             if (controller.right.press()) {
-                setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.angle());
+                setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.angle(true));
             }
 
 
@@ -316,8 +319,8 @@ public class IterativeTeleOp extends OpMode {
         }
 
 //Movement control
-            double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).y;
-            double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).x;
+            double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle(true)).y;
+            double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle(true)).x;
             double turn = -rotation;
 
 
@@ -325,6 +328,8 @@ public class IterativeTeleOp extends OpMode {
 
 
 //Telemetry
+            multTelemetry.addData("offsetAngle",offsetAngle);
+            multTelemetry.addData("rotation",rotation);
             multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
             multTelemetry.addData("Was Loaded?", wasLoaded);
             multTelemetry.update();

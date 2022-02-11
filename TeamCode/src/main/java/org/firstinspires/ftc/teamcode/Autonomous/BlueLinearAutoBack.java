@@ -85,7 +85,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.scorer.autoTop();
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
-                robot.chassis.strafe(.5,2000, 180,265);
+                robot.chassis.strafe(.5,2000, 180,260);
                 robot.intake.autoSpin();
                 robot.chassis.strafe(.2,1500,180,270);
                 robot.duckWheel.blueSpin(.2);

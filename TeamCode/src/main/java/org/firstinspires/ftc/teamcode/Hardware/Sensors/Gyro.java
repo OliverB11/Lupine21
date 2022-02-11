@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Hardware.Sensors;
 
 
+import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
+
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.RingBuffer;
 
@@ -57,6 +59,8 @@ public class Gyro {
     public double angle() {
         return 360 - rawAngle;
     }
+
+    public double angle(boolean changed){return(180 - rawAngle) + offsetAngle;}
 
     public double IMUAngle() {
         return imuAngle;

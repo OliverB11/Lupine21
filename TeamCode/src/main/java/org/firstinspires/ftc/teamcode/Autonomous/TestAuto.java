@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
 import android.os.Build;
 
@@ -48,8 +49,8 @@ public class TestAuto extends LinearOpMode {
 
 
         if (opModeIsActive()){
-
-
+            robot.chassis.strafe(0.5,500,90,180);
+            offsetAngle = 360 - (robot.chassis.gyro.angle() % 360);
         }
     }
 
