@@ -24,7 +24,7 @@ public class IterativeTeleOp extends OpMode {
     double power;
     Controller controller;
     Controller controller2;
-    double setPoint = 0;
+    double setPoint = 360;
     boolean wasTurning;
     boolean wasLoaded = false;
 
@@ -143,7 +143,7 @@ public class IterativeTeleOp extends OpMode {
 //Gyro Reset Ability
         if (controller.share.tap()) {
             robot.chassis.gyro.reset();
-            setPoint = 0;
+            setPoint = 360;
             controller.gamepad.rumble(500);
         }
 
