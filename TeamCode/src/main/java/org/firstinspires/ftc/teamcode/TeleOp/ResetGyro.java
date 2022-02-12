@@ -9,19 +9,24 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.offsetAngleThing;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
+
 //@Disabled
 @TeleOp(name = "ResetGyro", group="Linear TeleOp")
-public class LinearTeleOp extends LinearOpMode {
+public class ResetGyro extends LinearOpMode {
+    Robot robot;
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
     public void initialize() {
         setOpMode(this);
+        robot = new Robot();
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -42,7 +47,7 @@ public class LinearTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            offsetAngle = 0;
+            offsetAngle = 360 - (offsetAngleThing % 360);
 
             /*
                     Y O U R   C O D E   H E R E

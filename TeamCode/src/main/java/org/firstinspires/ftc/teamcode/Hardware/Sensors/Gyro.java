@@ -60,7 +60,7 @@ public class Gyro {
         return 360 - rawAngle;
     }
 
-    public double angle(boolean changed){return(180 - rawAngle) + offsetAngle;}
+    public double angle(boolean changed){return((180 - rawAngle) + offsetAngle);}
 
     public double IMUAngle() {
         return imuAngle;

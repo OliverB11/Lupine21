@@ -100,7 +100,7 @@ public class RedLinearAutoFront extends LinearOpMode {
                 robot.chassis.strafe(.6,1250,270,225);
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,1);
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
-                robot.chassis.strafe(.7,1100,270,270);
+                robot.chassis.strafe(.7,1700,270,270);
                 robot.chassis.strafe(.4,300,0,0);
 
 
@@ -112,13 +112,15 @@ public class RedLinearAutoFront extends LinearOpMode {
                 //Middle
                 robot.scorer.autoMiddle();
                 robot.chassis.strafe(.6, 1150,180, 70);
+                robot.chassis.strafe(.3,100,180,180);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
+                robot.chassis.strafe(.3,100,180,0);
                 robot.chassis.strafe(.5,200,180,180);
                 robot.chassis.strafe(.6,1250,270,225);
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,1);
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
-                robot.chassis.strafe(.7,1400,270,270);
+                robot.chassis.strafe(.7,1700,270,270);
                 robot.chassis.strafe(.4,300,0,0);
 
 
@@ -127,13 +129,15 @@ public class RedLinearAutoFront extends LinearOpMode {
                 //Top
                 robot.scorer.autoBottom();
                 robot.chassis.strafe(.6, 1150,180, 70);
+                robot.chassis.strafe(.3,200,180,180);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
+                robot.chassis.strafe(.3,200,180,0);
                 robot.chassis.strafe(.5,200,180,180);
                 robot.chassis.strafe(.6,1250,270,225);
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,1);
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
-                robot.chassis.strafe(.7,1100,270,270);
+                robot.chassis.strafe(.7,1500,270,270);
                 robot.chassis.strafe(.4,300,0,0);
 
 

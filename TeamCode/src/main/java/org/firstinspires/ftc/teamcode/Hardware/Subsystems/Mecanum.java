@@ -201,12 +201,13 @@ public class Mecanum {
             strafe(.6,1200,270,270);
 
             if (cycleNo != 1){
-                strafe(.4,300,270,270);
+                strafe(.4,500,270,270);
                 strafe(.4,600,270,0);
             }
 
             intake.autoSpin();
             scorer.updateBucketSensor();
+            loopTimer1.reset();
             while (!scorer.isLoaded()) {
 
                 distance.distanceUpdate();
@@ -217,8 +218,9 @@ public class Mecanum {
                     intake.autoBackSpin();
                     strafe(.6,100,270,90);
                     multTelemetry.addData("Stage", "Retreating");
+                    loopTimer1.reset();
                 }
-                if (!intake.jammed()) {
+                if (!intake.jammed() && loopTimer1.seconds()<5) {
                     intake.autoSpin();
                     strafe(.15, 100, 270, 270);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
@@ -226,9 +228,12 @@ public class Mecanum {
                     intake.autoBackSpin();
                     strafe(.6, 100, 270, 90);
                     multTelemetry.addData("Stage", "Retreating");
+                    loopTimer1.reset();
                 }
 
                 multTelemetry.addData("isLoaded", scorer.isLoaded());
+                multTelemetry.addData("Red", scorer.bucketSensor.getRedCacheValue());
+                multTelemetry.addData("Green", scorer.bucketSensor.getGreenCacheValue());
                 multTelemetry.update();
             }
 
@@ -260,14 +265,18 @@ public class Mecanum {
 
 
         }else if(Side.blue){
-            strafe(.6,1200,90,90);
+            multTelemetry.addData("isLoaded", scorer.isLoaded());
+            multTelemetry.update();
+            strafe(.6,1200,90,95);
 
             if (cycleNo != 1){
+                strafe(.4,500,90,90);
                 strafe(.4,600,90,0);
             }
-
             intake.autoSpin();
             scorer.updateBucketSensor();
+
+            loopTimer1.reset();
             while (!scorer.isLoaded()) {
 
                 distance.distanceUpdate();
@@ -278,23 +287,32 @@ public class Mecanum {
                     intake.autoBackSpin();
                     strafe(.6,100,90,270);
                     multTelemetry.addData("Stage", "Retreating");
+                    loopTimer1.reset();
                 }
-                if (!intake.jammed()) {
+                if (!intake.jammed() && loopTimer1.seconds()<5) {
                     intake.autoSpin();
-                    strafe(.2, 100, 90, 90);
+                    strafe(.15, 100, 90, 90);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
                 }else{
                     intake.autoBackSpin();
                     strafe(.6, 100, 90, 270);
                     multTelemetry.addData("Stage", "Retreating");
+                    loopTimer1.reset();
                 }
 
-                multTelemetry.addData("isChanging", distance.isChanging);
+                multTelemetry.addData("isLoaded", scorer.isLoaded());
+                multTelemetry.addData("Red", scorer.bucketSensor.getRedCacheValue());
+                multTelemetry.addData("Green", scorer.bucketSensor.getGreenCacheValue());
                 multTelemetry.update();
             }
 
             intake.stop();
             intake.autoBackSpin();
+
+            if (cycleNo != 1){
+                strafe(.5,400,90,270);
+            }
+
             multTelemetry.addData("Stage", "Going Into Wall");
             multTelemetry.update();
             strafe(.2,100,90,180);
@@ -304,19 +322,24 @@ public class Mecanum {
 
             multTelemetry.addData("Stage", "Leaving Warehouse");
             multTelemetry.update();
-            strafe(.6,2000,90,275);
+            strafe(.6,1800,90,265);
+
+            if (cycleNo == 1){
+                strafe(.4,200,90,265);
+            }
 
             intake.stop();
             multTelemetry.addData("Stage", "Out of warehouse");
             multTelemetry.update();
             scorer.autoTop();
-            strafe(.5, 400, 90, 350);
+            strafe(.3,200,90,0);
+            strafe(.6, 400, 90, 350);
             strafe(.4, 300, 170, 355);
+            strafe(.3,100,175,90);
+            strafe(.3,200,175,90);
             scorer.autoDeposit();
-            strafe(.6, 600, 250, 175);
-            strafe(.5, 600, 90, 170);
-            strafe(.4,300,90,180);
+            strafe(.6, 600, 90, 170);
+            strafe(.4,400,90,180);
         }
     }
-
 }

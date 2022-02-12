@@ -24,7 +24,7 @@ public class IterativeTeleOp extends OpMode {
     double power;
     Controller controller;
     Controller controller2;
-    double setPoint = 360;
+    double setPoint = 0;
     boolean wasTurning;
     boolean wasLoaded = false;
 
@@ -122,11 +122,11 @@ public class IterativeTeleOp extends OpMode {
             rotation = controller.rightStick().x;
         } else {
             if (wasTurning) {
-                setPoint = robot.chassis.gyro.angle(true);
+                setPoint = robot.chassis.gyro.angle();
                 wasTurning = false;
             }
 
-            rotation = robot.chassis.pid.update(robot.chassis.gyro.angle(true) - setPoint);
+            rotation = robot.chassis.pid.update(robot.chassis.gyro.angle() - setPoint);
 
         }
 
@@ -140,12 +140,11 @@ public class IterativeTeleOp extends OpMode {
         }
 
 
-//gyro reset ability
+//Gyro Reset Ability
         if (controller.share.tap()) {
-            setPoint = offsetAngle;
             robot.chassis.gyro.reset();
+            setPoint = 0;
             controller.gamepad.rumble(500);
-            setPoint = setPoint + 180;
         }
 
 // Switch Sides
@@ -192,60 +191,60 @@ public class IterativeTeleOp extends OpMode {
         }
 
             if (controller.left.press()) {
-                setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.angle(true));
+                setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.angle());
             }
             if (controller.up.press()) {
-                setPoint = MathUtils.closestAngle(0, robot.chassis.gyro.angle(true));
+                setPoint = MathUtils.closestAngle(0, robot.chassis.gyro.angle());
             }
             if (controller.down.press()) {
-                setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.angle(true));
+                setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.angle());
             }
             if (controller.right.press()) {
-                setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.angle(true));
+                setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.angle());
             }
 
 
         //Controller 2 Stuff
 
-            if(controller2.LB.tap()){
-                switch (currentCapperState){
-                    case DOWN:
-                        currentCapperState = CapperState.RESTING;
-                        break;
-                    case RESTING:
-                        currentCapperState = CapperState.UP;
-                        break;
-                    case UP:
-                        currentCapperState = CapperState.DOWN;
-                        break;
-                }
-            }
-
-        if(controller2.RB.tap()){
-            switch (currentCapperState){
-                case DOWN:
-                    currentCapperState = CapperState.UP;
-                    break;
-                case RESTING:
-                    currentCapperState = CapperState.DOWN;
-                    break;
-                case UP:
-                    currentCapperState = CapperState.RESTING;
-                    break;
-            }
-        }
-
-            switch(currentCapperState){
-                case DOWN:
-                    robot.capper.down(controller2.RTrigger.getValue());
-                    break;
-                case RESTING:
-                    robot.capper.resting();
-                    break;
-                case UP:
-                    robot.capper.up(controller2.RTrigger.getValue());
-                    break;
-            }
+//            if(controller2.LB.tap()){
+//                switch (currentCapperState){
+//                    case DOWN:
+//                        currentCapperState = CapperState.RESTING;
+//                        break;
+//                    case RESTING:
+//                        currentCapperState = CapperState.UP;
+//                        break;
+//                    case UP:
+//                        currentCapperState = CapperState.DOWN;
+//                        break;
+//                }
+//            }
+//
+//        if(controller2.RB.tap()){
+//            switch (currentCapperState){
+//                case DOWN:
+//                    currentCapperState = CapperState.UP;
+//                    break;
+//                case RESTING:
+//                    currentCapperState = CapperState.DOWN;
+//                    break;
+//                case UP:
+//                    currentCapperState = CapperState.RESTING;
+//                    break;
+//            }
+//        }
+//
+//            switch(currentCapperState){
+//                case DOWN:
+//                    robot.capper.down(controller2.RTrigger.getValue());
+//                    break;
+//                case RESTING:
+//                    robot.capper.resting();
+//                    break;
+//                case UP:
+//                    robot.capper.up(controller2.RTrigger.getValue());
+//                    break;
+//            }
 
 
             if (Side.blue) {
@@ -319,8 +318,8 @@ public class IterativeTeleOp extends OpMode {
         }
 
 //Movement control
-            double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle(true)).y;
-            double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle(true)).x;
+            double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).y;
+            double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).x;
             double turn = -rotation;
 
 
@@ -329,7 +328,7 @@ public class IterativeTeleOp extends OpMode {
 
 //Telemetry
             multTelemetry.addData("offsetAngle",offsetAngle);
-            multTelemetry.addData("rotation",rotation);
+            multTelemetry.addData("setPoint",setPoint);
             multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
             multTelemetry.addData("Was Loaded?", wasLoaded);
             multTelemetry.update();
