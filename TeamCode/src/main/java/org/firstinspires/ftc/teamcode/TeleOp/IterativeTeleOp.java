@@ -18,8 +18,7 @@ import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 public class IterativeTeleOp extends OpMode {
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private ElapsedTime rumbleTime = new ElapsedTime();
+    private final ElapsedTime runtime = new ElapsedTime();
     public static Robot robot;
     double power;
     Controller controller;
@@ -204,47 +203,47 @@ public class IterativeTeleOp extends OpMode {
             }
 
 
-        //Controller 2 Stuff
+//        Controller 2 Stuff
 
-//            if(controller2.LB.tap()){
-//                switch (currentCapperState){
-//                    case DOWN:
-//                        currentCapperState = CapperState.RESTING;
-//                        break;
-//                    case RESTING:
-//                        currentCapperState = CapperState.UP;
-//                        break;
-//                    case UP:
-//                        currentCapperState = CapperState.DOWN;
-//                        break;
-//                }
-//            }
-//
-//        if(controller2.RB.tap()){
-//            switch (currentCapperState){
-//                case DOWN:
-//                    currentCapperState = CapperState.UP;
-//                    break;
-//                case RESTING:
-//                    currentCapperState = CapperState.DOWN;
-//                    break;
-//                case UP:
-//                    currentCapperState = CapperState.RESTING;
-//                    break;
-//            }
-//        }
-//
-//            switch(currentCapperState){
-//                case DOWN:
-//                    robot.capper.down(controller2.RTrigger.getValue());
-//                    break;
-//                case RESTING:
-//                    robot.capper.resting();
-//                    break;
-//                case UP:
-//                    robot.capper.up(controller2.RTrigger.getValue());
-//                    break;
-//            }
+            if(controller2.LB.tap()){
+                switch (currentCapperState){
+                    case DOWN:
+                        currentCapperState = CapperState.RESTING;
+                        break;
+                    case RESTING:
+                        currentCapperState = CapperState.UP;
+                        break;
+                    case UP:
+                        currentCapperState = CapperState.DOWN;
+                        break;
+                }
+            }
+
+        if(controller2.RB.tap()){
+            switch (currentCapperState){
+                case DOWN:
+                    currentCapperState = CapperState.UP;
+                    break;
+                case RESTING:
+                    currentCapperState = CapperState.DOWN;
+                    break;
+                case UP:
+                    currentCapperState = CapperState.RESTING;
+                    break;
+            }
+        }
+
+            switch(currentCapperState){
+                case DOWN:
+                    robot.capper.down(controller2.RTrigger.getValue());
+                    break;
+                case RESTING:
+                    robot.capper.resting();
+                    break;
+                case UP:
+                    robot.capper.up(controller2.RTrigger.getValue());
+                    break;
+            }
 
 
             if (Side.blue) {

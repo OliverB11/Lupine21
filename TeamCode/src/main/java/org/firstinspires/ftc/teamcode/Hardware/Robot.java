@@ -21,6 +21,7 @@ public class Robot {
     }
 
     public void initRobot(){
+        capper = new Capper();
         chassis = new Mecanum();
         scorer = new ScoringMechanism();
         intake = new Intake();
