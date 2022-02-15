@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware.Controls;
 
+
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.opencv.core.Point;
@@ -107,8 +108,17 @@ public class Controller {
     public Point leftStick(){
         return new Point(gamepad.left_stick_x,gamepad.left_stick_y);
     }
+
+    public Point leftStick(double dulled){
+        return new Point(gamepad.left_stick_x/dulled,gamepad.left_stick_y/dulled);
+    }
+
     public Point rightStick(){
         return new Point(-gamepad.right_stick_x,-gamepad.right_stick_y);
+    }
+
+    public Point rightStick(double dulled){
+        return new Point(-gamepad.right_stick_x/dulled,-gamepad.right_stick_y/dulled);
     }
 
 }

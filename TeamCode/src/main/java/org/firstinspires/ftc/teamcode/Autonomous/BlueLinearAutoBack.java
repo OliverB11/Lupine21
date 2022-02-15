@@ -88,7 +88,8 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.5,2000, 180,260);
                 robot.intake.autoSpin();
                 robot.chassis.strafe(.2,1500,180,270);
-                robot.duckWheel.blueSpin(.2);
+                robot.duckWheel.blueSpin(.5);
+                multTelemetry.update();
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,700,180,90);
@@ -119,8 +120,8 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,2000, 180,265);
                 robot.intake.autoSpin();
-                robot.chassis.strafe(.2,1500,180,270);
-                robot.duckWheel.blueSpin(.2);
+                robot.chassis.strafe(.2,1500,180,265);
+                robot.duckWheel.blueSpin(.5);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,700,180,90);
@@ -149,7 +150,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.5,2000, 180,265);
                 robot.intake.autoSpin();
                 robot.chassis.strafe(.2,1500,180,270);
-                robot.duckWheel.blueSpin(.2);
+                robot.duckWheel.blueSpin(.5);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,700,180,90);

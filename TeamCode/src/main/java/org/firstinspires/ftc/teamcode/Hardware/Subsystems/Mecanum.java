@@ -198,11 +198,12 @@ public class Mecanum {
         if(Side.red){
             multTelemetry.addData("isLoaded", scorer.isLoaded());
             multTelemetry.update();
-            strafe(.6,1200,270,270);
+            strafe(.6,800,270,270);
+            strafe(.3,100,270,270);
 
             if (cycleNo != 1){
                 strafe(.4,500,270,270);
-                strafe(.4,600,270,0);
+                strafe(.4,400,270,0);
             }
 
             intake.autoSpin();
@@ -249,13 +250,13 @@ public class Mecanum {
 
             multTelemetry.addData("Stage", "Leaving Warehouse");
             multTelemetry.update();
-            strafe(.6,2000,270,95);
+            strafe(.6,1700,270,95);
 
             intake.stop();
             multTelemetry.addData("Stage", "Out of warehouse");
             multTelemetry.update();
             scorer.autoTop();
-            strafe(.5, 400, 270, 10);
+            strafe(.5, 300, 270, 10);
             strafe(.4, 300, 190, 5);
             scorer.autoDeposit();
             strafe(.6, 600, 210, 185);

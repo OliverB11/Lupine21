@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
+import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.driveDull;
+import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.turnDull;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
@@ -114,11 +116,11 @@ public class IterativeTeleOp extends OpMode {
 
 
 
-        if (!(controller.rightStick().x == 0)) {
-            rotation = controller.rightStick().x;
+        if (!(controller.rightStick(turnDull).x == 0)) {
+            rotation = controller.rightStick(turnDull).x;
             wasTurning = true;
         } else if (wasTurning && Math.abs(robot.chassis.gyro.rateOfChange()) > 0) {
-            rotation = controller.rightStick().x;
+            rotation = controller.rightStick(turnDull).x;
         } else {
             if (wasTurning) {
                 setPoint = robot.chassis.gyro.angle();
@@ -317,8 +319,8 @@ public class IterativeTeleOp extends OpMode {
         }
 
 //Movement control
-            double drive = -MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).y;
-            double strafe = MathUtils.shift(controller.leftStick(), robot.chassis.gyro.angle()).x;
+            double drive = -MathUtils.shift((controller.leftStick(driveDull)), robot.chassis.gyro.angle()).y;
+            double strafe = MathUtils.shift(controller.leftStick(driveDull), robot.chassis.gyro.angle()).x;
             double turn = -rotation;
 
 
