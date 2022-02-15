@@ -32,11 +32,9 @@ public class Mecanum {
     public Gyro gyro;
     public static ElapsedTime time = new ElapsedTime();
     private final ElapsedTime timeOut = new ElapsedTime();
-    private ElapsedTime loopTimer1 = new ElapsedTime();
+    private final ElapsedTime loopTimer1 = new ElapsedTime();
     public Camera cam;
-    private DetectionPipeline pipeline = new DetectionPipeline();
     public double dist = 0;
-    public double cycleDist = 0;
 
 
 
@@ -44,7 +42,8 @@ public class Mecanum {
         pid = new PID(p,i,d);
 //        pid = new PID(0.05, 0, 0.002);
         gyro = new Gyro();
-        cam = new Camera("Camera",pipeline);
+        DetectionPipeline pipeline = new DetectionPipeline();
+        cam = new Camera("Camera", pipeline);
         initChassis();
     }
 

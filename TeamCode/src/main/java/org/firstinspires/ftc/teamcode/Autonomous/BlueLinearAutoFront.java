@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 @Autonomous(name="BlueLinearAutoFront", group="Autonomous Linear Opmode")
 public class BlueLinearAutoFront extends LinearOpMode {
     // Declare OpMode members.
-    private ElapsedTime time = new ElapsedTime();
+    private final ElapsedTime time = new ElapsedTime();
     Robot robot;
     Distance_Sensor distance;
 
@@ -36,11 +36,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
         robot = new Robot();
         distance = new Distance_Sensor();
         distance.init("distance");
-
-
-
-
-        ElapsedTime time = new ElapsedTime();
 
 
         multTelemetry.addData("Status", "Initalized");
@@ -130,7 +125,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
                 robot.scorer.autoBottom();
                 robot.chassis.strafe(.6,200,180,0);
                 robot.chassis.strafe(.6, 1150, 180, 290);
-                robot.chassis.strafe(.3,200,180,90);
+                robot.chassis.strafe(.3,300,180,135);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
                 robot.chassis.strafe(.3,200,180,180);
