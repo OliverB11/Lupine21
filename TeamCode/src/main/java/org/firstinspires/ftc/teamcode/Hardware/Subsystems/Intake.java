@@ -44,7 +44,7 @@ public class Intake {
     }
 
     public void backSpin(){
-        if(time.seconds() > 0.3) {
+        if(time.seconds() > 0.6) {
             intake.setPower(-1);
         }
     }
