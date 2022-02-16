@@ -334,9 +334,9 @@ public class Mecanum {
             multTelemetry.update();
             scorer.autoTop();
             strafe(.3,200,90,0);
-            strafe(.6, 200, 90, 350);
-            strafe(.4, 300, 170, 355);
-            strafe(.3,100,175,90);
+            strafe(.6, 100, 90, 350);
+            strafe(.4, 100, 170, 355);
+            strafe(.3,150,175,90);
             strafe(.3,200,175,90);
             scorer.autoDeposit();
             strafe(.6, 600, 90, 170);

@@ -13,7 +13,7 @@ public class Unfixed {
     public static double d = 0.002;
     public static double offsetAngleThing = 0;
     public static double turnDull = 1.5;
-    public static double driveDull = 1.5;
+    public static double driveDull = 1.2;
 
 
 

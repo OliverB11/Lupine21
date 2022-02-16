@@ -57,18 +57,28 @@ public class ScoringMechanism {
         }
         if (time.seconds() > .1 && time.seconds() < .7) {
             spool.setTargetPosition(-1000);
-            spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);        }
+            if(spool.getCurrentPosition()>-1000){
+            spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
+            }else{
+                spool.setPower(1);
+            }
+        }
     }
 
     public void bottom() {
         readyForRumble = false;
         armUp = true;
-        if(time.seconds() > 0 && time.seconds() < .1){
+        if (time.seconds() > 0 && time.seconds() < .1) {
             bucket.setPosition(0.7);
         }
         if (time.seconds() > .1 && time.seconds() < .7) {
             spool.setTargetPosition(-500);
-            spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);        }
+            if (spool.getCurrentPosition() > -1000) {
+                spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition()) + 0.5);
+            } else {
+                spool.setPower(1);
+            }
+        }
     }
 
     public void deposit() {

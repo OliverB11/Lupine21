@@ -124,9 +124,9 @@ public class BlueLinearAutoFront extends LinearOpMode {
                 //Top
                 robot.scorer.autoBottom();
                 robot.chassis.strafe(.6,200,180,0);
-                robot.chassis.strafe(.6, 950, 180, 290);
+                robot.chassis.strafe(.6, 780, 180, 290);
                 robot.chassis.strafe(.3, 250, 180, 290);
-                robot.chassis.strafe(.3,300,180,135);
+                robot.chassis.strafe(.3,230,180,135);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
                 robot.chassis.strafe(.3,200,180,180);
