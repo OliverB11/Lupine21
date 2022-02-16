@@ -290,7 +290,7 @@ public class Mecanum {
                     multTelemetry.addData("Stage", "Retreating");
                     loopTimer1.reset();
                 }
-                if (!intake.jammed() && loopTimer1.seconds()<5) {
+                if (!intake.jammed() && loopTimer1.seconds()<3) {
                     intake.autoSpin();
                     strafe(.15, 100, 90, 90);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
@@ -311,19 +311,21 @@ public class Mecanum {
             intake.autoBackSpin();
 
             if (cycleNo != 1){
-                strafe(.5,400,90,270);
+                strafe(.5,300,90,270);
             }
 
             multTelemetry.addData("Stage", "Going Into Wall");
             multTelemetry.update();
             strafe(.2,100,90,180);
             if (cycleNo != 1){
-                strafe(.4,400,90,180);
+                strafe(.4,600,90,180);
             }
+
 
             multTelemetry.addData("Stage", "Leaving Warehouse");
             multTelemetry.update();
-            strafe(.6,1600,90,265);
+
+            strafe(.6,1300,90,265);
 
             if (cycleNo == 1){
                 strafe(.4,200,90,265);
@@ -336,8 +338,9 @@ public class Mecanum {
             strafe(.3,200,90,0);
             strafe(.6, 100, 90, 350);
             strafe(.4, 100, 170, 355);
-            strafe(.3,150,175,90);
-            strafe(.3,200,175,90);
+            strafe(.3,350,175,90);
+            strafe(.2,500,175,330);
+            strafe(.2,100,165,300);
             scorer.autoDeposit();
             strafe(.6, 600, 90, 170);
             strafe(.4,400,90,180);

@@ -35,13 +35,9 @@ public class ColorTester extends OpMode {
     public void loop() {
 
         robot.scorer.updateBucketSensor();
-//        multTelemetry.addData("How Much Red", robot.scorer.blColor.updateRed());
-//        multTelemetry.addData("How Much Green", robot.chassis.blColor.updateGreen());
-//        multTelemetry.addData("How Much Blue", robot.chassis.blColor.updateBlue());
-        multTelemetry.addData("Red",robot.scorer.bucketSensor.getRedCacheValue());
-        multTelemetry.addData("Green", robot.scorer.bucketSensor.getGreenCacheValue());
-        multTelemetry.addData("IsLoaded?",robot.scorer.isLoaded());
-        multTelemetry.update();
+        multTelemetry.addData("How Much Red", robot.chassis.blColor.updateRed());
+        multTelemetry.addData("How Much Green", robot.chassis.blColor.updateGreen());
+        multTelemetry.addData("How Much Blue", robot.chassis.blColor.updateBlue());
     }
 
 
