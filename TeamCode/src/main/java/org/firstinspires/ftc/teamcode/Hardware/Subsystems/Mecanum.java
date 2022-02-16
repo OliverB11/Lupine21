@@ -267,7 +267,8 @@ public class Mecanum {
         }else if(Side.blue){
             multTelemetry.addData("isLoaded", scorer.isLoaded());
             multTelemetry.update();
-            strafe(.6,1200,90,95);
+            strafe(.6,400,90,95);
+            strafe(.3,300,90,95);
 
             if (cycleNo != 1){
                 strafe(.4,500,90,90);
@@ -322,7 +323,7 @@ public class Mecanum {
 
             multTelemetry.addData("Stage", "Leaving Warehouse");
             multTelemetry.update();
-            strafe(.6,1800,90,265);
+            strafe(.6,1600,90,265);
 
             if (cycleNo == 1){
                 strafe(.4,200,90,265);
@@ -333,7 +334,7 @@ public class Mecanum {
             multTelemetry.update();
             scorer.autoTop();
             strafe(.3,200,90,0);
-            strafe(.6, 400, 90, 350);
+            strafe(.6, 200, 90, 350);
             strafe(.4, 300, 170, 355);
             strafe(.3,100,175,90);
             strafe(.3,200,175,90);
