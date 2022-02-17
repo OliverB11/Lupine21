@@ -325,8 +325,11 @@ public class Mecanum {
             multTelemetry.addData("Stage", "Leaving Warehouse");
             multTelemetry.update();
 
-            strafe(.6,1300,90,265);
+            strafe(.6,1100,90,265);
 
+            if (cycleNo == 1){
+                strafe(.6,200,90,265);
+            }
 
             intake.stop();
 
@@ -334,12 +337,19 @@ public class Mecanum {
             multTelemetry.update();
 
             scorer.autoTop();
-            strafe(.3,200,90,0);
-            strafe(.6, 100, 90, 350);
-            strafe(.4, 100, 170, 355);
-            strafe(.3,350,175,90);
-            strafe(.2,500,175,330);
-            strafe(.2,100,165,300);
+//            strafe(.3,200,90,0);
+//            strafe(.6, 100, 90, 350);
+//            strafe(.4, 100, 170, 355);
+//            strafe(.3,350,175,90);
+//            strafe(.2,500,175,330);
+//            strafe(.2,100,165,300);
+            if (cycleNo != 1) {
+                strafe(.4,550,165,358);
+            }else{
+                strafe(.4,550,165,355);
+            }
+
+            strafe(.2,100,165,0);
             scorer.autoDeposit();
             strafe(.6, 600, 90, 170);
             strafe(.4,400,90,180);
