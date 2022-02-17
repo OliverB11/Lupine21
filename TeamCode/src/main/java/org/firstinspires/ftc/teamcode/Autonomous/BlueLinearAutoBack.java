@@ -80,15 +80,15 @@ public class BlueLinearAutoBack extends LinearOpMode {
             if(DuckPosition.duckPos == 3){
                 //RIGHT
                 //Top
+                robot.scorer.autoTop();
                 robot.chassis.strafe(.5,1400,180,65);
                 robot.chassis.strafe(.5,180,180,90);
-                robot.scorer.autoTop();
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,2000, 180,260);
                 robot.intake.autoSpin();
                 robot.chassis.strafe(.2,1500,180,270);
-                robot.duckWheel.blueSpin(.5);
+                robot.duckWheel.blueSpin(.3);
                 multTelemetry.update();
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
@@ -121,7 +121,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.5,2000, 180,265);
                 robot.intake.autoSpin();
                 robot.chassis.strafe(.2,1500,180,265);
-                robot.duckWheel.blueSpin(.5);
+                robot.duckWheel.blueSpin(.3);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,700,180,90);
@@ -142,20 +142,22 @@ public class BlueLinearAutoBack extends LinearOpMode {
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Bottom
-                robot.chassis.strafe(.5,1400,180,75);
-                robot.chassis.strafe(.5,180,180,90);
+                robot.chassis.strafe(.5,1400,180,65);
+                robot.chassis.strafe(.5,250,180,100);
                 robot.scorer.autoBottom();
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
-                robot.chassis.strafe(.5,2000, 180,265);
+                robot.chassis.strafe(.5,1700, 180,260);
                 robot.intake.autoSpin();
-                robot.chassis.strafe(.2,1500,180,270);
-                robot.duckWheel.blueSpin(.5);
+                robot.chassis.strafe(.3,1000,180,270);
+                robot.chassis.sleep(0.1,time);
+                robot.chassis.strafe(.3,100,180,270);
+                robot.duckWheel.blueSpin(.3);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,700,180,90);
                 robot.chassis.strafe(.3,600,0,270);
-                robot.chassis.strafe(.3,1000,0,315);
+                robot.chassis.strafe(.3,1000,0,330);
                 robot.chassis.flColor.updateBlue();
                 robot.chassis.frColor.updateBlue();
                 while(robot.chassis.flColor.getBlueCacheValue() < 100 && robot.chassis.frColor.getBlueCacheValue() < 100){
