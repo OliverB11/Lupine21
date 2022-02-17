@@ -91,25 +91,30 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,2500,180,100, 10);
                 robot.chassis.strafe(.2,400,180,100);
-                robot.duckWheel.redSpin(.5);
-                robot.chassis.sleep(3.8,time);
+                robot.duckWheel.redSpin(.2);
+                robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,1000,180,315);
                 robot.chassis.strafe(.4,600,0,90);
-                robot.chassis.strafe(.3,50,0,180);
+                robot.chassis.strafe(.3,300,0,180);
                 robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(robot.chassis.flColor.getRedCacheValue() < 70 && robot.chassis.frColor.getRedCacheValue() < 70){
+                while(robot.chassis.flColor.getRedCacheValue() < 90 && robot.chassis.frColor.getRedCacheValue() < 90){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
                     robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
+                    multTelemetry.addData("1","");
+                    multTelemetry.update();
                 }
-                while(robot.chassis.flColor.getRedCacheValue() > 70 && robot.chassis.frColor.getRedCacheValue() < 70){
+                while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
                     robot.chassis.flColor.updateRed();
+                    robot.chassis.frColor.updateRed();
+                    multTelemetry.addData("2","");
+                    multTelemetry.update();
 
                 }
-                robot.chassis.strafe(.2, 75,0,180);
+                robot.chassis.strafe(.2, 125,0,180);
 
 
             }else if(DuckPosition.duckPos == 2){
@@ -122,7 +127,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,2500,180,100);
                 robot.chassis.strafe(.2,400,180,100);
-                robot.duckWheel.redSpin(.5);
+                robot.duckWheel.redSpin(.2);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,1000,180,315);
@@ -153,7 +158,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.5,2500,180,100);
                 robot.chassis.strafe(.2,500,180,100);
                 robot.chassis.strafe(.2,100,180,180);
-                robot.duckWheel.redSpin(.5);
+                robot.duckWheel.redSpin(.2);
                 robot.intake.autoSpin();
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
