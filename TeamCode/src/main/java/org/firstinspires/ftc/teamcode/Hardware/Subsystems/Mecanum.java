@@ -311,7 +311,7 @@ public class Mecanum {
             intake.autoBackSpin();
 
             if (cycleNo != 1){
-                strafe(.5,300,90,270);
+                strafe(.5,200,90,270);
             }
 
             multTelemetry.addData("Stage", "Going Into Wall");
@@ -327,13 +327,12 @@ public class Mecanum {
 
             strafe(.6,1300,90,265);
 
-            if (cycleNo == 1){
-                strafe(.4,200,90,265);
-            }
 
             intake.stop();
+
             multTelemetry.addData("Stage", "Out of warehouse");
             multTelemetry.update();
+
             scorer.autoTop();
             strafe(.3,200,90,0);
             strafe(.6, 100, 90, 350);
