@@ -172,7 +172,7 @@ public class ScoringMechanism {
     }
 
     public boolean isLoaded(){
-        if(bucketSensor.getRedCacheValue() > 120 && bucketSensor.getGreenCacheValue() > 200){
+        if(bucketSensor.getRedCacheValue() > 600){
             return(true);
         }else{
             return(false);

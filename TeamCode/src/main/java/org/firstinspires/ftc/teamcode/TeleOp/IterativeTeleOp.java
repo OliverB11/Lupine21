@@ -331,7 +331,7 @@ public class IterativeTeleOp extends OpMode {
             multTelemetry.addData("offsetAngle",offsetAngle);
             multTelemetry.addData("setPoint",setPoint);
             multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
-            multTelemetry.addData("Was Loaded?", wasLoaded);
+            multTelemetry.addData("Bucket Red", robot.scorer.bucketSensor.getRedCacheValue());
             multTelemetry.update();
 
         }
