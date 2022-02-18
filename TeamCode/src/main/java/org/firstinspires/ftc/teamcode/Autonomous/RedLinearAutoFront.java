@@ -92,8 +92,8 @@ public class RedLinearAutoFront extends LinearOpMode {
                 //RIGHT
                 //Top
                 robot.scorer.autoTop();
-                robot.chassis.strafe(.6, 800,180, 70);
-                robot.chassis.strafe(.3,100,180,90);
+                robot.chassis.strafe(.6, 1000,180, 72);
+                robot.chassis.strafe(.3,250,180,40);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
                 robot.chassis.strafe(.5,200,180,180);
@@ -111,7 +111,7 @@ public class RedLinearAutoFront extends LinearOpMode {
                 //MIDDLE
                 //Middle
                 robot.scorer.autoMiddle();
-                robot.chassis.strafe(.6, 800,180, 70);
+                robot.chassis.strafe(.6, 1000,180, 70);
                 robot.chassis.strafe(.3,100,180,180);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
