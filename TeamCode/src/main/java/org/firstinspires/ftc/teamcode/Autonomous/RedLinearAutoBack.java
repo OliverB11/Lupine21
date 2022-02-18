@@ -103,15 +103,13 @@ public class RedLinearAutoBack extends LinearOpMode {
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
                     robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
-                    multTelemetry.addData("1","");
-                    multTelemetry.update();
+
                 }
                 while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
                     robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
-                    multTelemetry.addData("2","");
-                    multTelemetry.update();
+
 
                 }
                 robot.chassis.strafe(.2, 125,0,180);
@@ -135,17 +133,20 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,75,0,180);
                 robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(robot.chassis.flColor.getRedCacheValue() < 70 && robot.chassis.frColor.getRedCacheValue() < 70){
+                while(robot.chassis.flColor.getRedCacheValue() < 90 && robot.chassis.frColor.getRedCacheValue() < 90){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
                     robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
-                }
-                while(robot.chassis.flColor.getRedCacheValue() > 70 && robot.chassis.frColor.getRedCacheValue() < 70){
-                    robot.chassis.setDrivePower(.3,0, 0, -.3);
-                    robot.chassis.flColor.updateRed();
 
                 }
-                robot.chassis.strafe(.2, 75,0,180);
+                while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
+                    robot.chassis.setDrivePower(.3,0, 0, -.3);
+                    robot.chassis.flColor.updateRed();
+                    robot.chassis.frColor.updateRed();
+
+
+                }
+                robot.chassis.strafe(.2, 125,0,180);
 
 
             }else if(DuckPosition.duckPos == 1){
@@ -168,17 +169,20 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,200,0,90);
                 robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(robot.chassis.flColor.getRedCacheValue() < 70 && robot.chassis.frColor.getRedCacheValue() < 70){
+                while(robot.chassis.flColor.getRedCacheValue() < 90 && robot.chassis.frColor.getRedCacheValue() < 90){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
                     robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
-                }
-                while(robot.chassis.flColor.getRedCacheValue() > 70 && robot.chassis.frColor.getRedCacheValue() < 70){
-                    robot.chassis.setDrivePower(.3,0, 0, -.3);
-                    robot.chassis.flColor.updateRed();
 
                 }
-                robot.chassis.strafe(.2, 75,0,180);
+                while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
+                    robot.chassis.setDrivePower(.3,0, 0, -.3);
+                    robot.chassis.flColor.updateRed();
+                    robot.chassis.frColor.updateRed();
+
+
+                }
+                robot.chassis.strafe(.2, 125,0,180);
 
 
             }
