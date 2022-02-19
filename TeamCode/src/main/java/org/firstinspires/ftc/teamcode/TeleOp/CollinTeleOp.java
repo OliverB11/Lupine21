@@ -9,17 +9,18 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
+import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.driveDull;
+import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.turnDull;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
 
-@TeleOp(name="CollinTeleOp", group="Iterative Opmode")
+@TeleOp(name="Swapped TeleOp", group="Iterative Opmode")
 public class CollinTeleOp extends OpMode {
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private ElapsedTime rumbleTime = new ElapsedTime();
+    private final ElapsedTime runtime = new ElapsedTime();
     public static Robot robot;
     double power;
     Controller controller;
@@ -115,11 +116,11 @@ public class CollinTeleOp extends OpMode {
 
 
 
-        if (!(controller.leftStick().x == 0)) {
-            rotation = -controller.leftStick().x;
+        if (!(controller.leftStick(turnDull).x == 0)) {
+            rotation = controller.leftStick(turnDull).x;
             wasTurning = true;
         } else if (wasTurning && Math.abs(robot.chassis.gyro.rateOfChange()) > 0) {
-            rotation = -controller.leftStick().x;
+            rotation = controller.leftStick(turnDull).x;
         } else {
             if (wasTurning) {
                 setPoint = robot.chassis.gyro.angle();
@@ -131,7 +132,7 @@ public class CollinTeleOp extends OpMode {
         }
 
 // Speed Control
-        if (controller.RTrigger.press()) {
+        if (controller.RB.press()) {
             power = 0.2;
         }else if(controller.LB.press()){
             power = 0.5;
@@ -200,51 +201,51 @@ public class CollinTeleOp extends OpMode {
             setPoint = MathUtils.closestAngle(180, robot.chassis.gyro.angle());
         }
         if (controller.right.press()) {
-            setPoint = MathUtils.closestAngle(90, robot.chassis.gyro.angle());
+            setPoint = MathUtils.closestAngle(270, robot.chassis.gyro.angle());
         }
 
 
-        //Controller 2 Stuff
+//        Controller 2 Stuff
 
-//            if(controller2.LB.tap()){
-//                switch (currentCapperState){
-//                    case DOWN:
-//                        currentCapperState = CapperState.RESTING;
-//                        break;
-//                    case RESTING:
-//                        currentCapperState = CapperState.UP;
-//                        break;
-//                    case UP:
-//                        currentCapperState = CapperState.DOWN;
-//                        break;
-//                }
-//            }
-//
-//        if(controller2.RB.tap()){
-//            switch (currentCapperState){
-//                case DOWN:
-//                    currentCapperState = CapperState.UP;
-//                    break;
-//                case RESTING:
-//                    currentCapperState = CapperState.DOWN;
-//                    break;
-//                case UP:
-//                    currentCapperState = CapperState.RESTING;
-//                    break;
-//            }
-//        }
-//
-//            switch(currentCapperState){
-//                case DOWN:
-//                    robot.capper.down(controller2.RTrigger.getValue());
-//                    break;
-//                case RESTING:
-//                    robot.capper.resting();
-//                    break;
-//                case UP:
-//                    robot.capper.up(controller2.RTrigger.getValue());
-//                    break;
-//            }
+        if(controller2.LB.tap()){
+            switch (currentCapperState){
+                case DOWN:
+                    currentCapperState = CapperState.RESTING;
+                    break;
+                case RESTING:
+                    currentCapperState = CapperState.UP;
+                    break;
+                case UP:
+                    currentCapperState = CapperState.DOWN;
+                    break;
+            }
+        }
+
+        if(controller2.RB.tap()){
+            switch (currentCapperState){
+                case DOWN:
+                    currentCapperState = CapperState.UP;
+                    break;
+                case RESTING:
+                    currentCapperState = CapperState.DOWN;
+                    break;
+                case UP:
+                    currentCapperState = CapperState.RESTING;
+                    break;
+            }
+        }
+
+        switch(currentCapperState){
+            case DOWN:
+                robot.capper.down(controller2.RTrigger.getValue());
+                break;
+            case RESTING:
+                robot.capper.resting();
+                break;
+            case UP:
+                robot.capper.up(controller2.RTrigger.getValue());
+                break;
+        }
 
 
         if (Side.blue) {
@@ -318,8 +319,8 @@ public class CollinTeleOp extends OpMode {
         }
 
 //Movement control
-        double drive = -MathUtils.shift(controller.rightStick(), robot.chassis.gyro.angle()).y;
-        double strafe = MathUtils.shift(controller.rightStick(), robot.chassis.gyro.angle()).x;
+        double drive = -MathUtils.shift((controller.rightStick(driveDull)), robot.chassis.gyro.angle()).y;
+        double strafe = MathUtils.shift(controller.rightStick(driveDull), robot.chassis.gyro.angle()).x;
         double turn = -rotation;
 
 
@@ -330,7 +331,7 @@ public class CollinTeleOp extends OpMode {
         multTelemetry.addData("offsetAngle",offsetAngle);
         multTelemetry.addData("setPoint",setPoint);
         multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
-        multTelemetry.addData("Was Loaded?", wasLoaded);
+        multTelemetry.addData("Bucket Red", robot.scorer.bucketSensor.getRedCacheValue());
         multTelemetry.update();
 
     }
