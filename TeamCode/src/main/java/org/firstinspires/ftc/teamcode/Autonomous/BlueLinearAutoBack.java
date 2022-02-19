@@ -114,7 +114,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 //Middle
                 //Middle
                 robot.chassis.strafe(.5,1400,180,65);
-                robot.chassis.strafe(.5,180,180,90);
+                robot.chassis.strafe(.5,100,180,135);
                 robot.scorer.autoMiddle();
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
@@ -137,14 +137,13 @@ public class BlueLinearAutoBack extends LinearOpMode {
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
                     robot.chassis.flColor.updateBlue();
                 }
-                robot.chassis.strafe(.2, 75,0,180);
+                robot.chassis.strafe(.2, 100,0,180);
 
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Bottom
                 robot.chassis.strafe(.5,1400,180,65);
                 robot.chassis.strafe(.5,250,180,100);
-                robot.scorer.autoBottom();
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,1700, 180,260);

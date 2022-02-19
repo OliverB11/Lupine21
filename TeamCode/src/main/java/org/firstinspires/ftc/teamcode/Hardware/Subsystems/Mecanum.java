@@ -326,7 +326,7 @@ public class Mecanum {
             multTelemetry.addData("Stage", "Leaving Warehouse");
             multTelemetry.update();
 
-            strafe(.6,1100,90,265);
+            strafe(.6,1250,90,265);
 
             if (cycleNo == 1){
                 strafe(.6,200,90,265);
