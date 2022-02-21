@@ -171,11 +171,8 @@ public class IterativeTeleOp extends OpMode {
                 robot.intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
-            if(robot.scorer.isLoaded()) {
-                robot.intake.backSpin();
-            }else{
                 robot.intake.spin();
-            }
+
         } else if (controller.LTrigger.press() && !robot.scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
                 robot.scorer.time.reset();

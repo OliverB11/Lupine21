@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
+import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 
 public class ScoringMechanism {
@@ -172,7 +173,7 @@ public class ScoringMechanism {
     }
 
     public boolean isLoaded(){
-        if(bucketSensor.getRedCacheValue() > 450){
+        if(bucketSensor.getRedCacheValue() > Unfixed.bucketColor){
             return(true);
         }else{
             return(false);
