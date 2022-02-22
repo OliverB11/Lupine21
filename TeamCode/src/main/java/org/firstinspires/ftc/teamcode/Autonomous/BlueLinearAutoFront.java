@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
 
@@ -23,6 +24,7 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 public class BlueLinearAutoFront extends LinearOpMode {
     // Declare OpMode members.
     private final ElapsedTime time = new ElapsedTime();
+    private DetectionPipeline pipeline = new DetectionPipeline();
     Robot robot;
     Distance_Sensor distance;
 
@@ -34,6 +36,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
         Side.red = false;
         Side.blue = true;
         robot = new Robot();
+        robot.chassis.startCamera(pipeline);
         distance = new Distance_Sensor();
         distance.init("distance");
 
@@ -50,6 +53,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
         multTelemetry.update();
         time.reset();
         MathUtils.wait(time, 5);
+        robot.chassis.cam.close();
 
 
 // DUCK ON LEFT

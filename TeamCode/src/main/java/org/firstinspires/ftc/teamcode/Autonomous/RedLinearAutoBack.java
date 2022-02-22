@@ -15,6 +15,7 @@ import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
 
@@ -23,6 +24,7 @@ public class RedLinearAutoBack extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
     Robot robot;
+    private DetectionPipeline pipeline = new DetectionPipeline();
 
 
 
@@ -31,6 +33,7 @@ public class RedLinearAutoBack extends LinearOpMode {
         Side.red = true;
         Side.blue = false;
         robot = new Robot();
+        robot.chassis.startCamera(pipeline);
 
 
 
@@ -45,6 +48,7 @@ public class RedLinearAutoBack extends LinearOpMode {
         initialize();
         time.reset();
         MathUtils.wait(time,5);
+        robot.chassis.cam.close();
 
 // DUCK ON LEFT
 

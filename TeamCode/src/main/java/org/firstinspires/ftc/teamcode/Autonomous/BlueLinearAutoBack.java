@@ -15,6 +15,7 @@ import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
 
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 public class BlueLinearAutoBack extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
+    private DetectionPipeline pipeline = new DetectionPipeline();
     Robot robot;
 
 
@@ -31,6 +33,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
         Side.red = false;
         Side.blue = true;
         robot = new Robot();
+        robot.chassis.startCamera(pipeline);
 
         multTelemetry.addData("Drivers", "WAIT");
         multTelemetry.update();
@@ -43,6 +46,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
         initialize();
         time.reset();
         MathUtils.wait(time, 5);
+        robot.chassis.cam.close();
 
 
 

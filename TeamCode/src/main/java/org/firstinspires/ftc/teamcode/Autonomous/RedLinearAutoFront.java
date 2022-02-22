@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 
 
@@ -28,6 +29,7 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 public class RedLinearAutoFront extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
+    private DetectionPipeline pipeline = new DetectionPipeline();
     Robot robot;
     Distance_Sensor distance;
 
@@ -39,6 +41,7 @@ public class RedLinearAutoFront extends LinearOpMode {
         Side.red = true;
         Side.blue = false;
         robot = new Robot();
+        robot.chassis.startCamera(pipeline);
         distance = new Distance_Sensor();
         distance.init("distance");
 
@@ -55,6 +58,7 @@ public class RedLinearAutoFront extends LinearOpMode {
 
         time.reset();
         MathUtils.wait(time, 5);
+        robot.chassis.cam.close();
 
 
 // DUCK ON LEFT
@@ -93,7 +97,7 @@ public class RedLinearAutoFront extends LinearOpMode {
                 //Top
                 robot.scorer.autoTop();
                 robot.chassis.strafe(.6, 1000,180, 72);
-                robot.chassis.strafe(.3,250,180,40);
+                robot.chassis.strafe(.3,250,188,50);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
                 robot.chassis.strafe(.5,200,180,180);
@@ -102,6 +106,8 @@ public class RedLinearAutoFront extends LinearOpMode {
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
                 robot.chassis.strafe(.7,1700,270,270);
                 robot.chassis.strafe(.4,300,0,0);
+                robot.chassis.turn(0);
+
 
 
 
@@ -112,7 +118,6 @@ public class RedLinearAutoFront extends LinearOpMode {
                 //Middle
                 robot.scorer.autoMiddle();
                 robot.chassis.strafe(.6, 1000,180, 70);
-                robot.chassis.strafe(.3,100,180,180);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
                 robot.chassis.strafe(.3,100,180,0);
@@ -126,19 +131,16 @@ public class RedLinearAutoFront extends LinearOpMode {
 
             }else if(DuckPosition.duckPos == 1){
                 //Left
-                //Top
-                robot.scorer.autoBottom();
-                robot.chassis.strafe(.6, 800,180, 70);
-                robot.chassis.strafe(.3,200,180,180);
+                //Bottom
+                robot.chassis.strafe(.6, 1200,180, 70);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
-                robot.chassis.strafe(.3,200,180,0);
-                robot.chassis.strafe(.5,200,180,180);
+                robot.chassis.strafe(.6,200,180,180);
                 robot.chassis.strafe(.6,1250,270,225);
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,1);
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
                 robot.chassis.strafe(.7,1500,270,270);
-                robot.chassis.strafe(.4,300,0,0);
+                robot.chassis.strafe(.4,300,0,0,0);
 
 
             }else{

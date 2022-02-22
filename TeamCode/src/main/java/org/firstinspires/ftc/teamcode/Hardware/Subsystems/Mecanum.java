@@ -42,8 +42,7 @@ public class Mecanum {
         pid = new PID(p,i,d);
 //        pid = new PID(0.05, 0, 0.002);
         gyro = new Gyro();
-        DetectionPipeline pipeline = new DetectionPipeline();
-        cam = new Camera("Camera", pipeline);
+
         initChassis();
     }
 
@@ -83,6 +82,10 @@ public class Mecanum {
 
     public void countDistReset(){
         dist = (fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0;
+    }
+
+    public void startCamera(DetectionPipeline pipeline){
+        cam = new Camera("Camera", pipeline);
     }
 
     public double countDist(){
@@ -179,12 +182,16 @@ public class Mecanum {
         strafe(power, ticks, targetAngle, strafeAngle, 8);
     }
 
-    public void turn(double targetAngle){
+    public void turn(double targetAngle, double marginOfError){
+        targetAngle = targetAngle - 180;
         targetAngle = closestAngle(targetAngle, gyro.angle());
-        while(gyro.angle() != targetAngle) {
+        while(gyro.angle() + marginOfError > targetAngle && gyro.angle() - marginOfError < targetAngle) {
             gyro.update();
             pid.update(gyro.angle() - targetAngle);
         }
+    }
+    public void turn(double targetAngle){
+        turn(targetAngle, 8);
     }
 
     public void sleep(double time, ElapsedTime timer){
