@@ -13,7 +13,6 @@ import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.driveDu
 import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.turnDull;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
-import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
 
 @TeleOp(name="Swapped TeleOp", group="Iterative Opmode")
@@ -28,6 +27,7 @@ public class CollinTeleOp extends OpMode {
     double setPoint = 360;
     boolean wasTurning;
     boolean wasLoaded = false;
+    int manualIntake = 0;
 
     enum SlideState {
         TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING, INTAKE, NONE
@@ -40,6 +40,7 @@ public class CollinTeleOp extends OpMode {
     CapperState currentCapperState = CapperState.RESTING;
 
     SlideState currentSlideState = SlideState.DRIVING;
+
 
 
     /*
@@ -111,16 +112,17 @@ public class CollinTeleOp extends OpMode {
 
 
 
+
 // PID
 
 
 
 
-        if (!(controller.leftStick(turnDull).x == 0)) {
-            rotation = controller.leftStick(turnDull).x;
+        if (!(controller.rightStick(turnDull).x == 0)) {
+            rotation = controller.rightStick(turnDull).x;
             wasTurning = true;
         } else if (wasTurning && Math.abs(robot.chassis.gyro.rateOfChange()) > 0) {
-            rotation = controller.leftStick(turnDull).x;
+            rotation = controller.rightStick(turnDull).x;
         } else {
             if (wasTurning) {
                 setPoint = robot.chassis.gyro.angle();
@@ -165,17 +167,33 @@ public class CollinTeleOp extends OpMode {
 // Stuff
 
         //Controller1 Stuff
+        if(controller.circle.tap()) {
+            switch (manualIntake) {
+                case 0:
+                    manualIntake = 1;
+                    break;
+                case 1:
+                    manualIntake = 0;
+                    break;
+            }
+        }
+
         if (controller.RTrigger.press() && !robot.scorer.armUp) {
-            if(currentSlideState != SlideState.INTAKE) {
+            if (currentSlideState != SlideState.INTAKE) {
                 robot.scorer.time.reset();
                 robot.intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
-            if(robot.scorer.isLoaded()) {
-                robot.intake.backSpin();
+            if (manualIntake == 0) {
+                if(!robot.scorer.isLoaded()){
+                    robot.intake.spin();
+                } else {
+                    robot.intake.backSpin();
+                }
             }else{
                 robot.intake.spin();
             }
+
         } else if (controller.LTrigger.press() && !robot.scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
                 robot.scorer.time.reset();
@@ -319,8 +337,8 @@ public class CollinTeleOp extends OpMode {
         }
 
 //Movement control
-        double drive = -MathUtils.shift((controller.rightStick(driveDull)), robot.chassis.gyro.angle()).y;
-        double strafe = MathUtils.shift(controller.rightStick(driveDull), robot.chassis.gyro.angle()).x;
+        double drive = -MathUtils.shift((controller.leftStick(driveDull)), robot.chassis.gyro.angle()).y;
+        double strafe = MathUtils.shift(controller.leftStick(driveDull), robot.chassis.gyro.angle()).x;
         double turn = -rotation;
 
 
@@ -328,8 +346,7 @@ public class CollinTeleOp extends OpMode {
 
 
 //Telemetry
-        multTelemetry.addData("offsetAngle",offsetAngle);
-        multTelemetry.addData("setPoint",setPoint);
+        multTelemetry.addData("Manual Intake?", manualIntake);
         multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
         multTelemetry.addData("Bucket Red", robot.scorer.bucketSensor.getRedCacheValue());
         multTelemetry.update();
