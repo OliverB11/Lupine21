@@ -28,6 +28,7 @@ public class IterativeTeleOp extends OpMode {
     double setPoint = 360;
     boolean wasTurning;
     boolean wasLoaded = false;
+    int manualIntake = 0;
 
     enum SlideState {
         TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING, INTAKE, NONE
@@ -40,6 +41,7 @@ public class IterativeTeleOp extends OpMode {
     CapperState currentCapperState = CapperState.RESTING;
 
     SlideState currentSlideState = SlideState.DRIVING;
+
 
 
     /*
@@ -111,6 +113,7 @@ public class IterativeTeleOp extends OpMode {
 
 
 
+
 // PID
 
 
@@ -165,13 +168,32 @@ public class IterativeTeleOp extends OpMode {
 // Stuff
 
     //Controller1 Stuff
+       if(controller.circle.tap()) {
+           switch (manualIntake) {
+               case 0:
+                   manualIntake = 1;
+                   break;
+               case 1:
+                   manualIntake = 0;
+                   break;
+           }
+       }
+
         if (controller.RTrigger.press() && !robot.scorer.armUp) {
-            if(currentSlideState != SlideState.INTAKE) {
+            if (currentSlideState != SlideState.INTAKE) {
                 robot.scorer.time.reset();
                 robot.intake.time.reset();
             }
             currentSlideState = SlideState.INTAKE;
+            if (manualIntake == 0) {
+                if(!robot.scorer.isLoaded()){
+                    robot.intake.spin();
+                } else {
+                    robot.intake.backSpin();
+                }
+            }else{
                 robot.intake.spin();
+            }
 
         } else if (controller.LTrigger.press() && !robot.scorer.armUp) {
             if(currentSlideState != SlideState.INTAKE) {
@@ -325,8 +347,7 @@ public class IterativeTeleOp extends OpMode {
 
 
 //Telemetry
-            multTelemetry.addData("offsetAngle",offsetAngle);
-            multTelemetry.addData("setPoint",setPoint);
+            multTelemetry.addData("Manual Intake?", manualIntake);
             multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
             multTelemetry.addData("Bucket Red", robot.scorer.bucketSensor.getRedCacheValue());
             multTelemetry.update();
