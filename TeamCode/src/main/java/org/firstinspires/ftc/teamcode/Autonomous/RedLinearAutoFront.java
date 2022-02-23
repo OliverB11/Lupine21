@@ -93,7 +93,7 @@ public class RedLinearAutoFront extends LinearOpMode {
             //WRITE AUTOS HERE
 
             if(DuckPosition.duckPos == 3){
-                //RIGHT
+                //RIGHT 
                 //Top
                 robot.scorer.autoTop();
                 robot.chassis.strafe(.6, 1000,180, 72);
