@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
+import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
+
 public class Intake {
     public DcMotor intake;
     public ElapsedTime time = new ElapsedTime();
@@ -37,7 +39,7 @@ public class Intake {
 
     public void spin() {
         if(time.seconds() > 0.3) {
-            intake.setPower(0.5);
+            intake.setPower(Unfixed.intakeSpeed);
         }
 
 
@@ -54,7 +56,7 @@ public class Intake {
     }
 
     public void autoSpin(){
-        intake.setPower(0.5);
+        intake.setPower(1);
     }
 
     public void autoBackSpin(){intake.setPower(-1);}
