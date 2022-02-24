@@ -10,14 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
-import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
-
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.ScoringMechanism;
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
@@ -147,7 +140,6 @@ public class RedLinearAutoFront extends LinearOpMode {
                 //NONE
 
             }
-            offsetAngle = 360 - (robot.chassis.gyro.angle() % 360);
 
 
 

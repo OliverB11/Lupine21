@@ -13,7 +13,6 @@ import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.driveDu
 import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.turnDull;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
-import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
 
 @TeleOp(name="TeleOp", group="Iterative Opmode")

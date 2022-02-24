@@ -39,8 +39,8 @@ public class Mecanum {
 
 
     public Mecanum(){
-        pid = new PID(p,i,d);
-//        pid = new PID(0.05, 0, 0.002);
+//        pid = new PID(p,i,d);
+        pid = new PID(0.03, 0, 0.002);
         gyro = new Gyro();
 
         initChassis();

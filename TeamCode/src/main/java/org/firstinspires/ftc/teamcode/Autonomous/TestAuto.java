@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
-import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
 
 import android.os.Build;
 
@@ -13,10 +12,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
-import org.firstinspires.ftc.teamcode.Hardware.Subsystems.ScoringMechanism;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
 @Autonomous(name="TestAuto", group="Autonomous Linear Opmode")
@@ -49,8 +44,6 @@ public class TestAuto extends LinearOpMode {
 
 
         if (opModeIsActive()){
-            robot.chassis.strafe(0.5,500,90,180);
-            offsetAngle = 360 - (robot.chassis.gyro.angle() % 360);
         }
     }
 
