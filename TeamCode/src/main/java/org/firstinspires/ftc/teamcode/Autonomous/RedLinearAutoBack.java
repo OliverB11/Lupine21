@@ -51,20 +51,20 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 // DUCK ON LEFT
 
-        if(DuckPosition.duckPos == 1) {
+        if(DuckPosition.getDuckPos() == 1) {
             multTelemetry.addData("Auto", "Red Back Left");
 
 
 
 // DUCK IN MIDDLE
 
-        }else if (DuckPosition.duckPos == 2){
+        }else if (DuckPosition.getDuckPos() == 2){
             multTelemetry.addData("Auto", "Red Back Middle");
 
 
 // DUCK ON RIGHT
 
-        }else if(DuckPosition.duckPos == 3) {
+        }else if(DuckPosition.getDuckPos() == 3) {
             multTelemetry.addData("Auto", "Red Back Right");
 
 // NO DUCK
@@ -177,7 +177,29 @@ public class RedLinearAutoBack extends LinearOpMode {
                     robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
+
                 }
+                robot.chassis.strafe(.2, 125,0,180);
+
+
+            }else if(DuckPosition.duckPos == 1){
+                //Left
+                //Bottom
+                robot.chassis.strafe(.5,1200,180,295);
+                robot.chassis.strafe(.3,75,180,20);
+                robot.scorer.autoDeposit();
+                robot.chassis.sleep(0.5, time);
+                robot.chassis.strafe(.5,2500,180,100);
+                robot.chassis.strafe(.2,500,180,100);
+                robot.chassis.strafe(.2,100,180,180);
+                robot.duckWheel.redSpin(.2);
+                robot.intake.autoSpin();
+                robot.chassis.sleep(3.5,time);
+                robot.duckWheel.stop();
+                robot.chassis.strafe(.3,1000,180,270);
+                robot.intake.stop();
+
+            }
                 while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
                     robot.chassis.flColor.updateRed();
@@ -196,4 +218,4 @@ public class RedLinearAutoBack extends LinearOpMode {
 
         }
     }
-}
+
