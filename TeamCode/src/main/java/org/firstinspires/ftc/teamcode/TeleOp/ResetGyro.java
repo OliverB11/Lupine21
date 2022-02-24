@@ -12,8 +12,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.offsetAngleThing;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
-import static org.firstinspires.ftc.teamcode.Z.OffsetAngle.offsetAngle;
-
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 //@Disabled
@@ -47,7 +45,6 @@ public class ResetGyro extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            offsetAngle = 360 - (offsetAngleThing % 360);
 
             /*
                     Y O U R   C O D E   H E R E
