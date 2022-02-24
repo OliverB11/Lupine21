@@ -51,24 +51,27 @@ public class BlueLinearAutoBack extends LinearOpMode {
 
 // DUCK ON LEFT
 
-        if (DuckPosition.duckPos == 3) {
-            multTelemetry.addData("Auto", "Blue Back Right");
+        //INIT LOOP
+        while (!opModeIsActive()) {
+            if (DuckPosition.getDuckPos() == 3) {
+                multTelemetry.addData("Auto", "Blue Back Right");
 
 
-// DUCK IN MIDDLE
+                // DUCK IN MIDDLE
 
-        } else if (DuckPosition.duckPos == 2) {
-            multTelemetry.addData("Auto", "Blue Back Middle");
+            } else if (DuckPosition.getDuckPos() == 2) {
+                multTelemetry.addData("Auto", "Blue Back Middle");
 
-// DUCK ON RIGHT
+                // DUCK ON RIGHT
 
-        } else if (DuckPosition.duckPos == 1) {
-            multTelemetry.addData("Auto", "Blue Back Left");
+            } else if (DuckPosition.getDuckPos() == 1) {
+                multTelemetry.addData("Auto", "Blue Back Left");
 
-// NO DUCK
-        } else {
-            multTelemetry.addData("Auto", "Blue Back None");
+                // NO DUCK
+            } else {
+                multTelemetry.addData("Auto", "Blue Back None");
 
+            }
         }
 
 
@@ -80,7 +83,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
         if (opModeIsActive()){
             robot.chassis.gyro.reset();
             //WRITE AUTOS HERE
-            if(DuckPosition.duckPos == 3){
+            if(DuckPosition.getDuckPos() == 3){
                 //RIGHT
                 //Top
                 robot.scorer.autoTop();
@@ -113,7 +116,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
 
 
 
-            }else if(DuckPosition.duckPos == 2){
+            }else if(DuckPosition.getDuckPos() == 2){
                 //Middle
                 //Middle
                 robot.chassis.strafe(.5,1400,180,65);
@@ -142,7 +145,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 }
                 robot.chassis.strafe(.2, 100,0,180);
 
-            }else if(DuckPosition.duckPos == 1){
+            }else if(DuckPosition.getDuckPos() == 1){
                 //Left
                 //Bottom
                 robot.chassis.strafe(.5,1400,180,65);

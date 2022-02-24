@@ -46,32 +46,35 @@ public class RedLinearAutoBack extends LinearOpMode {
     public void runOpMode(){
         initialize();
         time.reset();
-        MathUtils.wait(time,5);
-        robot.chassis.cam.close();
 
+
+
+        //INIT LOOP
+        while (!opModeIsActive()) {
 // DUCK ON LEFT
 
-        if(DuckPosition.getDuckPos() == 1) {
-            multTelemetry.addData("Auto", "Red Back Left");
-
+            if (DuckPosition.getDuckPos() == 1) {
+                multTelemetry.addData("Auto", "Red Back Left");
 
 
 // DUCK IN MIDDLE
 
-        }else if (DuckPosition.getDuckPos() == 2){
-            multTelemetry.addData("Auto", "Red Back Middle");
+            } else if (DuckPosition.getDuckPos() == 2) {
+                multTelemetry.addData("Auto", "Red Back Middle");
 
 
 // DUCK ON RIGHT
 
-        }else if(DuckPosition.getDuckPos() == 3) {
-            multTelemetry.addData("Auto", "Red Back Right");
+            } else if (DuckPosition.getDuckPos() == 3) {
+                multTelemetry.addData("Auto", "Red Back Right");
 
 // NO DUCK
-        }else{
-            multTelemetry.addData("Auto", "Red Back None");
-        }
+            } else {
+                multTelemetry.addData("Auto", "Red Back None");
+            }
 
+            multTelemetry.update();
+        }
 
 
         multTelemetry.addData("Drivers", "Run");
@@ -83,7 +86,7 @@ public class RedLinearAutoBack extends LinearOpMode {
             robot.chassis.gyro.reset();
             //WRITE AUTOS HERE
 
-            if(DuckPosition.duckPos == 3){
+            if(DuckPosition.getDuckPos() == 3){
                 //RIGHT
                 //Top
                 robot.scorer.autoTop();
@@ -118,7 +121,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.2, 125,0,180);
 
 
-            }else if(DuckPosition.duckPos == 2){
+            }else if(DuckPosition.getDuckPos() == 2){
                 //Middle
                 //Middle
                 robot.chassis.strafe(.5,1200,180,295);
@@ -152,7 +155,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.2, 125,0,180);
 
 
-            }else if(DuckPosition.duckPos == 1){
+            }else if(DuckPosition.getDuckPos() == 1){
                 //Left
                 //Bottom
                 robot.chassis.strafe(.5,1200,180,295);
@@ -211,7 +214,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
             }
-
+        robot.chassis.cam.close();
 
 
 

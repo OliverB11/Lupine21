@@ -55,26 +55,28 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 
 // DUCK ON LEFT
+        //INIT LOOP
 
-        if(DuckPosition.duckPos == 1) {
-            multTelemetry.addData("Auto", "Red Front Left");
-
+        while (!opModeIsActive()) {
+            if (DuckPosition.getDuckPos() == 1) {
+                multTelemetry.addData("Auto", "Red Front Left");
 
 
 // DUCK IN MIDDLE
 
-        }else if (DuckPosition.duckPos == 2){
-            multTelemetry.addData("Auto", "Red Front Middle");
+            } else if (DuckPosition.getDuckPos() == 2) {
+                multTelemetry.addData("Auto", "Red Front Middle");
 
 
 // DUCK ON RIGHT
 
-        }else if(DuckPosition.duckPos == 3) {
-            multTelemetry.addData("Auto", "Red Front Right");
+            } else if (DuckPosition.getDuckPos() == 3) {
+                multTelemetry.addData("Auto", "Red Front Right");
 
 // NO DUCK
-        }else{
-            multTelemetry.addData("Auto", "Red Front None");
+            } else {
+                multTelemetry.addData("Auto", "Red Front None");
+            }
         }
 
         multTelemetry.addLine("Waiting for start");
@@ -85,7 +87,7 @@ public class RedLinearAutoFront extends LinearOpMode {
         if (opModeIsActive()){
             //WRITE AUTOS HERE
 
-            if(DuckPosition.duckPos == 3){
+            if(DuckPosition.getDuckPos() == 3){
                 //RIGHT
                 //Top
                 robot.scorer.autoTop();
@@ -106,7 +108,7 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 
 
-            }else if(DuckPosition.duckPos == 2){
+            }else if(DuckPosition.getDuckPos() == 2){
                 //MIDDLE
                 //Middle
                 robot.scorer.autoMiddle();
@@ -122,7 +124,7 @@ public class RedLinearAutoFront extends LinearOpMode {
                 robot.chassis.strafe(.4,300,0,0);
 
 
-            }else if(DuckPosition.duckPos == 1){
+            }else if(DuckPosition.getDuckPos() == 1){
                 //Left
                 //Bottom
                 robot.chassis.strafe(.6, 1200,180, 70);
