@@ -23,6 +23,7 @@ public class RedLinearAutoFront extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime time = new ElapsedTime();
     private DetectionPipeline pipeline = new DetectionPipeline();
+    private int localDuckPos;
     Robot robot;
     Distance_Sensor distance;
 
@@ -59,18 +60,21 @@ public class RedLinearAutoFront extends LinearOpMode {
 
         while (!opModeIsActive()) {
             if (DuckPosition.getDuckPos() == 1) {
+                localDuckPos = 1;
                 multTelemetry.addData("Auto", "Red Front Left");
 
 
 // DUCK IN MIDDLE
 
             } else if (DuckPosition.getDuckPos() == 2) {
+                localDuckPos = 2;
                 multTelemetry.addData("Auto", "Red Front Middle");
 
 
 // DUCK ON RIGHT
 
             } else if (DuckPosition.getDuckPos() == 3) {
+                localDuckPos = 3;
                 multTelemetry.addData("Auto", "Red Front Right");
 
 // NO DUCK
@@ -87,7 +91,7 @@ public class RedLinearAutoFront extends LinearOpMode {
         if (opModeIsActive()){
             //WRITE AUTOS HERE
 
-            if(DuckPosition.getDuckPos() == 3){
+            if(localDuckPos == 3){
                 //RIGHT
                 //Top
                 robot.scorer.autoTop();
@@ -108,7 +112,7 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 
 
-            }else if(DuckPosition.getDuckPos() == 2){
+            }else if(localDuckPos == 2){
                 //MIDDLE
                 //Middle
                 robot.scorer.autoMiddle();
@@ -124,7 +128,7 @@ public class RedLinearAutoFront extends LinearOpMode {
                 robot.chassis.strafe(.4,300,0,0);
 
 
-            }else if(DuckPosition.getDuckPos() == 1){
+            }else if(localDuckPos == 1){
                 //Left
                 //Bottom
                 robot.chassis.strafe(.6, 1200,180, 70);
