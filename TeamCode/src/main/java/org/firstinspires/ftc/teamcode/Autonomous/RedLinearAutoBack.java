@@ -95,8 +95,8 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.2,100,180,0);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
-                robot.chassis.strafe(.5,2500,180,100, 10);
-                robot.chassis.strafe(.2,400,180,100);
+                robot.chassis.strafe(.5,2500,170,100, 10);
+                robot.chassis.strafe(.2,400,170,100);
                 robot.duckWheel.redSpin(.2);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
@@ -118,7 +118,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
                 }
-                robot.chassis.strafe(.2, 125,0,180);
+                robot.chassis.strafe(.2, 75,0,180);
 
 
             }else if(DuckPosition.getDuckPos() == 2){
