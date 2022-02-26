@@ -73,7 +73,7 @@ public class ScoringMechanism {
             bucket.setPosition(0.7);
         }
         if (time.seconds() > .1 && time.seconds() < .7) {
-            spool.setTargetPosition(-500);
+            spool.setTargetPosition(-300);
             if (spool.getCurrentPosition() > -1000) {
                 spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition()) + 0.5);
             } else {
@@ -173,11 +173,7 @@ public class ScoringMechanism {
     }
 
     public boolean isLoaded(){
-        if(bucketSensor.getRedCacheValue() > Unfixed.bucketColor){
-            return(true);
-        }else{
-            return(false);
-        }
+        return bucketSensor.getRedCacheValue() > Unfixed.bucketColor;
     }
 
 }
