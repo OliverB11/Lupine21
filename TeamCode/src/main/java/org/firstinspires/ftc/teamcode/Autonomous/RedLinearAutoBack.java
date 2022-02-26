@@ -12,7 +12,6 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
@@ -21,9 +20,9 @@ import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
 @Autonomous(name="RedLinearAutoBack", group="Autonomous Linear Opmode")
 public class RedLinearAutoBack extends LinearOpMode {
     // Declare OpMode members.
-    private ElapsedTime time = new ElapsedTime();
+    private final ElapsedTime time = new ElapsedTime();
     Robot robot;
-    private DetectionPipeline pipeline = new DetectionPipeline();
+    private final DetectionPipeline pipeline = new DetectionPipeline();
 
 
 
@@ -127,10 +126,12 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.5,1200,180,295);
                 robot.chassis.strafe(0.3,50,180,0);
                 robot.scorer.autoMiddle();
+                robot.chassis.strafe(.3,150,180,180);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
-                robot.chassis.strafe(.5,2500,180,100);
-                robot.chassis.strafe(.2,400,180,100);
+                robot.chassis.strafe(.3,150,180,0);
+                robot.chassis.strafe(.5,2500,170,100);
+                robot.chassis.strafe(.2,400,170,100);
                 robot.duckWheel.redSpin(.2);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
@@ -152,37 +153,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
                 }
-                robot.chassis.strafe(.2, 125,0,180);
-
-
-            }else if(DuckPosition.getDuckPos() == 1){
-                //Left
-                //Bottom
-                robot.chassis.strafe(.5,1200,180,295);
-                robot.chassis.strafe(.3,75,180,20);
-                robot.scorer.autoDeposit();
-                robot.chassis.sleep(0.5, time);
-                robot.chassis.strafe(.5,2500,180,100);
-                robot.chassis.strafe(.2,500,180,100);
-                robot.chassis.strafe(.2,100,180,180);
-                robot.duckWheel.redSpin(.2);
-                robot.intake.autoSpin();
-                robot.chassis.sleep(3.5,time);
-                robot.duckWheel.stop();
-                robot.chassis.strafe(.3,1000,180,270);
-                robot.intake.stop();
-                robot.chassis.strafe(.2,1300,0, 60);
-                robot.chassis.strafe(.3,200,0,90);
-                robot.chassis.flColor.updateRed();
-                robot.chassis.frColor.updateRed();
-                while(robot.chassis.flColor.getRedCacheValue() < 90 && robot.chassis.frColor.getRedCacheValue() < 90){
-                    robot.chassis.setDrivePower(.3, 0, 0, .4);
-                    robot.chassis.flColor.updateRed();
-                    robot.chassis.frColor.updateRed();
-
-
-                }
-                robot.chassis.strafe(.2, 125,0,180);
+                robot.chassis.strafe(.2, 75,0,180);
 
 
             }else if(DuckPosition.duckPos == 1){
@@ -193,16 +164,24 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,2500,180,100);
-                robot.chassis.strafe(.2,500,180,100);
-                robot.chassis.strafe(.2,100,180,180);
+                robot.chassis.strafe(.2,500,180,110);
+                robot.chassis.strafe(.2,100,180,100);
                 robot.duckWheel.redSpin(.2);
                 robot.intake.autoSpin();
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,1000,180,270);
+                robot.chassis.strafe(.3,1000,0,70);
+                robot.chassis.strafe(.3,400,0,90);
                 robot.intake.stop();
+                robot.chassis.flColor.updateRed();
+                robot.chassis.frColor.updateRed();
+                while(robot.chassis.flColor.getRedCacheValue() < 90 && robot.chassis.frColor.getRedCacheValue() < 90){
+                    robot.chassis.setDrivePower(.3, 0, 0, .4);
+                    robot.chassis.flColor.updateRed();
+                    robot.chassis.frColor.updateRed();
 
-            }
+                }
                 while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
                     robot.chassis.flColor.updateRed();
@@ -210,8 +189,9 @@ public class RedLinearAutoBack extends LinearOpMode {
 
 
                 }
-                robot.chassis.strafe(.2, 125,0,180);
+                robot.chassis.strafe(.2, 75,0,180);
 
+            }
 
             }
         robot.chassis.cam.close();
