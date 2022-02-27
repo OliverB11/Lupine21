@@ -51,8 +51,8 @@ public class BlueLinearAutoFront extends LinearOpMode {
         multTelemetry.addData("DRIVERS", "WAIT");
         multTelemetry.update();
         time.reset();
-        MathUtils.wait(time, 5);
-        robot.chassis.cam.close();
+
+
 
 
 // DUCK ON LEFT
@@ -78,6 +78,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
             } else {
                 multTelemetry.addData("Auto", "Blue Front None");
             }
+            multTelemetry.update();
         }
 
         multTelemetry.addLine("Waiting for start");
@@ -153,5 +154,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
 
         }
+        robot.chassis.cam.close();
     }
 }

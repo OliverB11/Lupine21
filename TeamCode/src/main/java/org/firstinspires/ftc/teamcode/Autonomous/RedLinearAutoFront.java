@@ -50,8 +50,8 @@ public class RedLinearAutoFront extends LinearOpMode {
         initialize();
 
         time.reset();
-        MathUtils.wait(time, 5);
-        robot.chassis.cam.close();
+
+
 
 
 // DUCK ON LEFT
@@ -77,6 +77,7 @@ public class RedLinearAutoFront extends LinearOpMode {
             } else {
                 multTelemetry.addData("Auto", "Red Front None");
             }
+            multTelemetry.update();
         }
 
         multTelemetry.addLine("Waiting for start");
@@ -147,5 +148,6 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 
         }
+        robot.chassis.cam.close();
     }
 }

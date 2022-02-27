@@ -44,8 +44,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
     public void runOpMode(){
         initialize();
         time.reset();
-        MathUtils.wait(time, 5);
-        robot.chassis.cam.close();
+
 
 
 
@@ -72,6 +71,7 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 multTelemetry.addData("Auto", "Blue Back None");
 
             }
+            multTelemetry.update();
         }
 
 
@@ -175,6 +175,8 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 }
                 robot.chassis.strafe(.2, 75,0,180);
             }
+
+            robot.chassis.cam.close();
 
         }
     }
