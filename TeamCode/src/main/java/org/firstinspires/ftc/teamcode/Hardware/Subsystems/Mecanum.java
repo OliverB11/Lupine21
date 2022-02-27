@@ -204,8 +204,8 @@ public class Mecanum {
         if(Side.red){
             multTelemetry.addData("isLoaded", scorer.isLoaded());
             multTelemetry.update();
-            strafe(.6,800,270,274);
-            strafe(.3,100,270,274);
+            strafe(.6,600,270,274);
+            strafe(.3,300,270,274);
 
             if (cycleNo != 1){
                 strafe(.4,500,270,274);
@@ -264,7 +264,7 @@ public class Mecanum {
             scorer.autoTop();
             strafe(.5, 300, 270, 10);
             strafe(.4, 300, 190, 5);
-            strafe(.2,150,190,45);
+            strafe(.2,150,205,45);
             scorer.autoDeposit();
             strafe(.6, 600, 260, 185);
             strafe(.5, 600, 270, 190);

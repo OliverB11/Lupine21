@@ -126,7 +126,6 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.5,1200,180,295);
                 robot.chassis.strafe(0.3,50,180,0);
                 robot.scorer.autoMiddle();
-                robot.chassis.strafe(.3,150,180,180);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.3,150,180,0);
