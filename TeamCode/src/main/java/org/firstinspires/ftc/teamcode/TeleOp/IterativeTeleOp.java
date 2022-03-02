@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Z.Side;
 
 import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.driveDull;
 import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.turnDull;
+import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
@@ -28,6 +30,10 @@ public class IterativeTeleOp extends OpMode {
     boolean wasTurning;
     boolean wasLoaded = false;
     int manualIntake = 0;
+    private DigitalChannel redLED;
+    private DigitalChannel greenLED;
+
+
 
     enum SlideState {
         TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING, INTAKE, NONE
@@ -59,6 +65,12 @@ public class IterativeTeleOp extends OpMode {
             Side.blue = true;
             Side.red = false;
         }
+
+        //redLED = hardwareMap.get(DigitalChannel.class, "red");
+        //greenLED = hardwareMap.get(DigitalChannel.class, "green");
+        //redLED.setMode(DigitalChannel.Mode.OUTPUT);
+        //greenLED.setMode(DigitalChannel.Mode.OUTPUT);
+
 
         multTelemetry.addData("Status", "Initialized");
         multTelemetry.update();
@@ -333,7 +345,12 @@ public class IterativeTeleOp extends OpMode {
             }
 // Rumble
         if(currentSlideState == SlideState.INTAKE) {
+            if(!wasLoaded && robot.scorer.isLoaded()){
+                controller.gamepad.rumble(1000);
+                controller2.gamepad.rumble(1000);
+            }
             wasLoaded = robot.scorer.isLoaded();
+
         }
 
 //Movement control
@@ -349,6 +366,9 @@ public class IterativeTeleOp extends OpMode {
             multTelemetry.addData("Manual Intake?", manualIntake);
             multTelemetry.addData("Is Loaded?", robot.scorer.isLoaded());
             multTelemetry.addData("Bucket Red", robot.scorer.bucketSensor.getRedCacheValue());
+
+            multTelemetry.addData("runtime", Math.round(runtime.seconds()));
+
             multTelemetry.update();
 
         }
@@ -357,8 +377,7 @@ public class IterativeTeleOp extends OpMode {
         @Override
         public void stop(){
 
-        /*
-                    Y O U R   C O D E   H E R E
-                                                   */
+        //redLED.setState(true);
+        //greenLED.setState(false);
         }
 }

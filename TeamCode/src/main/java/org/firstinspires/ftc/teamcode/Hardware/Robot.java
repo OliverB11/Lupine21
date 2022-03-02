@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
-import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Capper;
 import org.firstinspires.ftc.teamcode.Hardware.Subsystems.DuckWheel;
 import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Subsystems.Mecanum;
 import org.firstinspires.ftc.teamcode.Hardware.Subsystems.ScoringMechanism;
-import org.firstinspires.ftc.teamcode.Z.Vision.Camera;
-import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 
 public class Robot {
     public Capper capper;
