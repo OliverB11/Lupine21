@@ -195,6 +195,7 @@ public class Mecanum {
         turn(targetAngle, 8);
     }
 
+
     public void sleep(double time, ElapsedTime timer){
         timer.reset();
         while(timer.seconds() < time){
@@ -202,6 +203,9 @@ public class Mecanum {
     }
 
     public void cycle(Intake intake, ScoringMechanism scorer, Distance_Sensor distance,int cycleNo){
+
+//RED
+
         if(Side.red){
             multTelemetry.addData("isLoaded", scorer.isLoaded());
             multTelemetry.update();
@@ -271,7 +275,7 @@ public class Mecanum {
             strafe(.5, 600, 270, 190);
             strafe(.4,300,270,180);
 
-
+// BLUE
 
         }else if(Side.blue){
             multTelemetry.addData("isLoaded", scorer.isLoaded());
@@ -280,7 +284,7 @@ public class Mecanum {
             strafe(.3,300,90,95);
 
             if (cycleNo != 1){
-                strafe(.4,500,90,90);
+                strafe(.4,700,90,90);
                 strafe(.4,600,90,0);
             }
             intake.autoSpin();
@@ -289,17 +293,10 @@ public class Mecanum {
             loopTimer1.reset();
             while (!scorer.isLoaded()) {
 
-                distance.distanceUpdate();
                 scorer.updateBucketSensor();
                 intake.updateEncoders();
 
-                if(!distance.isChanging){
-                    intake.autoBackSpin();
-                    strafe(.6,100,90,270);
-                    multTelemetry.addData("Stage", "Retreating");
-                    loopTimer1.reset();
-                }
-                if (!intake.jammed() && loopTimer1.seconds()<3) {
+                if (!intake.jammed() && loopTimer1.seconds()<5) {
                     intake.autoSpin();
                     strafe(.15, 100, 90, 90);
                     multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
@@ -307,12 +304,11 @@ public class Mecanum {
                     intake.autoBackSpin();
                     strafe(.6, 100, 90, 270);
                     multTelemetry.addData("Stage", "Retreating");
+                    multTelemetry.addData("Jammed",intake.jammed());
                     loopTimer1.reset();
                 }
 
                 multTelemetry.addData("isLoaded", scorer.isLoaded());
-                multTelemetry.addData("Red", scorer.bucketSensor.getRedCacheValue());
-                multTelemetry.addData("Green", scorer.bucketSensor.getGreenCacheValue());
                 multTelemetry.update();
             }
 
@@ -347,12 +343,15 @@ public class Mecanum {
 
             scorer.autoTop();
             if (cycleNo != 1) {
-                strafe(.4,550,165,358);
+                strafe(.4,550,160,358);
+                strafe(.2,100,160,0);
             }else{
-                strafe(.4,550,165,355);
+                strafe(.4,550,155,355);
+                strafe(.2,100,155,0);
             }
 
-            strafe(.2,100,165,0);
+
+            strafe(.2,100,160,355);
             scorer.autoDeposit();
             strafe(.6, 600, 90, 170);
             strafe(.4,400,90,180);
