@@ -136,9 +136,6 @@ public class Mecanum {
         strafeAngle = strafeAngle - 90;
         targetAngle = targetAngle - 180;
 
-
-        //Blue Switch
-
         targetAngle = closestAngle(targetAngle, gyro.angle());
 
         // Calculate our x and y powers
