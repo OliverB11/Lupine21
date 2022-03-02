@@ -27,7 +27,11 @@ import org.opencv.core.Point;
 public class Mecanum {
 
     public DcMotor fr,fl,br,bl;
-    public Color_Sensor flColor, frColor, blColor, brColor;
+    public Color_Sensor
+            //flColor,
+            frColor,
+            //blColor,
+            brColor;
     public PID pid;
     public Gyro gyro;
     public static ElapsedTime time = new ElapsedTime();
@@ -56,13 +60,13 @@ public class Mecanum {
         fl = hardwareMap.get(DcMotor.class, "fl");
         br = hardwareMap.get(DcMotor.class, "br");
         bl = hardwareMap.get(DcMotor.class, "bl");
-        flColor = new Color_Sensor();
+        //flColor = new Color_Sensor();
         frColor = new Color_Sensor();
-        blColor = new Color_Sensor();
+        //blColor = new Color_Sensor();
         brColor = new Color_Sensor();
-        flColor.init("flColor");
+        //flColor.init("flColor");
         frColor.init("frColor");
-        blColor.init("blColor");
+        //blColor.init("blColor");
         brColor.init("brColor");
         resetMotors();
 

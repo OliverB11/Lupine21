@@ -102,17 +102,17 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,1000,180,315);
                 robot.chassis.strafe(.4,600,0,90);
                 robot.chassis.strafe(.3,300,0,180);
-                robot.chassis.flColor.updateRed();
+                //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(robot.chassis.flColor.getRedCacheValue() < 90 && robot.chassis.frColor.getRedCacheValue() < 90){
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() < 90){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
-                    robot.chassis.flColor.updateRed();
+                    //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
                 }
-                while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() > 90){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
-                    robot.chassis.flColor.updateRed();
+//                    robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
 
@@ -137,17 +137,17 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,1000,180,315);
                 robot.chassis.strafe(.3,800,0,90);
                 robot.chassis.strafe(.3,75,0,180);
-                robot.chassis.flColor.updateRed();
+                //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(robot.chassis.flColor.getRedCacheValue() < 90 && robot.chassis.frColor.getRedCacheValue() < 90){
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() < 90){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
-                    robot.chassis.flColor.updateRed();
+                    //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
                 }
-                while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() > 90){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
-                    robot.chassis.flColor.updateRed();
+                    //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
 
@@ -173,17 +173,17 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,1000,0,70);
                 robot.chassis.strafe(.3,400,0,90);
                 robot.intake.stop();
-                robot.chassis.flColor.updateRed();
+                //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(robot.chassis.flColor.getRedCacheValue() < 90 && robot.chassis.frColor.getRedCacheValue() < 90){
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() < 90){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
-                    robot.chassis.flColor.updateRed();
+                    //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
                 }
-                while(robot.chassis.flColor.getRedCacheValue() > 90 && robot.chassis.frColor.getRedCacheValue() > 90){
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() > 90){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
-                    robot.chassis.flColor.updateRed();
+                    //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
 

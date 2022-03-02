@@ -101,15 +101,15 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,700,180,90);
                 robot.chassis.strafe(.3,600,0,270);
                 robot.chassis.strafe(.3,1000,0,315);
-                robot.chassis.flColor.updateBlue();
+                //robot.chassis.flColor.updateBlue();
                 robot.chassis.frColor.updateBlue();
-                while(robot.chassis.flColor.getBlueCacheValue() < 100 && robot.chassis.frColor.getBlueCacheValue() < 100){
+                while(/*robot.chassis.flColor.getBlueCacheValue() < 100 && */ robot.chassis.frColor.getBlueCacheValue() < 100){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
-                    robot.chassis.flColor.updateBlue();
+                    //robot.chassis.flColor.updateBlue();
                 }
-                while(robot.chassis.flColor.getBlueCacheValue() > 100 && robot.chassis.frColor.getBlueCacheValue() < 100){
+                while(/*robot.chassis.flColor.getBlueCacheValue() < 100 && */ robot.chassis.frColor.getBlueCacheValue() < 100){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
-                    robot.chassis.flColor.updateBlue();
+                    //robot.chassis.flColor.updateBlue();
                 }
                 robot.chassis.strafe(.2, 75,0,180);
 
@@ -133,15 +133,15 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,700,180,90);
                 robot.chassis.strafe(.3,600,0,270);
                 robot.chassis.strafe(.3,1000,0,315);
-                robot.chassis.flColor.updateBlue();
+                //robot.chassis.flColor.updateBlue();
                 robot.chassis.frColor.updateBlue();
-                while(robot.chassis.flColor.getBlueCacheValue() < 100 && robot.chassis.frColor.getBlueCacheValue() < 100){
+                while(/*robot.chassis.flColor.getBlueCacheValue() < 100 && */ robot.chassis.frColor.getBlueCacheValue() < 100){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
-                    robot.chassis.flColor.updateBlue();
+                    //robot.chassis.flColor.updateBlue();
                 }
-                while(robot.chassis.flColor.getBlueCacheValue() > 100 && robot.chassis.frColor.getBlueCacheValue() < 100){
+                while(/*robot.chassis.flColor.getBlueCacheValue() < 100 && */ robot.chassis.frColor.getBlueCacheValue() < 100){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
-                    robot.chassis.flColor.updateBlue();
+                    //robot.chassis.flColor.updateBlue();
                 }
                 robot.chassis.strafe(.2, 100,0,180);
 
@@ -163,15 +163,15 @@ public class BlueLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,700,180,90);
                 robot.chassis.strafe(.3,600,0,270);
                 robot.chassis.strafe(.3,1000,0,330);
-                robot.chassis.flColor.updateBlue();
+                //robot.chassis.flColor.updateBlue();
                 robot.chassis.frColor.updateBlue();
-                while(robot.chassis.flColor.getBlueCacheValue() < 100 && robot.chassis.frColor.getBlueCacheValue() < 100){
+                while(/*robot.chassis.flColor.getBlueCacheValue() < 100 && */ robot.chassis.frColor.getBlueCacheValue() < 100){
                     robot.chassis.setDrivePower(.3, 0, 0, .4);
-                    robot.chassis.flColor.updateBlue();
+                    //robot.chassis.flColor.updateBlue();
                 }
-                while(robot.chassis.flColor.getBlueCacheValue() > 100 && robot.chassis.frColor.getBlueCacheValue() < 100){
+                while(/*robot.chassis.flColor.getBlueCacheValue() < 100 && */ robot.chassis.frColor.getBlueCacheValue() < 100){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
-                    robot.chassis.flColor.updateBlue();
+                    //robot.chassis.flColor.updateBlue();
                 }
                 robot.chassis.strafe(.2, 75,0,180);
             }
