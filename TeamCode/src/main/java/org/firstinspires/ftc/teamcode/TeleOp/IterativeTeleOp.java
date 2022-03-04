@@ -69,7 +69,7 @@ public class IterativeTeleOp extends OpMode {
             Side.red = false;
         }
 
-        robot.scorer.spool.setTargetPosition((int)-SlideStart.SlideStart);
+        robot.scorer.spool.setTargetPosition(-SlideStart.slideStart);
 
 
         //redLED = hardwareMap.get(DigitalChannel.class, "red");
@@ -91,6 +91,7 @@ public class IterativeTeleOp extends OpMode {
     public void init_loop() {
 
         multTelemetry.addData("Status", "InitLoop");
+        multTelemetry.addData("Slide Start", SlideStart.slideStart);
 
         multTelemetry.update();
     }
@@ -129,7 +130,7 @@ public class IterativeTeleOp extends OpMode {
         controller2.controllerUpdate();
         robot.chassis.gyro.update();
         robot.intake.updateEncoders();
-        robot.scorer.updateBucketSensor();
+        robot.scorer.bucketSensor.updateRed();
 
 
 

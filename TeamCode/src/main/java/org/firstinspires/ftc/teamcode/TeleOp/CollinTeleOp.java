@@ -108,7 +108,7 @@ public class CollinTeleOp extends OpMode {
         controller2.controllerUpdate();
         robot.chassis.gyro.update();
         robot.intake.updateEncoders();
-        robot.scorer.updateBucketSensor();
+        robot.scorer.bucketSensor.updateRed();
 
 
 

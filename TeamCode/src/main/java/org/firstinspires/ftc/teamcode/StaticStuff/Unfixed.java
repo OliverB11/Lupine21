@@ -12,7 +12,7 @@ public class Unfixed {
     public static double i = 0;
     public static double d = 0.002;
     public static double offsetAngleThing = 0;
-    public static double bucketColor = 750;
+    public static double bucketColor = 475;
     public static double intakeSpeed = 1;
 
 

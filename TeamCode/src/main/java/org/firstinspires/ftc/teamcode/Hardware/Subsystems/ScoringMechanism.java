@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
+import org.firstinspires.ftc.teamcode.StaticStuff.SlideStart;
 import org.firstinspires.ftc.teamcode.StaticStuff.Unfixed;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 
@@ -98,6 +99,7 @@ public class ScoringMechanism {
             bucket.setPosition(0.7);
             armUp = false;
         }
+        SlideStart.slideStart = spool.getTargetPosition();
 
     }
 
@@ -130,6 +132,7 @@ public class ScoringMechanism {
         wait(0.4);
         spool.setTargetPosition(-1800);
         spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
+        SlideStart.slideStart = spool.getTargetPosition();
     }
 
 
@@ -139,6 +142,7 @@ public class ScoringMechanism {
         wait(0.4);
         spool.setTargetPosition(-1000);
         spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
+        SlideStart.slideStart = spool.getTargetPosition();
     }
     public void autoBottom() {
         time.reset();
@@ -146,6 +150,7 @@ public class ScoringMechanism {
         wait(0.4);
         spool.setTargetPosition(-500);
         spool.setPower(((spool.getTargetPosition() - spool.getCurrentPosition()) / (double) spool.getTargetPosition())+ 0.5);
+        SlideStart.slideStart = spool.getTargetPosition();
     }
 
     public void autoDeposit() {
@@ -167,10 +172,6 @@ public class ScoringMechanism {
         }
     }
 
-    public void updateBucketSensor(){
-        bucketSensor.updateRed();
-        bucketSensor.updateGreen();
-    }
 
     public boolean isLoaded(){
         return bucketSensor.getRedCacheValue() > Unfixed.bucketColor;

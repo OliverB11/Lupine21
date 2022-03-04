@@ -157,6 +157,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
 
         }
-        SlideStart.SlideStart = robot.scorer.spool.getCurrentPosition();
+        SlideStart.slideStart = robot.scorer.spool.getCurrentPosition();
     }
 }

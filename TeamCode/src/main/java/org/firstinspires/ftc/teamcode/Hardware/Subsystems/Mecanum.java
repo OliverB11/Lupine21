@@ -215,12 +215,12 @@ public class Mecanum {
             }
 
             intake.autoSpin();
-            scorer.updateBucketSensor();
+            scorer.bucketSensor.updateRed();
             loopTimer1.reset();
             while (!scorer.isLoaded()) {
 
                 distance.distanceUpdate();
-                scorer.updateBucketSensor();
+                scorer.bucketSensor.updateRed();
                 intake.updateEncoders();
 
                 if(!distance.isChanging){
@@ -285,12 +285,12 @@ public class Mecanum {
                 strafe(.4,600,90,0);
             }
             intake.autoSpin();
-            scorer.updateBucketSensor();
+            scorer.bucketSensor.updateRed();
 
             loopTimer1.reset();
             while (!scorer.isLoaded()) {
 
-                scorer.updateBucketSensor();
+                scorer.bucketSensor.updateRed();
                 intake.updateEncoders();
 
                 if (!intake.jammed() && loopTimer1.seconds()<5) {
