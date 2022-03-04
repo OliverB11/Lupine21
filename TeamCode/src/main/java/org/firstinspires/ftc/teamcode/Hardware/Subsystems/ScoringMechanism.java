@@ -158,6 +158,8 @@ public class ScoringMechanism {
         bucket.setPosition(0.82);
     }
 
+    public void slideReset() MAKE THIS WORK OLIVER
+
 
 
     public void wait(double timeout){
