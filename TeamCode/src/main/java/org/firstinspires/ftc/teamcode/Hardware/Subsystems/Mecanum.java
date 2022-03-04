@@ -269,7 +269,7 @@ public class Mecanum {
             scorer.autoTop();
             strafe(.5, 300, 270, 10);
             strafe(.4, 300, 190, 5);
-            strafe(.2,150,205,45);
+            strafe(.2,150,195,45);
             scorer.autoDeposit();
             strafe(.6, 600, 260, 185);
             strafe(.5, 600, 270, 190);

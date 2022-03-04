@@ -35,6 +35,7 @@ public class IterativeTeleOp extends OpMode {
 
 
 
+
     enum SlideState {
         TOP, MIDDLE, BOTTOM, DEPOSIT, DRIVING, INTAKE, NONE
     }
@@ -60,6 +61,7 @@ public class IterativeTeleOp extends OpMode {
         robot = new Robot();
         controller = new Controller(gamepad1);
         controller2 = new Controller(gamepad2);
+
 
         if (!Side.blue && !Side.red) {
             Side.blue = true;

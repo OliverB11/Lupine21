@@ -105,7 +105,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
                 while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() < 90){
-                    robot.chassis.setDrivePower(.3, 0, 0, .4);
+                    robot.chassis.setDrivePower(.3, 0, 0, .3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
@@ -140,7 +140,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
                 while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() < 90){
-                    robot.chassis.setDrivePower(.3, 0, 0, .4);
+                    robot.chassis.setDrivePower(.3, 0, 0, .3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
@@ -176,7 +176,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
                 while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() < 90){
-                    robot.chassis.setDrivePower(.3, 0, 0, .4);
+                    robot.chassis.setDrivePower(.3, 0, 0, .3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
@@ -191,13 +191,8 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.2, 75,0,180);
 
             }
-
-            }
-        robot.chassis.cam.close();
-
-
-
-
         }
+        robot.chassis.cam.close();
     }
+}
 

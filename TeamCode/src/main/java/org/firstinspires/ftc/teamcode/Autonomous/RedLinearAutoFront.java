@@ -124,6 +124,7 @@ public class RedLinearAutoFront extends LinearOpMode {
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
                 robot.chassis.strafe(.7,1700,270,270);
                 robot.chassis.strafe(.4,300,0,0);
+                robot.chassis.turn(0);
 
 
             }else if(DuckPosition.getDuckPos() == 1){
@@ -138,6 +139,7 @@ public class RedLinearAutoFront extends LinearOpMode {
                 robot.chassis.cycle(robot.intake, robot.scorer, distance,2);
                 robot.chassis.strafe(.7,1500,270,270);
                 robot.chassis.strafe(.4,300,0,0,0);
+                robot.chassis.turn(0);
 
 
             }else{
