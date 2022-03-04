@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Utilities.OpModeUtils;
 import org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls;
 
-import static org.firstinspires.ftc.teamcode.DashConstants.Dash_ServoDiagnostic.SERVO_HOME;
-import static org.firstinspires.ftc.teamcode.DashConstants.Dash_ServoDiagnostic.SERVO_ID;
-import static org.firstinspires.ftc.teamcode.DashConstants.Dash_ServoDiagnostic.SERVO_MAX;
-import static org.firstinspires.ftc.teamcode.DashConstants.Dash_ServoDiagnostic.SERVO_MIN;
+import static org.firstinspires.ftc.teamcode.StaticStuff.Dash_ServoDiagnostic.SERVO_HOME;
+import static org.firstinspires.ftc.teamcode.StaticStuff.Dash_ServoDiagnostic.SERVO_ID;
+import static org.firstinspires.ftc.teamcode.StaticStuff.Dash_ServoDiagnostic.SERVO_MAX;
+import static org.firstinspires.ftc.teamcode.StaticStuff.Dash_ServoDiagnostic.SERVO_MIN;
 import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.ButtonState.DOWN;
 import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.TOUCHPAD;
 

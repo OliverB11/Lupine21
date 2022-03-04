@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.DashConstants;
+package org.firstinspires.ftc.teamcode.StaticStuff;
 import com.acmerobotics.dashboard.config.Config;
 
 @Config

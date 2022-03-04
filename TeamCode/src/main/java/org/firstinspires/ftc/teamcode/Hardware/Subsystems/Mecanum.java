@@ -4,9 +4,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.d;
-import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.i;
-import static org.firstinspires.ftc.teamcode.DashConstants.Unfixed.p;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.angleMode.DEGREES;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.closestAngle;
 import static org.firstinspires.ftc.teamcode.Utilities.MathUtils.cos;

@@ -12,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
+import org.firstinspires.ftc.teamcode.StaticStuff.SlideStart;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
@@ -91,6 +92,7 @@ public class RedLinearAutoFront extends LinearOpMode {
             if(DuckPosition.getDuckPos() == 3){
                 //RIGHT
                 //Top
+                robot.chassis.cam.close();
                 robot.scorer.autoTop();
                 robot.chassis.strafe(.6, 1000,180, 72);
                 robot.chassis.strafe(.3,250,188,30);
@@ -112,6 +114,7 @@ public class RedLinearAutoFront extends LinearOpMode {
             }else if(DuckPosition.getDuckPos() == 2){
                 //MIDDLE
                 //Middle
+                robot.chassis.cam.close();
                 robot.scorer.autoMiddle();
                 robot.chassis.strafe(.6, 1000,180, 70);
                 robot.chassis.strafe(.3,200,180,0);
@@ -130,6 +133,7 @@ public class RedLinearAutoFront extends LinearOpMode {
             }else if(DuckPosition.getDuckPos() == 1){
                 //Left
                 //Bottom
+                robot.chassis.cam.close();
                 robot.chassis.strafe(.6, 1200,180, 70);
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.3, time);
@@ -151,6 +155,6 @@ public class RedLinearAutoFront extends LinearOpMode {
 
 
         }
-        robot.chassis.cam.close();
+        SlideStart.SlideStart = robot.scorer.spool.getCurrentPosition();
     }
 }

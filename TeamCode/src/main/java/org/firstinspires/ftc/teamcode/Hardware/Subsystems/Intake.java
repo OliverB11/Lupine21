@@ -4,9 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
-import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 
-import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
+import org.firstinspires.ftc.teamcode.StaticStuff.Unfixed;
 
 public class Intake {
     public DcMotor intake;

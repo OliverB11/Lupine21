@@ -2,19 +2,22 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.StaticStuff.SlideStart;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
-import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.driveDull;
-import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.turnDull;
-import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
+import static org.firstinspires.ftc.teamcode.StaticStuff.Joystick_Dull.driveDull;
+import static org.firstinspires.ftc.teamcode.StaticStuff.Joystick_Dull.turnDull;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
+
+import android.transition.Slide;
 
 
 @TeleOp(name="TeleOp", group="Iterative Opmode")
@@ -68,6 +71,9 @@ public class IterativeTeleOp extends OpMode {
             Side.red = false;
         }
 
+        robot.scorer.spool.setTargetPosition((int)-SlideStart.SlideStart);
+
+
         //redLED = hardwareMap.get(DigitalChannel.class, "red");
         //greenLED = hardwareMap.get(DigitalChannel.class, "green");
         //redLED.setMode(DigitalChannel.Mode.OUTPUT);
@@ -97,6 +103,7 @@ public class IterativeTeleOp extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+        robot.scorer.spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         /*

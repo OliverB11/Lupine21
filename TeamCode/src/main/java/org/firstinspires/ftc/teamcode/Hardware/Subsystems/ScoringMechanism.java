@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.hardwareMap;
 
-import org.firstinspires.ftc.teamcode.DashConstants.Unfixed;
+import org.firstinspires.ftc.teamcode.StaticStuff.Unfixed;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Color_Sensor;
 
 public class ScoringMechanism {

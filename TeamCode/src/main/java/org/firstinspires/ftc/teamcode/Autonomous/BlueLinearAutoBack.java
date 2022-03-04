@@ -12,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.StaticStuff.SlideStart;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
@@ -188,6 +189,6 @@ public class BlueLinearAutoBack extends LinearOpMode {
 
 
         }
-
+        SlideStart.SlideStart = robot.scorer.spool.getCurrentPosition();
     }
 }

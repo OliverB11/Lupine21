@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 
-import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.driveDull;
-import static org.firstinspires.ftc.teamcode.DashConstants.Joystick_Dull.turnDull;
+import static org.firstinspires.ftc.teamcode.StaticStuff.Joystick_Dull.driveDull;
+import static org.firstinspires.ftc.teamcode.StaticStuff.Joystick_Dull.turnDull;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 

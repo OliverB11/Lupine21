@@ -12,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
+import org.firstinspires.ftc.teamcode.StaticStuff.SlideStart;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
 import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
@@ -88,6 +89,7 @@ public class RedLinearAutoBack extends LinearOpMode {
             if(DuckPosition.getDuckPos() == 3){
                 //RIGHT
                 //Top
+                robot.chassis.cam.close();
                 robot.scorer.autoTop();
                 robot.chassis.strafe(.5,1200,180,295);
                 robot.chassis.strafe(.2,75,180,135);
@@ -123,6 +125,7 @@ public class RedLinearAutoBack extends LinearOpMode {
             }else if(DuckPosition.getDuckPos() == 2){
                 //Middle
                 //Middle
+                robot.chassis.cam.close();
                 robot.chassis.strafe(.5,1200,180,295);
                 robot.chassis.strafe(0.3,50,180,0);
                 robot.scorer.autoMiddle();
@@ -158,6 +161,7 @@ public class RedLinearAutoBack extends LinearOpMode {
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Bottom
+                robot.chassis.cam.close();
                 robot.chassis.strafe(.5,1200,180,295);
                 robot.chassis.strafe(.3,75,180,20);
                 robot.scorer.autoDeposit();
@@ -192,7 +196,7 @@ public class RedLinearAutoBack extends LinearOpMode {
 
             }
         }
-        robot.chassis.cam.close();
+        SlideStart.SlideStart = robot.scorer.spool.getCurrentPosition();
     }
 }
 

@@ -13,6 +13,7 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
+import org.firstinspires.ftc.teamcode.StaticStuff.SlideStart;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Z.Side;
 import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
@@ -92,6 +93,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
             if(DuckPosition.getDuckPos() == 3){
                 //RIGHT
                 //Top
+                robot.chassis.cam.close();
                 robot.scorer.autoTop();
                 robot.chassis.strafe(.6, 1150, 180, 290);
                 robot.chassis.strafe(.3,300,180,45);
@@ -113,6 +115,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
             }else if(DuckPosition.getDuckPos() == 2){
                 //MIDDLE
                 //Middle
+                robot.chassis.cam.close();
                 robot.scorer.autoMiddle();
                 robot.chassis.strafe(.6, 1150, 180, 290);
                 robot.chassis.strafe(.3,300,180,45);
@@ -130,6 +133,7 @@ public class BlueLinearAutoFront extends LinearOpMode {
             }else if(DuckPosition.getDuckPos() == 1){
                 //Left
                 //Top
+                robot.chassis.cam.close();
                 robot.scorer.autoBottom();
                 robot.chassis.strafe(.6,200,180,0);
                 robot.chassis.strafe(.6, 780, 180, 290);
@@ -154,6 +158,6 @@ public class BlueLinearAutoFront extends LinearOpMode {
 
 
         }
-        robot.chassis.cam.close();
+        SlideStart.SlideStart = robot.scorer.spool.getCurrentPosition();
     }
 }
