@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Z.Controls;
+package org.firstinspires.ftc.teamcode.Controls;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -7,20 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.CIRCLE;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.CROSS;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.DPAD;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.DPAD_DN;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.DPAD_L;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.DPAD_R;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.DPAD_UP;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.LB1;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.LB2;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.RB1;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.RB2;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.SQUARE;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.TOUCHPAD;
-import static org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.Input.TRIANGLE;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.CIRCLE;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.CROSS;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.DPAD;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.DPAD_DN;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.DPAD_L;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.DPAD_R;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.DPAD_UP;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.LB1;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.LB2;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.RB1;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.RB2;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.SQUARE;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.TOUCHPAD;
+import static org.firstinspires.ftc.teamcode.Controls.ButtonControls.Input.TRIANGLE;
 
 
 public class ButtonControls {

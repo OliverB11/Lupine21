@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.Z.Vision;
+package org.firstinspires.ftc.teamcode.Vision;
 
-import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.StaticStuff.Side;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
@@ -9,11 +9,11 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 import java.util.List;
-import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.DEBUG_MODE;
-import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.blueLeftXvalue;
-import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.blueRightXvalue;
-import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.redLeftXvalue;
-import static org.firstinspires.ftc.teamcode.Z.Vision.DashVision.redRightXvalue;
+import static org.firstinspires.ftc.teamcode.Vision.DashVision.DEBUG_MODE;
+import static org.firstinspires.ftc.teamcode.Vision.DashVision.blueLeftXvalue;
+import static org.firstinspires.ftc.teamcode.Vision.DashVision.blueRightXvalue;
+import static org.firstinspires.ftc.teamcode.Vision.DashVision.redLeftXvalue;
+import static org.firstinspires.ftc.teamcode.Vision.DashVision.redRightXvalue;
 import static org.opencv.imgproc.Imgproc.CHAIN_APPROX_SIMPLE;
 import static org.opencv.imgproc.Imgproc.COLOR_RGB2HSV;
 import static org.opencv.imgproc.Imgproc.RETR_TREE;

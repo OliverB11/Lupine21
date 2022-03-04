@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Z.Vision;
+package org.firstinspires.ftc.teamcode.Vision;
 
 public class DuckPosition {
 

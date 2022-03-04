@@ -10,14 +10,12 @@ import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.StaticStuff.SlideStart;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.StaticStuff.Side;
 
 import static org.firstinspires.ftc.teamcode.StaticStuff.Joystick_Dull.driveDull;
 import static org.firstinspires.ftc.teamcode.StaticStuff.Joystick_Dull.turnDull;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.multTelemetry;
 import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
-
-import android.transition.Slide;
 
 
 @TeleOp(name="TeleOp", group="Iterative Opmode")
@@ -104,6 +102,8 @@ public class IterativeTeleOp extends OpMode {
     public void start() {
         runtime.reset();
         robot.scorer.spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.scorer.spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
 
         /*

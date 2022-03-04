@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Z.Controls;
+package org.firstinspires.ftc.teamcode.Controls;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.firstinspires.ftc.teamcode.Z.Controls.JoystickControls.Input.LEFT;
-import static org.firstinspires.ftc.teamcode.Z.Controls.JoystickControls.Input.RIGHT;
+import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.Input.LEFT;
+import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.Input.RIGHT;
 
 
 public class JoystickControls {

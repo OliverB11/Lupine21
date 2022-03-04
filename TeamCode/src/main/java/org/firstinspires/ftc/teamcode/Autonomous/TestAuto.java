@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.StaticStuff.Side;
 
 @Autonomous(name="TestAuto", group="Autonomous Linear Opmode")
 public class TestAuto extends LinearOpMode {

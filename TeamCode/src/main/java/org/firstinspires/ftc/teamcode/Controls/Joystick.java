@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.Z.Controls;
+package org.firstinspires.ftc.teamcode.Controls;
 
 
 import org.opencv.core.Point;
 
-import static org.firstinspires.ftc.teamcode.Z.Controls.JoystickControls.StickCheck;
+import static org.firstinspires.ftc.teamcode.Controls.JoystickControls.StickCheck;
 
 public class Joystick {
 

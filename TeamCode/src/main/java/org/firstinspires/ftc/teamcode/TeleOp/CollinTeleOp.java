@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Hardware.Controls.Controller;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
-import org.firstinspires.ftc.teamcode.Z.Side;
+import org.firstinspires.ftc.teamcode.StaticStuff.Side;
 
 import static org.firstinspires.ftc.teamcode.StaticStuff.Joystick_Dull.driveDull;
 import static org.firstinspires.ftc.teamcode.StaticStuff.Joystick_Dull.turnDull;

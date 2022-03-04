@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Z;
+package org.firstinspires.ftc.teamcode.StaticStuff;
 
 
 public class Side {

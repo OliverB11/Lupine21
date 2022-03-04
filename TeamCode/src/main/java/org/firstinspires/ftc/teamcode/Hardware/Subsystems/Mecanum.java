@@ -16,9 +16,9 @@ import org.firstinspires.ftc.teamcode.Hardware.Sensors.Distance_Sensor;
 import org.firstinspires.ftc.teamcode.Hardware.Sensors.Gyro;
 import org.firstinspires.ftc.teamcode.Utilities.MathUtils;
 import org.firstinspires.ftc.teamcode.Utilities.PID;
-import org.firstinspires.ftc.teamcode.Z.Side;
-import org.firstinspires.ftc.teamcode.Z.Vision.Camera;
-import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
+import org.firstinspires.ftc.teamcode.StaticStuff.Side;
+import org.firstinspires.ftc.teamcode.Vision.Camera;
+import org.firstinspires.ftc.teamcode.Vision.DetectionPipeline;
 import org.opencv.core.Point;
 
 public class Mecanum {

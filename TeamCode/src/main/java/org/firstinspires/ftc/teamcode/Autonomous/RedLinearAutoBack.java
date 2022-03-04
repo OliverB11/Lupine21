@@ -13,9 +13,9 @@ import static org.firstinspires.ftc.teamcode.Utilities.OpModeUtils.setOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.StaticStuff.SlideStart;
-import org.firstinspires.ftc.teamcode.Z.Side;
-import org.firstinspires.ftc.teamcode.Z.Vision.DetectionPipeline;
-import org.firstinspires.ftc.teamcode.Z.Vision.DuckPosition;
+import org.firstinspires.ftc.teamcode.StaticStuff.Side;
+import org.firstinspires.ftc.teamcode.Vision.DetectionPipeline;
+import org.firstinspires.ftc.teamcode.Vision.DuckPosition;
 
 
 @Autonomous(name="RedLinearAutoBack", group="Autonomous Linear Opmode")

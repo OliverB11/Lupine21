@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.Z.Controls;
+package org.firstinspires.ftc.teamcode.Controls;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Z.Controls.ButtonControls.ButtonCheck;
+import org.firstinspires.ftc.teamcode.Controls.ButtonControls.ButtonCheck;
 
 
 public class Button {
