@@ -97,7 +97,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
                 robot.chassis.strafe(.5,2500,170,96.5, 10);
-                robot.chassis.strafe(.15,200,170,90);
+                robot.chassis.strafe(.15,300,170,90);
                 robot.duckWheel.redSpin(.2);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
@@ -106,13 +106,15 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.chassis.strafe(.3,300,0,180);
                 //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() < 90){
+                time.reset();
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() < 90 && time.seconds()<2){
                     robot.chassis.setDrivePower(.3, 0, 0, .3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
                 }
-                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() > 90){
+                time.reset();
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() > 90 && time.seconds()<2){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
 //                    robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
@@ -131,24 +133,27 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.scorer.autoMiddle();
                 robot.scorer.autoDeposit();
                 robot.chassis.sleep(0.5, time);
-                robot.chassis.strafe(.3,150,180,0);
-                robot.chassis.strafe(.5,2500,170,100);
-                robot.chassis.strafe(.2,400,170,100);
+                robot.chassis.strafe(.3,300,180,180);
+                robot.chassis.strafe(.5,2500,170,90);
+                robot.chassis.strafe(.2,400,170,90);
+                robot.chassis.strafe(.15,100,170,135);
                 robot.duckWheel.redSpin(.2);
                 robot.chassis.sleep(3.5,time);
                 robot.duckWheel.stop();
                 robot.chassis.strafe(.3,1000,180,315);
-                robot.chassis.strafe(.3,800,0,90);
-                robot.chassis.strafe(.3,75,0,180);
+                robot.chassis.strafe(.3,800,0,100);
+                robot.chassis.strafe(.3,200,0,180);
                 //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() < 90){
+                time.reset();
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() < 90 && time.seconds()<2){
                     robot.chassis.setDrivePower(.3, 0, 0, .3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
                 }
-                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() > 90){
+                time.reset();
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() > 90 && time.seconds()<2){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
@@ -179,13 +184,15 @@ public class RedLinearAutoBack extends LinearOpMode {
                 robot.intake.stop();
                 //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
-                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() < 90){
+                time.reset();
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() < 90 && time.seconds()<2){
                     robot.chassis.setDrivePower(.3, 0, 0, .3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
 
                 }
-                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() > 90){
+                time.reset();
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */robot.chassis.frColor.getRedCacheValue() > 90 && time.seconds()<2){
                     robot.chassis.setDrivePower(.3,0, 0, -.3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
