@@ -89,6 +89,7 @@ public class RedLinearAutoBack extends LinearOpMode {
             if(DuckPosition.getDuckPos() == 3){
                 //RIGHT
                 //Top
+                robot.chassis.sleep(3,time);
                 robot.chassis.cam.close();
                 robot.scorer.autoTop();
                 robot.chassis.strafe(.5,1200,180,295);
@@ -127,6 +128,7 @@ public class RedLinearAutoBack extends LinearOpMode {
             }else if(DuckPosition.getDuckPos() == 2){
                 //Middle
                 //Middle
+                robot.chassis.sleep(3,time);
                 robot.chassis.cam.close();
                 robot.chassis.strafe(.5,1200,180,295);
                 robot.chassis.strafe(0.3,50,180,0);
@@ -146,7 +148,7 @@ public class RedLinearAutoBack extends LinearOpMode {
                 //robot.chassis.flColor.updateRed();
                 robot.chassis.frColor.updateRed();
                 time.reset();
-                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() < 90 && time.seconds()<2){
+                while(/*robot.chassis.flColor.getRedCacheValue() < 90 && */ robot.chassis.frColor.getRedCacheValue() < 90){
                     robot.chassis.setDrivePower(.3, 0, 0, .3);
                     //robot.chassis.flColor.updateRed();
                     robot.chassis.frColor.updateRed();
@@ -166,6 +168,7 @@ public class RedLinearAutoBack extends LinearOpMode {
             }else if(DuckPosition.duckPos == 1){
                 //Left
                 //Bottom
+                robot.chassis.sleep(3,time);
                 robot.chassis.cam.close();
                 robot.chassis.strafe(.5,1200,180,295);
                 robot.chassis.strafe(.3,75,180,20);
