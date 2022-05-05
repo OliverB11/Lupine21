@@ -23,12 +23,12 @@ import org.opencv.core.Point;
 
 public class Mecanum {
 
-    public DcMotor fr,fl,br,bl;
+    public DcMotor fr, fl, br, bl;
     public Color_Sensor
             //flColor,
             frColor,
-            //blColor,
-            brColor;
+    //blColor,
+    brColor;
     public PID pid;
     public Gyro gyro;
     public static ElapsedTime time = new ElapsedTime();
@@ -38,16 +38,13 @@ public class Mecanum {
     public double dist = 0;
 
 
-
-    public Mecanum(){
+    public Mecanum() {
 //        pid = new PID(p,i,d);
         pid = new PID(0.03, 0, 0.002);
         gyro = new Gyro();
 
         initChassis();
     }
-
-
 
 
     public void initChassis() {
@@ -68,31 +65,33 @@ public class Mecanum {
         resetMotors();
 
     }
-    public Point getPosition(){
+
+    public Point getPosition() {
         double yDist = (fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0;
         double xDist = (fl.getCurrentPosition() - fr.getCurrentPosition() + br.getCurrentPosition() - bl.getCurrentPosition()) / 4.0;
         return new Point(xDist, yDist);
     }
 
-    public void setAllPower(double power){
+    public void setAllPower(double power) {
         fl.setPower(power);
         fr.setPower(power);
         bl.setPower(power);
         br.setPower(power);
     }
 
-    public void countDistReset(){
+    public void countDistReset() {
         dist = (fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0;
     }
 
-    public void startCamera(DetectionPipeline pipeline){
+    public void startCamera(DetectionPipeline pipeline) {
         cam = new Camera("Camera", pipeline);
     }
 
-    public double countDist(){
-        return((fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0 - dist);
+    public double countDist() {
+        return ((fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0 - dist);
     }
-    public void resetMotors(){
+
+    public void resetMotors() {
         fr.setDirection(DcMotorSimple.Direction.FORWARD);
         fl.setDirection(DcMotorSimple.Direction.REVERSE);
         br.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -110,7 +109,7 @@ public class Mecanum {
         bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void setDrivePower(double power, double strafe, double turn, double drive){
+    public void setDrivePower(double power, double strafe, double turn, double drive) {
 
         double frPower = (drive - strafe - turn) * power;
         double flPower = (drive + strafe + turn) * power;
@@ -126,12 +125,11 @@ public class Mecanum {
     }
 
 
-    public void strafe(double power, double ticks, double targetAngle, double strafeAngle, double marginOfError){
+    public void strafe(double power, double ticks, double targetAngle, double strafeAngle, double marginOfError) {
 
         // Reset our encoders to 0
         resetMotors();
         timeOut.reset();
-
 
 
         strafeAngle = strafeAngle - 90;
@@ -148,12 +146,11 @@ public class Mecanum {
         double yDist = yPower * ticks;
 
 
-
         // Initialize our current position variables
         Point curPos;
         double curHDist = 0;
 
-        while ((curHDist < ticks || gyro.absAngularDist(targetAngle) > marginOfError) && timeOut.seconds() < ticks/500){
+        while ((curHDist < ticks || gyro.absAngularDist(targetAngle) > marginOfError) && timeOut.seconds() < ticks / 500) {
             gyro.update();
             curPos = getPosition();
 
@@ -162,196 +159,42 @@ public class Mecanum {
             Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), -gyro.angle());
 
 
-            if(curHDist < ticks){
+            if (curHDist < ticks) {
 
                 setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.angle()), shiftedPowers.y);
-            }else{
+            } else {
                 setDrivePower(power, 0, pid.update(targetAngle - gyro.angle()), 0);
             }
-
-
 
 
         }
         setAllPower(0);
     }
 
-    public void strafe(double power, double ticks, double targetAngle, double strafeAngle){
+    public void strafe(double power, double ticks, double targetAngle, double strafeAngle) {
         strafe(power, ticks, targetAngle, strafeAngle, 8);
     }
 
-    public void turn(double targetAngle, double marginOfError){
+    public void turn(double targetAngle, double marginOfError) {
         targetAngle = targetAngle - 180;
         targetAngle = closestAngle(targetAngle, gyro.angle());
-        while(gyro.angle() + marginOfError > targetAngle && gyro.angle() - marginOfError < targetAngle) {
+        while (gyro.angle() + marginOfError > targetAngle && gyro.angle() - marginOfError < targetAngle) {
             gyro.update();
             pid.update(gyro.angle() - targetAngle);
         }
     }
-    public void turn(double targetAngle){
+
+    public void turn(double targetAngle) {
         turn(targetAngle, 8);
     }
 
 
-    public void sleep(double time, ElapsedTime timer){
+    public void sleep(double time, ElapsedTime timer) {
         timer.reset();
-        while(timer.seconds() < time){
+        while (timer.seconds() < time) {
         }
     }
 
-    public void cycle(Intake intake, ScoringMechanism scorer, Distance_Sensor distance,int cycleNo){
-
-//RED
-
-        if(Side.red){
-            multTelemetry.addData("isLoaded", scorer.isLoaded());
-            multTelemetry.update();
-            strafe(.6,600,270,274);
-            strafe(.3,300,270,274);
-
-            if (cycleNo != 1){
-                strafe(.4,500,270,274);
-                strafe(.4,400,270,0);
-            }
-
-            intake.autoSpin();
-            scorer.bucketSensor.updateRed();
-            loopTimer1.reset();
-            while (!scorer.isLoaded()) {
-
-                distance.distanceUpdate();
-                scorer.bucketSensor.updateRed();
-                intake.updateEncoders();
-
-                if(!distance.isChanging){
-                    intake.autoBackSpin();
-                    strafe(.6,100,270,90);
-                    multTelemetry.addData("Stage", "Retreating");
-                    loopTimer1.reset();
-                }
-                if (!intake.jammed() && loopTimer1.seconds()<5) {
-                    intake.autoSpin();
-                    strafe(.15, 100, 270, 270);
-                    multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
-                }else{
-                    intake.autoBackSpin();
-                    strafe(.6, 100, 270, 90);
-                    multTelemetry.addData("Stage", "Retreating");
-                    loopTimer1.reset();
-                }
-
-                multTelemetry.addData("isLoaded", scorer.isLoaded());
-                multTelemetry.addData("Red", scorer.bucketSensor.getRedCacheValue());
-                multTelemetry.addData("Green", scorer.bucketSensor.getGreenCacheValue());
-                multTelemetry.update();
-            }
-
-            intake.stop();
-            intake.autoBackSpin();
-
-            multTelemetry.addData("Stage", "Going Into Wall");
-            multTelemetry.update();
-            strafe(.2,100,270,180);
-            if (cycleNo != 1){
-                strafe(.4,400,270,180);
-            }
-
-            multTelemetry.addData("Stage", "Leaving Warehouse");
-            multTelemetry.update();
-            strafe(.6,1700,270,95);
-
-            intake.stop();
-            multTelemetry.addData("Stage", "Out of warehouse");
-            multTelemetry.update();
-            scorer.autoTop();
-            strafe(.5, 300, 270, 10);
-            strafe(.4, 300, 190, 5);
-            strafe(.2,150,195,45);
-            scorer.autoDeposit();
-            strafe(.6, 600, 260, 185);
-            strafe(.5, 600, 270, 190);
-            strafe(.4,300,270,180);
-
-// BLUE
-
-        }else if(Side.blue){
-            multTelemetry.addData("isLoaded", scorer.isLoaded());
-            multTelemetry.update();
-            strafe(.6,400,90,95);
-            strafe(.3,300,90,95);
-
-            if (cycleNo != 1){
-                strafe(.4,700,90,90);
-                strafe(.4,600,90,0);
-            }
-            intake.autoSpin();
-            scorer.bucketSensor.updateRed();
-
-            loopTimer1.reset();
-            while (!scorer.isLoaded()) {
-
-                scorer.bucketSensor.updateRed();
-                intake.updateEncoders();
-
-                if (!intake.jammed() && loopTimer1.seconds()<5) {
-                    intake.autoSpin();
-                    strafe(.15, 100, 90, 90);
-                    multTelemetry.addData("Stage", "Not Jammed, going slowly forwards");
-                }else{
-                    intake.autoBackSpin();
-                    strafe(.6, 100, 90, 270);
-                    multTelemetry.addData("Stage", "Retreating");
-                    multTelemetry.addData("Jammed",intake.jammed());
-                    loopTimer1.reset();
-                }
-
-                multTelemetry.addData("isLoaded", scorer.isLoaded());
-                multTelemetry.update();
-            }
-
-            intake.stop();
-            intake.autoBackSpin();
-
-            if (cycleNo != 1){
-                strafe(.5,200,90,270);
-            }
-
-            multTelemetry.addData("Stage", "Going Into Wall");
-            multTelemetry.update();
-            strafe(.2,100,90,180);
-            if (cycleNo != 1){
-                strafe(.4,600,90,180);
-            }
 
 
-            multTelemetry.addData("Stage", "Leaving Warehouse");
-            multTelemetry.update();
-
-            strafe(.6,1250,90,265);
-
-            if (cycleNo == 1){
-                strafe(.6,200,90,265);
-            }
-
-            intake.stop();
-
-            multTelemetry.addData("Stage", "Out of warehouse");
-            multTelemetry.update();
-
-            scorer.autoTop();
-            if (cycleNo != 1) {
-                strafe(.4,550,160,358);
-                strafe(.2,100,160,0);
-            }else{
-                strafe(.4,550,155,355);
-                strafe(.2,100,155,0);
-            }
-
-
-            strafe(.2,100,160,355);
-            scorer.autoDeposit();
-            strafe(.6, 600, 90, 170);
-            strafe(.4,400,90,180);
-        }
-    }
 }
