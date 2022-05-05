@@ -23,12 +23,12 @@ import org.opencv.core.Point;
 
 public class Mecanum {
 
-    public DcMotor fr, fl, br, bl;
+    public DcMotor fr,fl,br,bl;
     public Color_Sensor
             //flColor,
             frColor,
-    //blColor,
-    brColor;
+            //blColor,
+            brColor;
     public PID pid;
     public Gyro gyro;
     public static ElapsedTime time = new ElapsedTime();
@@ -38,13 +38,16 @@ public class Mecanum {
     public double dist = 0;
 
 
-    public Mecanum() {
+
+    public Mecanum(){
 //        pid = new PID(p,i,d);
         pid = new PID(0.03, 0, 0.002);
         gyro = new Gyro();
 
         initChassis();
     }
+
+
 
 
     public void initChassis() {
@@ -65,33 +68,31 @@ public class Mecanum {
         resetMotors();
 
     }
-
-    public Point getPosition() {
+    public Point getPosition(){
         double yDist = (fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0;
         double xDist = (fl.getCurrentPosition() - fr.getCurrentPosition() + br.getCurrentPosition() - bl.getCurrentPosition()) / 4.0;
         return new Point(xDist, yDist);
     }
 
-    public void setAllPower(double power) {
+    public void setAllPower(double power){
         fl.setPower(power);
         fr.setPower(power);
         bl.setPower(power);
         br.setPower(power);
     }
 
-    public void countDistReset() {
+    public void countDistReset(){
         dist = (fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0;
     }
 
-    public void startCamera(DetectionPipeline pipeline) {
+    public void startCamera(DetectionPipeline pipeline){
         cam = new Camera("Camera", pipeline);
     }
 
-    public double countDist() {
-        return ((fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0 - dist);
+    public double countDist(){
+        return((fr.getCurrentPosition() + fl.getCurrentPosition() + br.getCurrentPosition() + bl.getCurrentPosition()) / 4.0 - dist);
     }
-
-    public void resetMotors() {
+    public void resetMotors(){
         fr.setDirection(DcMotorSimple.Direction.FORWARD);
         fl.setDirection(DcMotorSimple.Direction.REVERSE);
         br.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -109,7 +110,7 @@ public class Mecanum {
         bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void setDrivePower(double power, double strafe, double turn, double drive) {
+    public void setDrivePower(double power, double strafe, double turn, double drive){
 
         double frPower = (drive - strafe - turn) * power;
         double flPower = (drive + strafe + turn) * power;
@@ -125,11 +126,12 @@ public class Mecanum {
     }
 
 
-    public void strafe(double power, double ticks, double targetAngle, double strafeAngle, double marginOfError) {
+    public void strafe(double power, double ticks, double targetAngle, double strafeAngle, double marginOfError){
 
         // Reset our encoders to 0
         resetMotors();
         timeOut.reset();
+
 
 
         strafeAngle = strafeAngle - 90;
@@ -146,11 +148,12 @@ public class Mecanum {
         double yDist = yPower * ticks;
 
 
+
         // Initialize our current position variables
         Point curPos;
         double curHDist = 0;
 
-        while ((curHDist < ticks || gyro.absAngularDist(targetAngle) > marginOfError) && timeOut.seconds() < ticks / 500) {
+        while ((curHDist < ticks || gyro.absAngularDist(targetAngle) > marginOfError) && timeOut.seconds() < ticks/500){
             gyro.update();
             curPos = getPosition();
 
@@ -159,42 +162,41 @@ public class Mecanum {
             Point shiftedPowers = MathUtils.shift(new Point(xPower, yPower), -gyro.angle());
 
 
-            if (curHDist < ticks) {
+            if(curHDist < ticks){
 
                 setDrivePower(power, shiftedPowers.x, pid.update(targetAngle - gyro.angle()), shiftedPowers.y);
-            } else {
+            }else{
                 setDrivePower(power, 0, pid.update(targetAngle - gyro.angle()), 0);
             }
+
+
 
 
         }
         setAllPower(0);
     }
 
-    public void strafe(double power, double ticks, double targetAngle, double strafeAngle) {
+    public void strafe(double power, double ticks, double targetAngle, double strafeAngle){
         strafe(power, ticks, targetAngle, strafeAngle, 8);
     }
 
-    public void turn(double targetAngle, double marginOfError) {
+    public void turn(double targetAngle, double marginOfError){
         targetAngle = targetAngle - 180;
         targetAngle = closestAngle(targetAngle, gyro.angle());
-        while (gyro.angle() + marginOfError > targetAngle && gyro.angle() - marginOfError < targetAngle) {
+        while(gyro.angle() + marginOfError > targetAngle && gyro.angle() - marginOfError < targetAngle) {
             gyro.update();
             pid.update(gyro.angle() - targetAngle);
         }
     }
-
-    public void turn(double targetAngle) {
+    public void turn(double targetAngle){
         turn(targetAngle, 8);
     }
 
 
-    public void sleep(double time, ElapsedTime timer) {
+    public void sleep(double time, ElapsedTime timer){
         timer.reset();
-        while (timer.seconds() < time) {
+        while(timer.seconds() < time){
         }
     }
-
-
 
 }
