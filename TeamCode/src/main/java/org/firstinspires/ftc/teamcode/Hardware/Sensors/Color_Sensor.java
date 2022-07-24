@@ -9,7 +9,7 @@ public class Color_Sensor {
 
     public void init(String mapName) {
 
-        colorSensor = hardwareMap.get(com.qualcomm.robotcore.hardware.ColorSensor.class, mapName);
+        colorSensor = hardwareMap.get(ColorSensor.class, mapName);
     }
 
     /**
@@ -22,6 +22,7 @@ public class Color_Sensor {
     }
 
     /**
+     *
      * ONCE PER LOOP AND ONCE PER LOOP ONLY !!!!!!
      * @return
      */
